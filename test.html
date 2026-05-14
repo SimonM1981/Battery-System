@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0e27">
+  <title>🔋 Battery Control System</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0e27; --bg-secondary: #111936; --bg-card: #151d3b; --bg-input: #1a2342; --bg-hover: #1e2a4f;
+      --neon-green: #00f5a0; --neon-green-dim: rgba(0,245,160,0.15); --neon-blue: #00d4ff; --neon-blue-dim: rgba(0,212,255,0.15);
+      --neon-purple: #a855f7; --neon-purple-dim: rgba(168,85,247,0.15); --neon-orange: #ff9500; --neon-orange-dim: rgba(255,149,0,0.15);
+      --volt-excellent: #00f5a0; --volt-good: #ffd700; --volt-low: #ff4757; --volt-unknown: #6b7280;
+      --text-primary: #e2e8f0; --text-secondary: #94a3b8; --text-muted: #64748b;
+      --border-subtle: rgba(148,163,184,0.1); --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+    
+    /* Header & Nav */
+    .header { background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%); border-bottom: 1px solid var(--border-subtle); padding: 14px 16px; position: fixed; top: 0; left: 0; right: 0; z-index: 1000; backdrop-filter: blur(20px); }
+    .header h1 { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+    .header-subtitle { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 2px; letter-spacing: 1px; text-transform: uppercase; }
+    .nav-container { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(180deg, rgba(10,14,39,0.9) 0%, var(--bg-primary) 100%); border-top: 1px solid var(--border-subtle); z-index: 1000; display: flex; justify-content: space-around; padding: 6px 0 24px 0; backdrop-filter: blur(20px); }
+    .nav-item { flex: 1; text-align: center; padding: 6px 2px; cursor: pointer; color: var(--text-muted); font-size: 10px; border: none; background: none; }
+    .nav-item.active { color: var(--neon-green); }
+    .nav-icon { font-size: 22px; display: block; margin-bottom: 3px; }
+
+    /* Layout */
+    .main-content { padding: 85px 14px 100px 14px; max-width: 600px; margin: 0 auto; }
+    .section { display: none; }
+    .section.active { display: block; animation: slideUp 0.4s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards & Forms */
+    .card { background: var(--bg-card); border-radius: 16px; padding: 18px; margin-bottom: 14px; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-card); position: relative; overflow: hidden; }
+    .card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-purple)); opacity: 0.6; }
+    .card-title { font-size: 15px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; }
+    .input-wrapper { display: flex; gap: 8px; align-items: center; }
+    input, select, textarea { flex: 1; padding: 12px 14px; border: 1.5px solid var(--border-subtle); border-radius: 10px; font-size: 15px; background: var(--bg-input); color: white; }
+    input:focus { outline: none; border-color: var(--neon-green); background: var(--bg-hover); }
+    
+    /* Buttons */
+    .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+    .btn-primary { background: linear-gradient(135deg, var(--neon-green) 0%, #00c896 100%); color: var(--bg-primary); }
+    .btn-warning { background: linear-gradient(135deg, var(--neon-orange) 0%, #ff7700 100%); color: var(--bg-primary); }
+    .btn-secondary { background: var(--bg-hover); color: var(--text-secondary); }
+    .scan-btn { background: var(--bg-input); color: var(--neon-blue); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px; font-size: 18px; }
+
+    /* Dashboard Metrics */
+    .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .metric-card { background: var(--bg-card); border-radius: 16px; padding: 16px; text-align: center; border: 1px solid var(--border-subtle); }
+    .metric-value { font-size: 24px; font-weight: 800; font-family: 'JetBrains Mono', monospace; color: var(--neon-green); }
+    .metric-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; margin-top: 4px; }
+    .volt-distribution { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin: 12px 0; background: var(--bg-input); }
+    .volt-bar { transition: width 0.5s ease; }
+    .volt-bar.excellent { background: var(--volt-excellent); }
+    .volt-bar.good { background: var(--volt-good); }
+    .volt-bar.low { background: var(--volt-low); }
+
+    /* Charging Part B */
+    .pending-item { background: var(--bg-secondary); border-radius: 12px; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border-subtle); cursor: pointer; }
+    .pending-item:hover { border-color: var(--neon-green); }
+    .charging-section { border-left: 3px solid var(--neon-orange); background: var(--neon-orange-dim); border-radius: 0 12px 12px 0; padding: 14px; margin-top: 10px; }
+
+    /* Modals & Toasts */
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(10, 14, 39, 0.95); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; backdrop-filter: blur(10px); }
+    .modal-overlay.active { display: flex; }
+    #reader { width: 90%; max-width: 400px; border-radius: 20px; overflow: hidden; }
+    .toast { position: fixed; top: 85px; left: 50%; transform: translateX(-50%); background: var(--bg-card); padding: 12px 24px; border-radius: 10px; font-size: 14px; z-index: 3000; display: none; border: 1px solid var(--neon-green); color: var(--neon-green); }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1><span style="filter: drop-shadow(0 0 8px var(--neon-green))">🔋</span> Battery Control</h1>
+    <div class="header-subtitle">Full Control Monitoring</div>
+  </div>
+
+  <div class="main-content">
+    
+    <!-- SECTION: DASHBOARD -->
+    <div id="section-dashboard" class="section active">
+      <div class="dashboard-grid">
+        <div class="metric-card"><div class="metric-value" id="m-total">0</div><div class="metric-label">In Stock</div></div>
+        <div class="metric-card"><div class="metric-value" id="m-charging" style="color:var(--neon-orange)">0</div><div class="metric-label">Charging</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚡ Voltage Health</div>
+        <div class="volt-distribution">
+          <div id="bar-exc" class="volt-bar excellent" style="width: 33%"></div>
+          <div id="bar-good" class="volt-bar good" style="width: 33%"></div>
+          <div id="bar-low" class="volt-bar low" style="width: 34%"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--text-muted)">
+          <span>EXCELLENT</span><span>GOOD</span><span>LOW</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📅 Quick Summary</div>
+        <div id="dashboard-list" style="font-size:13px">Loading data...</div>
+      </div>
+    </div>
+
+    <!-- SECTION: INCOMING -->
+    <div id="section-incoming" class="section">
+      <div class="card">
+        <div class="card-title">📥 New Incoming Battery</div>
+        <form id="form-incoming">
+          <div class="form-group"><label class="form-label">Incoming Date</label><input type="date" id="inc-date" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="inc-brand" placeholder="Brand" required><button type="button" class="scan-btn" onclick="openScanner('inc-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="inc-model" placeholder="Model" required><button type="button" class="scan-btn" onclick="openScanner('inc-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch / Serial</label><div class="input-wrapper"><input type="text" id="inc-batch" placeholder="Batch No" required><button type="button" class="scan-btn" onclick="openScanner('inc-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Voltage (V)</label><input type="number" step="0.01" id="inc-volt" placeholder="12.60" required oninput="valVolt(this)"></div>
+          <button type="submit" class="btn btn-primary">✅ Save to Database</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SECTION: OUTGOING -->
+    <div id="section-outgoing" class="section">
+      <div class="card">
+        <div class="card-title">📤 Outgoing / Sale</div>
+        <form id="form-outgoing">
+          <div class="form-group"><label class="form-label">Outgoing Date</label><input type="date" id="out-date" required></div>
+          <div class="form-group"><label class="form-label">Customer</label><input type="text" id="out-cust" placeholder="Customer Name"></div>
+          <div class="form-group"><label class="form-label">Batch / Serial</label><div class="input-wrapper"><input type="text" id="out-batch" placeholder="Scan Battery" required><button type="button" class="scan-btn" onclick="openScanner('out-batch')">📷</button></div></div>
+          <button type="submit" class="btn btn-primary">📤 Mark as Sold</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SECTION: WEEKLY -->
+    <div id="section-weekly" class="section">
+      <div class="card">
+        <div class="card-title">🔄 Weekly Status Check</div>
+        <form id="form-weekly">
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="wk-batch" required><button type="button" class="scan-btn" onclick="openScanner('wk-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Current Voltage</label><input type="number" step="0.01" id="wk-volt" required oninput="valVolt(this)"></div>
+          <div class="form-group"><label class="form-label">CCA / Health %</label><input type="number" id="wk-health" placeholder="e.g. 95"></div>
+          <button type="submit" class="btn btn-primary">💾 Update Status</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- SECTION: CHARGING -->
+    <div id="section-charging" class="section">
+      <div class="card">
+        <div class="card-title">⚡ Start Charging (Part A)</div>
+        <form id="form-chg-a">
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="ch-batch" required><button type="button" class="scan-btn" onclick="openScanner('ch-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Voltage Before</label><input type="number" step="0.01" id="ch-v-pre" required></div>
+          <button type="submit" class="btn btn-warning">🔌 Initiate Charging</button>
+        </form>
+      </div>
+      <div class="card">
+        <div class="card-title">✅ Complete Charging (Part B)</div>
+        <div id="pending-list">Loading pending units...</div>
+        <div id="chg-b-form" style="display:none;" class="charging-section">
+          <p id="chg-target" style="font-weight:700; color:var(--neon-green); margin-bottom:10px;"></p>
+          <div class="form-group"><label class="form-label">Voltage After (24h)</label><input type="number" step="0.01" id="ch-v-post" required></div>
+          <button type="button" class="btn btn-primary" onclick="submitChgB()">✅ Finish Charging</button>
+          <button type="button" class="btn btn-secondary" onclick="document.getElementById('chg-b-form').style.display='none'">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION: SEARCH -->
+    <div id="section-search" class="section">
+      <div class="card">
+        <div class="card-title">🔍 Battery Inquiry</div>
+        <div class="input-wrapper">
+          <input type="text" id="search-q" placeholder="Serial, Brand, or Model...">
+          <button class="btn btn-primary" style="width:auto; margin:0" onclick="runSearch()">🔍</button>
+        </div>
+      </div>
+      <div id="search-results"></div>
+    </div>
+
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav-container">
+    <div class="nav-item active" onclick="nav('dashboard')"><span class="nav-icon">📊</span>Dash</div>
+    <div class="nav-item" onclick="nav('incoming')"><span class="nav-icon">📥</span>In</div>
+    <div class="nav-item" onclick="nav('outgoing')"><span class="nav-icon">📤</span>Out</div>
+    <div class="nav-item" onclick="nav('weekly')"><span class="nav-icon">🔄</span>Check</div>
+    <div class="nav-item" onclick="nav('charging')"><span class="nav-icon">⚡</span>Chg</div>
+    <div class="nav-item" onclick="nav('search')"><span class="nav-icon">🔍</span>Find</div>
+  </nav>
+
+  <!-- SCANNER MODAL -->
+  <div id="scanner-modal" class="modal-overlay">
+    <div id="reader"></div>
+    <button class="btn btn-secondary" style="width:80%; margin-top:20px" onclick="closeScanner()">Close Camera</button>
+  </div>
+
+  <div id="toast" class="toast">Action Successful</div>
+
+  <script>
+    const APP_URL = 'YOUR_WEB_APP_URL'; 
+    let scanner = null;
+    let scanTarget = null;
+    let selectedChgId = null;
+
+    // Navigation
+    function nav(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+      event.currentTarget.classList.add('active');
+      if (id === 'dashboard') loadDash();
+      if (id === 'charging') loadPending();
+    }
+
+    // Voltage Visualizer
+    function valVolt(el) {
+      const v = parseFloat(el.value);
+      el.style.borderColor = v > 12.61 ? 'var(--volt-excellent)' : (v >= 12.56 ? 'var(--volt-good)' : 'var(--volt-low)');
+    }
+
+    // Scanner
+    function openScanner(target) {
+      scanTarget = target;
+      document.getElementById('scanner-modal').classList.add('active');
+      scanner = new Html5Qrcode("reader");
+      scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: 250 }, (txt) => {
+        document.getElementById(scanTarget).value = txt;
+        closeScanner();
+        toast("Scanned: " + txt);
+      });
+    }
+
+    function closeScanner() {
+      if (scanner) scanner.stop().then(() => {
+        document.getElementById('scanner-modal').classList.remove('active');
+        scanner = null;
+      });
+    }
+
+    // API Wrapper
+    async function api(act, data) {
+      try {
+        const res = await fetch(`${APP_URL}?action=${act}`, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify(data)
+        });
+        toast("Success!");
+        return true;
+      } catch (e) {
+        toast("Error Syncing");
+        return false;
+      }
+    }
+
+    function toast(m) {
+      const t = document.getElementById('toast');
+      t.innerText = m; t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 3000);
+    }
+
+    // Logic for Forms
+    document.getElementById('form-incoming').onsubmit = async (e) => {
+      e.preventDefault();
+      const d = { 
+        date: document.getElementById('inc-date').value,
+        brand: document.getElementById('inc-brand').value,
+        model: document.getElementById('inc-model').value,
+        batch: document.getElementById('inc-batch').value,
+        volt: document.getElementById('inc-volt').value
+      };
+      if (await api('recordIncoming', d)) e.target.reset();
+    };
+
+    document.getElementById('form-chg-a').onsubmit = async (e) => {
+      e.preventDefault();
+      const d = { batch: document.getElementById('ch-batch').value, volt: document.getElementById('ch-v-pre').value };
+      if (await api('startCharging', d)) { e.target.reset(); loadPending(); }
+    };
+
+    async function submitChgB() {
+      const d = { id: selectedChgId, voltPost: document.getElementById('ch-v-post').value };
+      if (await api('finishCharging', d)) {
+        document.getElementById('chg-b-form').style.display = 'none';
+        loadPending();
+      }
+    }
+
+    // Data Loaders
+    async function loadDash() {
+      const res = await fetch(`${APP_URL}?action=getDashboard`);
+      const d = await res.json();
+      document.getElementById('m-total').innerText = d.total;
+      document.getElementById('m-charging').innerText = d.charging;
+      document.getElementById('bar-exc').style.width = d.dist.exc + '%';
+      document.getElementById('bar-good').style.width = d.dist.good + '%';
+      document.getElementById('bar-low').style.width = d.dist.low + '%';
+    }
+
+    async function loadPending() {
+      const res = await fetch(`${APP_URL}?action=getPending`);
+      const list = await res.json();
+      const cont = document.getElementById('pending-list');
+      cont.innerHTML = list.map(i => `
+        <div class="pending-item" onclick="prepChgB('${i.id}', '${i.batch}')">
+          <div style="display:flex; justify-content:space-between">
+            <strong>${i.batch}</strong>
+            <span style="color:var(--neon-orange)">${i.time}h ago</span>
+          </div>
+          <div style="font-size:11px; color:var(--text-muted)">Start Volt: ${i.volt}V</div>
+        </div>
+      `).join('') || "No pending items";
+    }
+
+    function prepChgB(id, batch) {
+      selectedChgId = id;
+      document.getElementById('chg-target').innerText = "Finishing: " + batch;
+      document.getElementById('chg-b-form').style.display = 'block';
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    async function runSearch() {
+      const q = document.getElementById('search-q').value;
+      const res = await fetch(`${APP_URL}?action=search&q=${q}`);
+      const results = await res.json();
+      document.getElementById('search-results').innerHTML = results.map(r => `
+        <div class="card">
+          <div class="card-title">${r.brand} - ${r.model}</div>
+          <div style="font-size:13px">
+            <p>Serial: ${r.batch}</p>
+            <p>Current Volt: <span style="color:var(--neon-green)">${r.volt}V</span></p>
+            <p>Last Check: ${r.date}</p>
+          </div>
+        </div>
+      `).join('') || "No results found";
+    }
+
+    window.onload = loadDash;
+  </script>
+</body>
+</html>
