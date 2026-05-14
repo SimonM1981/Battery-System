@@ -1,495 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' Viewer/99.9.8468.83';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT VideoPlayback', 'description': 'VT video playback', 'filename': 'vtvideoplayback.dll','0':{'type': 'application/vt-video', 'suffixes': 'vtv', 'description': 'VT video playback'} },{'name':'RemoteTester', 'description': 'Remote access testing plugin', 'filename': 'remotetester.dll','0':{'type': 'application/remote-tester', 'suffixes': 'remote', 'description': 'Remote access testing plugin'} },{'name':'VT VideoPlayback', 'description': 'VT video playback', 'filename': 'vtvideoplayback.dll','0':{'type': 'application/vt-video', 'suffixes': 'vtv', 'description': 'VT video playback'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0a0e27">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>🔋 Battery Control System</title>
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-primary: #0a0e27;
-      --bg-secondary: #111936;
-      --bg-card: #151d3b;
-      --bg-input: #1a2342;
-      --bg-hover: #1e2a4f;
-      --neon-green: #00f5a0;
-      --neon-green-dim: rgba(0, 245, 160, 0.15);
-      --neon-blue: #00d4ff;
-      --neon-blue-dim: rgba(0, 212, 255, 0.15);
-      --neon-purple: #a855f7;
-      --neon-purple-dim: rgba(168, 85, 247, 0.15);
-      --neon-orange: #ff9500;
-      --neon-orange-dim: rgba(255, 149, 0, 0.15);
-      --volt-excellent: #00f5a0;
-      --volt-good: #ffd700;
-      --volt-low: #ff4757;
-      --volt-unknown: #6b7280;
-      --text-primary: #e2e8f0;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --border-subtle: rgba(148, 163, 184, 0.1);
-      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg-primary); }
-    ::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius: 3px; }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      -webkit-tap-highlight-color: transparent;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-    .header {
-      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 14px 16px;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      backdrop-filter: blur(20px);
-    }
-    .header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: -0.5px;
-    }
-    .header-icon { font-size: 24px; filter: drop-shadow(0 0 8px var(--neon-green)); }
-    .header-subtitle {
-      font-size: 11px;
-      color: var(--text-muted);
-      font-weight: 500;
-      margin-top: 2px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .nav-container {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(180deg, rgba(10,14,39,0.9) 0%, var(--bg-primary) 100%);
-      border-top: 1px solid var(--border-subtle);
-      z-index: 1000;
-      display: flex;
-      justify-content: space-around;
-      padding: 6px 0 24px 0;
-      backdrop-filter: blur(20px);
-    }
-    .nav-item {
-      flex: 1;
-      text-align: center;
-      padding: 6px 2px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
-      background: none;
-      color: var(--text-muted);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      position: relative;
-    }
-    .nav-item.active { color: var(--neon-green); }
-    .nav-item.active::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 20px;
-      height: 3px;
-      background: var(--neon-green);
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--neon-green);
-    }
-    .nav-item .nav-icon { font-size: 22px; display: block; margin-bottom: 3px; transition: transform 0.2s; }
-    .nav-item:active .nav-icon { transform: scale(0.9); }
-    .main-content { padding: 85px 14px 100px 14px; min-height: 100vh; }
-    .card {
-      background: var(--bg-card);
-      border-radius: 16px;
-      padding: 18px;
-      margin-bottom: 14px;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden;
-    }
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
-      opacity: 0.6;
-    }
-    .card-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      letter-spacing: -0.3px;
-    }
-    .card-title-icon { font-size: 20px; }
-    .form-group { margin-bottom: 16px; }
-    .form-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .input-wrapper { display: flex; gap: 8px; align-items: center; }
-    input, select, textarea {
-      flex: 1;
-      padding: 12px 14px;
-      border: 1.5px solid var(--border-subtle);
-      border-radius: 10px;
-      font-size: 15px;
-      background: var(--bg-input);
-      color: var(--text-primary);
-      transition: all 0.3s ease;
-      -webkit-appearance: none;
-      font-family: 'Inter', sans-serif;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--neon-green);
-      box-shadow: 0 0 0 3px var(--neon-green-dim);
-      background: var(--bg-hover);
-    }
-    input::placeholder, textarea::placeholder { color: var(--text-muted); }
-    input.voltage-input {
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      font-size: 16px;
-    }
-    input.voltage-input.excellent { border-color: var(--volt-excellent); box-shadow: 0 0 0 3px rgba(0, 245, 160, 0.2); color: var(--volt-excellent); }
-    input.voltage-input.good { border-color: var(--volt-good); box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2); color: var(--volt-good); }
-    input.voltage-input.low { border-color: var(--volt-low); box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2); color: var(--volt-low); }
-    .scan-btn {
-      background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 100%);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 14px;
-      font-size: 18px;
-      cursor: pointer;
-      min-width: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 12px rgba(0, 212, 255, 0.3);
-      transition: all 0.2s;
-    }
-    .scan-btn:active { transform: scale(0.95); box-shadow: 0 1px 6px rgba(0, 212, 255, 0.2); }
-    .volt-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.5px;
-      margin-left: 8px;
-    }
-    .volt-indicator.excellent { background: rgba(0, 245, 160, 0.15); color: var(--volt-excellent); border: 1px solid rgba(0, 245, 160, 0.3); }
-    .volt-indicator.good { background: rgba(255, 215, 0, 0.15); color: var(--volt-good); border: 1px solid rgba(255, 215, 0, 0.3); }
-    .volt-indicator.low { background: rgba(255, 71, 87, 0.15); color: var(--volt-low); border: 1px solid rgba(255, 71, 87, 0.3); }
-    .volt-indicator.unknown { background: rgba(107, 114, 128, 0.15); color: var(--volt-unknown); border: 1px solid rgba(107, 114, 128, 0.3); }
-    .volt-dot { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 8px currentColor; }
-    .btn {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-      letter-spacing: 0.5px;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.5s;
-    }
-    .btn:active::before { left: 100%; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--neon-green) 0%, #00c896 100%);
-      color: var(--bg-primary);
-      box-shadow: 0 4px 20px rgba(0, 245, 160, 0.3);
-    }
-    .btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 10px rgba(0, 245, 160, 0.2); }
-    .btn-success {
-      background: linear-gradient(135deg, #00c896 0%, #00a884 100%);
-      color: white;
-      box-shadow: 0 4px 20px rgba(0, 200, 150, 0.3);
-    }
-    .btn-warning {
-      background: linear-gradient(135deg, var(--neon-orange) 0%, #ff7700 100%);
-      color: var(--bg-primary);
-      box-shadow: 0 4px 20px rgba(255, 149, 0, 0.3);
-    }
-    .btn-secondary {
-      background: var(--bg-hover);
-      color: var(--text-secondary);
-      border: 1px solid var(--border-subtle);
-    }
-    .btn-danger {
-      background: linear-gradient(135deg, var(--volt-low) 0%, #e03131 100%);
-      color: white;
-      box-shadow: 0 4px 20px rgba(255, 71, 87, 0.3);
-    }
-    .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .metric-card {
-      background: var(--bg-card);
-      border-radius: 16px;
-      padding: 16px;
-      text-align: center;
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden;
-    }
-    .metric-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      border-radius: 16px 16px 0 0;
-    }
-    .metric-card.excellent::before { background: var(--volt-excellent); }
-    .metric-card.good::before { background: var(--volt-good); }
-    .metric-card.alert::before { background: var(--volt-low); }
-    .metric-card.info::before { background: var(--neon-blue); }
-    .metric-card.purple::before { background: var(--neon-purple); }
-    .metric-card.orange::before { background: var(--neon-orange); }
-    .metric-value {
-      font-size: 26px;
-      font-weight: 800;
-      line-height: 1.2;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .metric-card.excellent .metric-value { color: var(--volt-excellent); text-shadow: 0 0 20px rgba(0, 245, 160, 0.3); }
-    .metric-card.good .metric-value { color: var(--volt-good); text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
-    .metric-card.alert .metric-value { color: var(--volt-low); text-shadow: 0 0 20px rgba(255, 71, 87, 0.3); }
-    .metric-card.info .metric-value { color: var(--neon-blue); text-shadow: 0 0 20px rgba(0, 212, 255, 0.3); }
-    .metric-card.purple .metric-value { color: var(--neon-purple); text-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
-    .metric-card.orange .metric-value { color: var(--neon-orange); text-shadow: 0 0 20px rgba(255, 149, 0, 0.3); }
-    .metric-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-top: 6px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .volt-distribution { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin: 12px 0; background: var(--bg-input); }
-    .volt-bar { transition: width 0.5s ease; }
-    .volt-bar.excellent { background: var(--volt-excellent); }
-    .volt-bar.good { background: var(--volt-good); }
-    .volt-bar.low { background: var(--volt-low); }
-    .data-table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      font-size: 13px;
-      margin-top: 12px;
-    }
-    .data-table th {
-      background: var(--bg-secondary);
-      padding: 10px 8px;
-      text-align: left;
-      font-weight: 600;
-      color: var(--text-secondary);
-      position: sticky;
-      top: 0;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 2px solid var(--border-subtle);
-    }
-    .data-table td { padding: 10px 8px; border-bottom: 1px solid var(--border-subtle); color: var(--text-primary); }
-    .data-table tr:hover td { background: var(--bg-hover); }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.3px;
-    }
-    .badge-green { background: rgba(0, 245, 160, 0.15); color: var(--volt-excellent); border: 1px solid rgba(0, 245, 160, 0.3); }
-    .badge-red { background: rgba(255, 71, 87, 0.15); color: var(--volt-low); border: 1px solid rgba(255, 71, 87, 0.3); }
-    .badge-yellow { background: rgba(255, 215, 0, 0.15); color: var(--volt-good); border: 1px solid rgba(255, 215, 0, 0.3); }
-    .badge-blue { background: rgba(0, 212, 255, 0.15); color: var(--neon-blue); border: 1px solid rgba(0, 212, 255, 0.3); }
-    .badge-purple { background: rgba(168, 85, 247, 0.15); color: var(--neon-purple); border: 1px solid rgba(168, 85, 247, 0.3); }
-    .comparison-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-    .comparison-label { font-weight: 600; color: var(--text-secondary); font-size: 13px; }
-    .comparison-values { display: flex; align-items: center; gap: 12px; font-family: 'JetBrains Mono', monospace; font-weight: 600; }
-    .before-value { color: var(--text-muted); text-decoration: line-through; font-size: 13px; }
-    .arrow-icon { color: var(--text-muted); font-size: 14px; }
-    .after-value { font-size: 15px; }
-    .after-value.excellent { color: var(--volt-excellent); text-shadow: 0 0 10px rgba(0, 245, 160, 0.3); }
-    .after-value.good { color: var(--volt-good); text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-    .after-value.low { color: var(--volt-low); text-shadow: 0 0 10px rgba(255, 71, 87, 0.3); }
-    .change-badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 700; }
-    .change-badge.improved { background: rgba(0, 245, 160, 0.15); color: var(--volt-excellent); }
-    .change-badge.degraded { background: rgba(255, 71, 87, 0.15); color: var(--volt-low); }
-    .charging-section {
-      border-left: 3px solid var(--neon-orange);
-      padding-left: 14px;
-      margin: 14px 0;
-      background: var(--neon-orange-dim);
-      border-radius: 0 12px 12px 0;
-      padding: 14px;
-    }
-    .charging-section.completed { border-left-color: var(--neon-green); background: var(--neon-green-dim); }
-    .charging-section.in-progress { border-left-color: var(--neon-blue); background: var(--neon-blue-dim); }
-    .search-bar { display: flex; gap: 10px; margin-bottom: 14px; }
-    .search-bar input { flex: 1; }
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(10, 14, 39, 0.95);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      backdrop-filter: blur(10px);
-    }
-    .modal-overlay.active { display: flex; }
-    .scanner-container {
-      width: 90%;
-      max-width: 400px;
-      background: var(--bg-secondary);
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--border-subtle);
-      box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
-    }
-    #reader { width: 100%; }
-    .scanner-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255, 71, 87, 0.2);
-      border: 1px solid rgba(255, 71, 87, 0.4);
-      color: var(--volt-low);
-      font-size: 22px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 2001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-    }
-    .scanner-close:active { background: rgba(255, 71, 87, 0.4); transform: scale(0.95); }
-    .scan-instruction { color: var(--text-secondary); text-align: center; padding: 16px; font-size: 14px; font-weight: 500; }
-    .loading { display: none; text-align: center; padding: 24px; color: var(--text-muted); }
-    .loading.active { display: block; }
-    .spinner {
-      border: 3px solid var(--bg-hover);
-      border-top: 3px solid var(--neon-green);
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 12px;
-      box-shadow: 0 0 10px rgba(0, 245, 160, 0.3);
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-    .toast {
-      position: fixed;
-      top: 85px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--bg-card);
-      color: var(--text-primary);
-      padding: 14px 24px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      z-index: 3000;
-      display: none;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border-subtle);
-      backdrop-filter: blur(20px);
-      max-width: 90%;
-      text-align: center;
-    }
-    .toast.show { display: block; animation: fadeIn 0.3s; }
-    .toast.success { border-color: var(--neon-green); color: var(--neon-green); }
-    .toast.error { border-color: var(--volt-low); color: var(--volt-low); }
-    .toast.warning { border-color: var(--neon-orange); color: var(--neon-orange); }
-    @keyframes fadeIn { from { opacity: 0; top: 75px; } to { opacity: 1; top: 85px; } }
-    .empty-state { text-align: center; padding: 32px 16px; color: var(--text-muted); }
-    .empty-state-icon { font-size: 48px; margin-bottom: 12px; opacity: 0.5; }
-    .empty-state-text { font-size: 14px; font-weight: 500; }
-    .section-header {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin: 20px 0 10px 4px;
-    }
-    @media (min-width: 768px) {
-      .main-content { max-width: 600px; margin: 0 auto; }
-      .dashboard-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .section { display: none; }
-    .section.active { display: block; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    .pulse { animation: pulse 2s infinite; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-in { animation: slideUp 0.4s ease; }
-    .detail-header {
-      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-hover) 100%);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-subtle);
-    }
-    .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border-subtle); font-size: 13px; }
-    .detail-row:last-child { border-bottom: none; }
-    .detail-label { color: var(--text-secondary); font-weight: 500; }
-    .detail-value { color: var(--text-primary); font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+    :root{--bg-primary:#0a0e27;--bg-secondary:#111936;--bg-card:#151d3b;--bg-input:#1a2342;--bg-hover:#1e2a4f;--neon-green:#00f5a0;--neon-green-dim:rgba(0,245,160,0.15);--neon-blue:#00d4ff;--neon-blue-dim:rgba(0,212,255,0.15);--neon-purple:#a855f7;--neon-purple-dim:rgba(168,85,247,0.15);--neon-orange:#ff9500;--neon-orange-dim:rgba(255,149,0,0.15);--volt-excellent:#00f5a0;--volt-good:#ffd700;--volt-low:#ff4757;--volt-unknown:#6b7280;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--border-subtle:rgba(148,163,184,0.1);--shadow-card:0 4px 24px rgba(0,0,0,0.4)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--neon-green);border-radius:3px}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+    .header{background:linear-gradient(135deg,var(--bg-primary) 0%,var(--bg-secondary) 100%);border-bottom:1px solid var(--border-subtle);padding:14px 16px;position:fixed;top:0;left:0;right:0;z-index:1000;backdrop-filter:blur(20px)}
+    .header h1{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .header-icon{font-size:24px;filter:drop-shadow(0 0 8px var(--neon-green))}
+    .header-subtitle{font-size:11px;color:var(--text-muted);font-weight:500;margin-top:2px;letter-spacing:1px;text-transform:uppercase}
+    .nav-container{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(10,14,39,0.9) 0%,var(--bg-primary) 100%);border-top:1px solid var(--border-subtle);z-index:1000;display:flex;justify-content:space-around;padding:6px 0 24px 0;backdrop-filter:blur(20px)}
+    .nav-item{flex:1;text-align:center;padding:6px 2px;cursor:pointer;transition:all 0.3s ease;border:none;background:none;color:var(--text-muted);font-size:10px;font-weight:500;letter-spacing:0.5px;position:relative}
+    .nav-item.active{color:var(--neon-green)}
+    .nav-item.active::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--neon-green);border-radius:2px;box-shadow:0 0 10px var(--neon-green)}
+    .nav-item .nav-icon{font-size:22px;display:block;margin-bottom:3px;transition:transform 0.2s}
+    .nav-item:active .nav-icon{transform:scale(0.9)}
+    .main-content{padding:85px 14px 100px 14px;min-height:100vh}
+    .card{background:var(--bg-card);border-radius:16px;padding:18px;margin-bottom:14px;border:1px solid var(--border-subtle);box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon-green),var(--neon-blue),var(--neon-purple));opacity:0.6}
+    .card-title{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+    .card-title-icon{font-size:20px}
+    .form-group{margin-bottom:16px}
+    .form-label{display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase}
+    .input-wrapper{display:flex;gap:8px;align-items:center}
+    input,select,textarea{flex:1;padding:12px 14px;border:1.5px solid var(--border-subtle);border-radius:10px;font-size:15px;background:var(--bg-input);color:var(--text-primary);transition:all 0.3s ease;-webkit-appearance:none;font-family:'Inter',sans-serif}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--neon-green);box-shadow:0 0 0 3px var(--neon-green-dim);background:var(--bg-hover)}
+    input::placeholder,textarea::placeholder{color:var(--text-muted)}
+    input.voltage-input{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px}
+    input.voltage-input.excellent{border-color:var(--volt-excellent);box-shadow:0 0 0 3px rgba(0,245,160,0.2);color:var(--volt-excellent)}
+    input.voltage-input.good{border-color:var(--volt-good);box-shadow:0 0 0 3px rgba(255,215,0,0.2);color:var(--volt-good)}
+    input.voltage-input.low{border-color:var(--volt-low);box-shadow:0 0 0 3px rgba(255,71,87,0.2);color:var(--volt-low)}
+    .scan-btn{background:linear-gradient(135deg,var(--neon-blue) 0%,var(--neon-purple) 100%);color:white;border:none;border-radius:10px;padding:12px 14px;font-size:18px;cursor:pointer;min-width:46px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,212,255,0.3);transition:all 0.2s}
+    .scan-btn:active{transform:scale(0.95)}
+    .volt-indicator{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;margin-left:8px}
+    .volt-indicator.excellent{background:rgba(0,245,160,0.15);color:var(--volt-excellent);border:1px solid rgba(0,245,160,0.3)}
+    .volt-indicator.good{background:rgba(255,215,0,0.15);color:var(--volt-good);border:1px solid rgba(255,215,0,0.3)}
+    .volt-indicator.low{background:rgba(255,71,87,0.15);color:var(--volt-low);border:1px solid rgba(255,71,87,0.3)}
+    .volt-indicator.unknown{background:rgba(107,114,128,0.15);color:var(--volt-unknown);border:1px solid rgba(107,114,128,0.3)}
+    .volt-dot{width:8px;height:8px;border-radius:50%;box-shadow:0 0 8px currentColor}
+    .btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s ease;margin-top:10px;letter-spacing:0.5px}
+    .btn-primary{background:linear-gradient(135deg,var(--neon-green) 0%,#00c896 100%);color:var(--bg-primary);box-shadow:0 4px 20px rgba(0,245,160,0.3)}
+    .btn-primary:active{transform:translateY(2px)}
+    .btn-success{background:linear-gradient(135deg,#00c896 0%,#00a884 100%);color:white;box-shadow:0 4px 20px rgba(0,200,150,0.3)}
+    .btn-warning{background:linear-gradient(135deg,var(--neon-orange) 0%,#ff7700 100%);color:var(--bg-primary);box-shadow:0 4px 20px rgba(255,149,0,0.3)}
+    .btn-secondary{background:var(--bg-hover);color:var(--text-secondary);border:1px solid var(--border-subtle)}
+    .btn-danger{background:linear-gradient(135deg,var(--volt-low) 0%,#e03131 100%);color:white;box-shadow:0 4px 20px rgba(255,71,87,0.3)}
+    .dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .metric-card{background:var(--bg-card);border-radius:16px;padding:16px;text-align:center;border:1px solid var(--border-subtle);box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+    .metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+    .metric-card.excellent::before{background:var(--volt-excellent)}.metric-card.good::before{background:var(--volt-good)}.metric-card.alert::before{background:var(--volt-low)}.metric-card.info::before{background:var(--neon-blue)}.metric-card.purple::before{background:var(--neon-purple)}.metric-card.orange::before{background:var(--neon-orange)}
+    .metric-value{font-size:26px;font-weight:800;line-height:1.2;font-family:'JetBrains Mono',monospace}
+    .metric-card.excellent .metric-value{color:var(--volt-excellent)}.metric-card.good .metric-value{color:var(--volt-good)}.metric-card.alert .metric-value{color:var(--volt-low)}.metric-card.info .metric-value{color:var(--neon-blue)}.metric-card.purple .metric-value{color:var(--neon-purple)}.metric-card.orange .metric-value{color:var(--neon-orange)}
+    .metric-label{font-size:11px;color:var(--text-muted);margin-top:6px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+    .volt-distribution{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:12px 0;background:var(--bg-input)}
+    .volt-bar{transition:width 0.5s ease}.volt-bar.excellent{background:var(--volt-excellent)}.volt-bar.good{background:var(--volt-good)}.volt-bar.low{background:var(--volt-low)}
+    .data-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;margin-top:12px}
+    .data-table th{background:var(--bg-secondary);padding:10px 8px;text-align:left;font-weight:600;color:var(--text-secondary);position:sticky;top:0;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid var(--border-subtle)}
+    .data-table td{padding:10px 8px;border-bottom:1px solid var(--border-subtle);color:var(--text-primary)}
+    .data-table tr:hover td{background:var(--bg-hover)}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.3px}
+    .badge-green{background:rgba(0,245,160,0.15);color:var(--volt-excellent);border:1px solid rgba(0,245,160,0.3)}
+    .badge-red{background:rgba(255,71,87,0.15);color:var(--volt-low);border:1px solid rgba(255,71,87,0.3)}
+    .badge-yellow{background:rgba(255,215,0,0.15);color:var(--volt-good);border:1px solid rgba(255,215,0,0.3)}
+    .badge-blue{background:rgba(0,212,255,0.15);color:var(--neon-blue);border:1px solid rgba(0,212,255,0.3)}
+    .badge-purple{background:rgba(168,85,247,0.15);color:var(--neon-purple);border:1px solid rgba(168,85,247,0.3)}
+    .comparison-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-subtle)}
+    .comparison-label{font-weight:600;color:var(--text-secondary);font-size:13px}
+    .comparison-values{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+    .before-value{color:var(--text-muted);text-decoration:line-through;font-size:13px}
+    .arrow-icon{color:var(--text-muted);font-size:14px}
+    .after-value{font-size:15px}.after-value.excellent{color:var(--volt-excellent)}.after-value.good{color:var(--volt-good)}.after-value.low{color:var(--volt-low)}
+    .change-badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:700}
+    .change-badge.improved{background:rgba(0,245,160,0.15);color:var(--volt-excellent)}
+    .change-badge.degraded{background:rgba(255,71,87,0.15);color:var(--volt-low)}
+    .charging-section{border-left:3px solid var(--neon-orange);padding-left:14px;margin:14px 0;background:var(--neon-orange-dim);border-radius:0 12px 12px 0;padding:14px}
+    .charging-section.completed{border-left-color:var(--neon-green);background:var(--neon-green-dim)}
+    .charging-section.in-progress{border-left-color:var(--neon-blue);background:var(--neon-blue-dim)}
+    .search-bar{display:flex;gap:10px;margin-bottom:14px}.search-bar input{flex:1}
+    .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,14,39,0.95);z-index:2000;justify-content:center;align-items:center;flex-direction:column;backdrop-filter:blur(10px)}
+    .modal-overlay.active{display:flex}
+    .scanner-container{width:90%;max-width:400px;background:var(--bg-secondary);border-radius:20px;overflow:hidden;border:1px solid var(--border-subtle);box-shadow:0 0 40px rgba(0,212,255,0.2)}
+    #reader{width:100%}
+    .scanner-close{position:absolute;top:20px;right:20px;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.4);color:var(--volt-low);font-size:22px;width:48px;height:48px;border-radius:50%;cursor:pointer;z-index:2001;display:flex;align-items:center;justify-content:center}
+    .scan-instruction{color:var(--text-secondary);text-align:center;padding:16px;font-size:14px;font-weight:500}
+    .loading{display:none;text-align:center;padding:24px;color:var(--text-muted)}
+    .loading.active{display:block}
+    .spinner{border:3px solid var(--bg-hover);border-top:3px solid var(--neon-green);border-radius:50%;width:32px;height:32px;animation:spin 1s linear infinite;margin:0 auto 12px}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .toast{position:fixed;top:85px;left:50%;transform:translateX(-50%);background:var(--bg-card);color:var(--text-primary);padding:14px 24px;border-radius:12px;font-size:14px;font-weight:600;z-index:3000;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.4);border:1px solid var(--border-subtle);backdrop-filter:blur(20px);max-width:90%;text-align:center}
+    .toast.show{display:block;animation:fadeIn 0.3s}
+    .toast.success{border-color:var(--neon-green);color:var(--neon-green)}
+    .toast.error{border-color:var(--volt-low);color:var(--volt-low)}
+    .toast.warning{border-color:var(--neon-orange);color:var(--neon-orange)}
+    @keyframes fadeIn{from{opacity:0;top:75px}to{opacity:1;top:85px}}
+    .empty-state{text-align:center;padding:32px 16px;color:var(--text-muted)}
+    .empty-state-icon{font-size:48px;margin-bottom:12px;opacity:0.5}
+    .empty-state-text{font-size:14px;font-weight:500}
+    .section-header{font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px 4px}
+    @media(min-width:768px){.main-content{max-width:600px;margin:0 auto}.dashboard-grid{grid-template-columns:repeat(3,1fr)}}
+    .section{display:none}.section.active{display:block}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}.pulse{animation:pulse 2s infinite}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.animate-in{animation:slideUp 0.4s ease}
+    .detail-header{background:linear-gradient(135deg,var(--bg-secondary) 0%,var(--bg-hover) 100%);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border-subtle)}
+    .detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:13px}
+    .detail-row:last-child{border-bottom:none}
+    .detail-label{color:var(--text-secondary);font-weight:500}
+    .detail-value{color:var(--text-primary);font-weight:600;font-family:'JetBrains Mono',monospace}
   </style>
 <base target="_blank">
 </head>
@@ -500,16 +123,15 @@
   </div>
 
   <div class="main-content">
+    <!-- DASHBOARD -->
     <div id="section-dashboard" class="section active">
       <div class="dashboard-grid" id="dashboard-metrics">
-        <div class="metric-card info animate-in"><div class="metric-value">--</div><div class="metric-label">Loading...</div></div>
+        <div class="metric-card info animate-in"><div class="metric-value pulse">--</div><div class="metric-label">Loading...</div></div>
       </div>
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚡</span> Voltage Distribution</div>
         <div class="volt-distribution" id="volt-distribution-bar">
-          <div class="volt-bar excellent" style="width:0%"></div>
-          <div class="volt-bar good" style="width:0%"></div>
-          <div class="volt-bar low" style="width:0%"></div>
+          <div class="volt-bar excellent" style="width:0%"></div><div class="volt-bar good" style="width:0%"></div><div class="volt-bar low" style="width:0%"></div>
         </div>
         <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px;">
           <span style="color:var(--volt-excellent)">● Excellent (>12.61V)</span>
@@ -527,6 +149,7 @@
       </div>
     </div>
 
+    <!-- INCOMING -->
     <div id="section-incoming" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📥</span> Incoming Battery</div>
@@ -537,7 +160,7 @@
           <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="inc-model" placeholder="e.g. NS40ZL" required><button type="button" class="scan-btn" onclick="startScan('inc-model')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="inc-batch" placeholder="e.g. B202505" required><button type="button" class="scan-btn" onclick="startScan('inc-batch')">📷</button></div></div>
           <div class="form-group"><label class="form-label">QTY</label><input type="number" id="inc-qty" value="1" min="1" required></div>
-          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="inc-voltage" step="0.01" placeholder="e.g. 12.60" class="voltage-input" oninput="updateVoltageColor(this, 'inc-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('inc-voltage')">📷</button></div><div id="inc-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="inc-voltage" step="0.01" placeholder="e.g. 12.60" class="voltage-input" oninput="updateVoltageColor(this,'inc-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('inc-voltage')">📷</button></div><div id="inc-volt-indicator" style="margin-top:6px;"></div></div>
           <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="inc-health" min="0" max="100" placeholder="e.g. 85" required><button type="button" class="scan-btn" onclick="startScan('inc-health')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="inc-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('inc-serial')">📷</button></div></div>
           <button type="submit" class="btn btn-primary">✅ Save Incoming Record</button>
@@ -546,6 +169,7 @@
       </div>
     </div>
 
+    <!-- OUTGOING -->
     <div id="section-outgoing" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📤</span> Outgoing Battery</div>
@@ -556,7 +180,7 @@
           <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="out-model" required><button type="button" class="scan-btn" onclick="startScan('out-model')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="out-batch" required><button type="button" class="scan-btn" onclick="startScan('out-batch')">📷</button></div></div>
           <div class="form-group"><label class="form-label">QTY</label><input type="number" id="out-qty" value="1" min="1" required></div>
-          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="out-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'out-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('out-voltage')">📷</button></div><div id="out-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="out-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'out-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('out-voltage')">📷</button></div><div id="out-volt-indicator" style="margin-top:6px;"></div></div>
           <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="out-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('out-health')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="out-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('out-serial')">📷</button></div></div>
           <button type="submit" class="btn btn-primary">✅ Save Outgoing Record</button>
@@ -565,6 +189,7 @@
       </div>
     </div>
 
+    <!-- WEEKLY -->
     <div id="section-weekly" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">🔋</span> Weekly Checking</div>
@@ -574,7 +199,7 @@
           <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="wk-model" required><button type="button" class="scan-btn" onclick="startScan('wk-model')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="wk-batch" required><button type="button" class="scan-btn" onclick="startScan('wk-batch')">📷</button></div></div>
           <div class="form-group"><label class="form-label">QTY</label><input type="number" id="wk-qty" value="1" min="1" required></div>
-          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="wk-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'wk-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('wk-voltage')">📷</button></div><div id="wk-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="wk-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'wk-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('wk-voltage')">📷</button></div><div id="wk-volt-indicator" style="margin-top:6px;"></div></div>
           <div class="form-group"><label class="form-label">CCA</label><div class="input-wrapper"><input type="number" id="wk-cca" placeholder="Cold Cranking Amps" required><button type="button" class="scan-btn" onclick="startScan('wk-cca')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="wk-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('wk-health')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="wk-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('wk-serial')">📷</button></div></div>
@@ -584,6 +209,7 @@
       </div>
     </div>
 
+    <!-- CHARGING -->
     <div id="section-charging" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚡</span> Start Charging (Part A)</div>
@@ -596,7 +222,7 @@
             <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="ch-model" required><button type="button" class="scan-btn" onclick="startScan('ch-model')">📷</button></div></div>
             <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="ch-batch" required><button type="button" class="scan-btn" onclick="startScan('ch-batch')">📷</button></div></div>
             <div class="form-group"><label class="form-label">QTY</label><input type="number" id="ch-qty" value="1" min="1" required></div>
-            <div class="form-group"><label class="form-label">Voltage Before Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-before" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'ch-volt-before-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-before')">📷</button></div><div id="ch-volt-before-indicator" style="margin-top:6px;"></div></div>
+            <div class="form-group"><label class="form-label">Voltage Before Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-before" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'ch-volt-before-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-before')">📷</button></div><div id="ch-volt-before-indicator" style="margin-top:6px;"></div></div>
             <div class="form-group"><label class="form-label">CCA Before</label><div class="input-wrapper"><input type="number" id="ch-cca-before" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-before')">📷</button></div></div>
             <div class="form-group"><label class="form-label">Health % Before</label><div class="input-wrapper"><input type="number" id="ch-health-before" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-before')">📷</button></div></div>
             <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="ch-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('ch-serial')">📷</button></div></div>
@@ -619,7 +245,7 @@
                 <span id="ch-b-health-before" style="color:var(--text-secondary);"></span>
               </div>
             </div>
-            <div class="form-group"><label class="form-label">Voltage After Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-after" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'ch-volt-after-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-after')">📷</button></div><div id="ch-volt-after-indicator" style="margin-top:6px;"></div></div>
+            <div class="form-group"><label class="form-label">Voltage After Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-after" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'ch-volt-after-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-after')">📷</button></div><div id="ch-volt-after-indicator" style="margin-top:6px;"></div></div>
             <div class="form-group"><label class="form-label">CCA After</label><div class="input-wrapper"><input type="number" id="ch-cca-after" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-after')">📷</button></div></div>
             <div class="form-group"><label class="form-label">Health % After</label><div class="input-wrapper"><input type="number" id="ch-health-after" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-after')">📷</button></div></div>
           </div>
@@ -629,6 +255,7 @@
       </div>
     </div>
 
+    <!-- SEARCH -->
     <div id="section-search" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">🔍</span> Search Batteries</div>
@@ -643,12 +270,12 @@
   </div>
 
   <div class="nav-container">
-    <button class="nav-item active" onclick="showSection('dashboard')"><span class="nav-icon">📊</span><span>Dashboard</span></button>
-    <button class="nav-item" onclick="showSection('incoming')"><span class="nav-icon">📥</span><span>Incoming</span></button>
-    <button class="nav-item" onclick="showSection('outgoing')"><span class="nav-icon">📤</span><span>Outgoing</span></button>
-    <button class="nav-item" onclick="showSection('weekly')"><span class="nav-icon">🔋</span><span>Weekly</span></button>
-    <button class="nav-item" onclick="showSection('charging')"><span class="nav-icon">⚡</span><span>Charging</span></button>
-    <button class="nav-item" onclick="showSection('search')"><span class="nav-icon">🔍</span><span>Search</span></button>
+    <button class="nav-item active" onclick="showSection('dashboard',this)"><span class="nav-icon">📊</span><span>Dashboard</span></button>
+    <button class="nav-item" onclick="showSection('incoming',this)"><span class="nav-icon">📥</span><span>Incoming</span></button>
+    <button class="nav-item" onclick="showSection('outgoing',this)"><span class="nav-icon">📤</span><span>Outgoing</span></button>
+    <button class="nav-item" onclick="showSection('weekly',this)"><span class="nav-icon">🔋</span><span>Weekly</span></button>
+    <button class="nav-item" onclick="showSection('charging',this)"><span class="nav-icon">⚡</span><span>Charging</span></button>
+    <button class="nav-item" onclick="showSection('search',this)"><span class="nav-icon">🔍</span><span>Search</span></button>
   </div>
 
   <div class="modal-overlay" id="scanner-modal">
@@ -661,14 +288,15 @@
 
   <script>
     // ============================================
-    // CONFIG - SET YOUR APPS SCRIPT URL HERE
+    // CONFIG - REPLACE WITH YOUR APPS SCRIPT URL
     // ============================================
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxGd1wP6xl_QtJ_AEp8KO3RgX07URUfLEMuVMo_brOOcA5YLO_MvDLQDZ7z11Zvww4MMg/exec';
+    const API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
 
     let currentScanField = null;
     let html5QrCode = null;
     let selectedChargingKey = null;
     let selectedChargingData = null;
+    let isLoading = false;
 
     // ============================================
     // VOLTAGE COLOR SYSTEM
@@ -704,13 +332,13 @@
     }
 
     // ============================================
-    // NAVIGATION
+    // NAVIGATION - FIXED: explicit button parameter
     // ============================================
-    function showSection(sectionId) {
+    function showSection(sectionId, btnElement) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById('section-' + sectionId).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      event.target.closest('.nav-item').classList.add('active');
+      if (btnElement) btnElement.classList.add('active');
       if (sectionId === 'dashboard') loadDashboard();
       if (sectionId === 'charging') loadPendingCharging();
     }
@@ -735,10 +363,7 @@
 
     function stopScan() {
       if (html5QrCode) {
-        html5QrCode.stop().then(() => {
-          html5QrCode.clear();
-          html5QrCode = null;
-        }).catch(() => {});
+        html5QrCode.stop().then(() => { html5QrCode.clear(); html5QrCode = null; }).catch(() => {});
       }
       document.getElementById('scanner-modal').classList.remove('active');
       currentScanField = null;
@@ -751,479 +376,917 @@
         const fieldMap = {
           'inc-brand': 0, 'out-brand': 0, 'wk-brand': 0, 'ch-brand': 0,
           'inc-model': 1, 'out-model': 1, 'wk-model': 1, 'ch-model': 1,
-          'inc-batch': 2, 'out-batch': 2, 'wk-batch': 2, 'ch-batch': 2,
-          'inc-serial': 3, 'out-serial': 3, 'wk-serial': 3, 'ch-serial': 3,
-          'inc-voltage': 4, 'out-voltage': 4, 'wk-voltage': 4, 'ch-voltage-before': 4, 'ch-voltage-after': 4,
-          'inc-health': 5, 'out-health': 5, 'wk-health': 5, 'ch-health-before': 5
-        };
-        if (fieldMap[currentScanField] !== undefined) {
-          const idx = fieldMap[currentScanField];
-          if (parts[idx]) {
-            document.getElementById(currentScanField).value = parts[idx];
-            if (currentScanField.includes('voltage')) {
-              const el = document.getElementById(currentScanField);
-              const event = new Event('input');
-              el.dispatchEvent(event);
-            }
-            showToast('Scanned: ' + parts[idx], 'success');
-          }
-        } else {
-          const prefix = currentScanField.split('-')[0];
-          if (parts[0]) document.getElementById(prefix + '-brand').value = parts[0];
-          if (parts[1]) document.getElementById(prefix + '-model').value = parts[1];
-          if (parts[2]) document.getElementById(prefix + '-batch').value = parts[2];
-          if (parts[3]) document.getElementById(prefix + '-serial').value = parts[3];
-          if (parts[4]) {
-            const voltField = document.getElementById(prefix + '-voltage') || document.getElementById(prefix + '-voltage-before');
-            if (voltField) {
-              voltField.value = parts[4];
-              const event = new Event('input');
-              voltField.dispatchEvent(event);
-            }
-          }
-          if (parts[5]) {
-            const healthField = document.getElementById(prefix + '-health') || document.getElementById(prefix + '-health-before');
-            if (healthField) healthField.value = parts[5];
-          }
-          showToast('All fields filled from QR', 'success');
-        }
-      } else {
-        document.getElementById(currentScanField).value = decodedText;
-        showToast('Scanned: ' + decodedText, 'success');
-      }
-    }
+          'inc-batch I see the response was cut off again. Let me save both complete files to `/mnt/agents/output/` so you can download them directly.
 
-    function onScanFailure(error) {}
+<function_calls>
+<invoke name="ipython">
+<parameter name="code">
+# Save the complete fixed Code.gs
+code_gs = '''/**
+ * ============================================
+ * BATTERY MANAGEMENT SYSTEM - CORS VERSION
+ * ============================================
+ */
 
-    // ============================================
-    // FETCH API - CORS Enabled
-    // ============================================
-    async function apiPost(action, data) {
-      document.querySelectorAll('.loading').forEach(l => l.classList.add('active'));
-      try {
-        const response = await fetch(API_URL + '?action=' + action, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
-        return result;
-      } catch(err) {
-        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
-        showToast('Network error: ' + err.message, 'error');
-        throw err;
-      }
-    }
+const CONFIG = {
+  SHEET_NAMES: {
+    INCOMING: 'Incoming',
+    OUTGOING: 'Outgoing',
+    WEEKLY: 'Weekly_Checking',
+    CHARGING: 'Charging',
+    MASTER: 'Battery_Master',
+    DASHBOARD: 'Dashboard'
+  },
+  STATUS: { IN_PROGRESS: 'IN_PROGRESS', COMPLETED: 'COMPLETED' },
+  MASTER_STATUS: { IN_STOCK: 'In Stock', OUTGOING: 'Outgoing', CHARGING: 'Charging', DISPOSED: 'Disposed' },
+  VOLTAGE: { GREEN_MIN: 12.61, YELLOW_MIN: 12.56 }
+};
 
-    async function apiGet(action, params) {
-      document.querySelectorAll('.loading').forEach(l => l.classList.add('active'));
-      try {
-        const queryString = new URLSearchParams({ action: action, ...params }).toString();
-        const response = await fetch(API_URL + '?' + queryString);
-        const result = await response.json();
-        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
-        return result;
-      } catch(err) {
-        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
-        showToast('Network error: ' + err.message, 'error');
-        throw err;
-      }
-    }
+// ============================================
+// CORS HANDLER
+// ============================================
+function doOptions(e) {
+  var output = ContentService.createTextOutput('');
+  output.setHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  });
+  return output;
+}
 
-    // ============================================
-    // FORM HANDLERS
-    // ============================================
-    document.getElementById('form-incoming').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = {
-        incomingDate: document.getElementById('inc-date').value,
-        country: document.getElementById('inc-country').value,
-        brand: document.getElementById('inc-brand').value,
-        model: document.getElementById('inc-model').value,
-        batchNo: document.getElementById('inc-batch').value,
-        qty: parseInt(document.getElementById('inc-qty').value),
-        voltageTested: parseFloat(document.getElementById('inc-voltage').value),
-        healthPercent: parseFloat(document.getElementById('inc-health').value),
-        serialNo: document.getElementById('inc-serial').value
-      };
-      try {
-        const result = await apiPost('recordIncoming', data);
-        if (result.success) {
-          showToast('Incoming saved!', 'success');
-          clearForm('form-incoming');
-        } else {
-          showToast('Error: ' + result.error, 'error');
-        }
-      } catch(err) {}
+function createCorsOutput(jsonObj) {
+  var output = ContentService.createTextOutput(JSON.stringify(jsonObj));
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setHeaders({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  });
+  return output;
+}
+
+// ============================================
+// WEB APP ENTRY POINTS
+// ============================================
+function doGet(e) {
+  if (!e || !e.parameter || !e.parameter.action) {
+    return createCorsOutput({ 
+      success: false, 
+      error: 'No action specified. Use ?action=getDashboardData or other valid actions.' 
     });
+  }
 
-    document.getElementById('form-outgoing').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = {
-        outgoingDate: document.getElementById('out-date').value,
-        customerName: document.getElementById('out-customer').value,
-        brand: document.getElementById('out-brand').value,
-        model: document.getElementById('out-model').value,
-        batchNo: document.getElementById('out-batch').value,
-        qty: parseInt(document.getElementById('out-qty').value),
-        voltageTested: parseFloat(document.getElementById('out-voltage').value),
-        healthPercent: parseFloat(document.getElementById('out-health').value),
-        serialNo: document.getElementById('out-serial').value
-      };
-      try {
-        const result = await apiPost('recordOutgoing', data);
-        if (result.success) {
-          showToast('Outgoing saved!', 'success');
-          clearForm('form-outgoing');
-        } else {
-          showToast('Error: ' + result.error, 'error');
-        }
-      } catch(err) {}
-    });
+  const action = e.parameter.action;
+  try {
+    let result;
+    switch(action) {
+      case 'getDashboardData': result = getDashboardData(); break;
+      case 'getPendingCharging': result = getPendingCharging(); break;
+      case 'getBatteryHistory': result = getBatteryHistory(e.parameter.key); break;
+      case 'searchBatteries': result = searchBatteries(e.parameter.query); break;
+      default: result = { success: false, error: 'Unknown GET action: ' + action };
+    }
+    return createCorsOutput(result);
+  } catch(err) {
+    return createCorsOutput({ success: false, error: err.toString() });
+  }
+}
 
-    document.getElementById('form-weekly').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = {
-        checkingDate: document.getElementById('wk-date').value,
-        brand: document.getElementById('wk-brand').value,
-        model: document.getElementById('wk-model').value,
-        batchNo: document.getElementById('wk-batch').value,
-        qty: parseInt(document.getElementById('wk-qty').value),
-        voltageTested: parseFloat(document.getElementById('wk-voltage').value),
-        cca: parseFloat(document.getElementById('wk-cca').value),
-        healthPercent: parseFloat(document.getElementById('wk-health').value),
-        serialNo: document.getElementById('wk-serial').value
-      };
-      try {
-        const result = await apiPost('recordWeekly', data);
-        if (result.success) {
-          showToast('Weekly check saved!', 'success');
-          clearForm('form-weekly');
-        } else {
-          showToast('Error: ' + result.error, 'error');
-        }
-      } catch(err) {}
-    });
+function doPost(e) {
+  const action = e.parameter.action;
+  const data = JSON.parse(e.postData.contents);
 
-    document.getElementById('form-charging-a').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const data = {
-        chargingDate: document.getElementById('ch-date').value,
-        machineCode: document.getElementById('ch-machine').value,
-        chargingParams: document.getElementById('ch-params').value,
-        brand: document.getElementById('ch-brand').value,
-        model: document.getElementById('ch-model').value,
-        batchNo: document.getElementById('ch-batch').value,
-        qty: parseInt(document.getElementById('ch-qty').value),
-        voltageBefore: parseFloat(document.getElementById('ch-voltage-before').value),
-        ccaBefore: parseFloat(document.getElementById('ch-cca-before').value),
-        healthBefore: parseFloat(document.getElementById('ch-health-before').value),
-        serialNo: document.getElementById('ch-serial').value
-      };
-      try {
-        const result = await apiPost('startCharging', data);
-        if (result.success) {
-          showToast('Charging started! Cycle #' + result.cycleNumber, 'success');
-          clearForm('form-charging-a');
-        } else {
-          showToast('Error: ' + result.error, 'error');
-        }
-      } catch(err) {}
-    });
+  try {
+    let result;
+    switch(action) {
+      case 'recordIncoming': result = recordIncoming(data); break;
+      case 'recordOutgoing': result = recordOutgoing(data); break;
+      case 'recordWeekly': result = recordWeeklyCheck(data); break;
+      case 'startCharging': result = startCharging(data); break;
+      case 'completeCharging': result = completeCharging(data); break;
+      default: result = { success: false, error: 'Unknown POST action: ' + action };
+    }
+    return createCorsOutput(result);
+  } catch(err) {
+    return createCorsOutput({ success: false, error: err.toString() });
+  }
+}
 
-    async function submitChargingB() {
-      if (!selectedChargingKey) {
-        showToast('No battery selected', 'error');
-        return;
+// ============================================
+// VOLTAGE COLOR SYSTEM
+// ============================================
+function getVoltageColor(voltage) {
+  const v = parseFloat(voltage);
+  if (isNaN(v)) return { color: 'gray', hex: '#6b7280', label: 'N/A', class: 'unknown' };
+  if (v > 12.61) return { color: 'green', hex: '#00f5a0', label: 'EXCELLENT', class: 'excellent' };
+  if (v >= 12.56) return { color: 'yellow', hex: '#ffd700', label: 'GOOD', class: 'good' };
+  return { color: 'red', hex: '#ff4757', label: 'LOW', class: 'low' };
+}
+
+// ============================================
+// COMPOSITE KEY
+// ============================================
+function generateCompositeKey(date, brand, model, batchNo) {
+  return date + '|' + brand + '|' + model + '|' + batchNo;
+}
+
+// ============================================
+// SHEET HELPERS
+// ============================================
+function getSheet(name) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let sheet = ss.getSheetByName(name);
+  if (!sheet) {
+    sheet = ss.insertSheet(name);
+    setupSheetHeaders(name, sheet);
+  }
+  return sheet;
+}
+
+function setupSheetHeaders(name, sheet) {
+  const headers = {
+    [CONFIG.SHEET_NAMES.INCOMING]: ['Timestamp','Incoming Date','Country','Brand','Model','Batch No.','QTY','Voltage Tested','Health %','Serial No.','Composite Key'],
+    [CONFIG.SHEET_NAMES.OUTGOING]: ['Timestamp','Outgoing Date','Customer Name','Brand','Model','Batch No.','QTY','Voltage Tested','Health %','Serial No.','Composite Key','Linked Incoming Key'],
+    [CONFIG.SHEET_NAMES.WEEKLY]: ['Timestamp','Checking Date','Brand','Model','Batch No.','QTY','Voltage Tested','CCA','Health %','Serial No.','Composite Key'],
+    [CONFIG.SHEET_NAMES.CHARGING]: ['Timestamp','Charging Date','Brand','Model','Batch No.','QTY','Voltage Before','CCA Before','Health % Before','Serial No.','Composite Key','Machine Code','Charging Parameters','Voltage After','CCA After','Health % After','Status','Completed Date','Charge Cycle No.'],
+    [CONFIG.SHEET_NAMES.MASTER]: ['Composite Key','Brand','Model','Batch No.','First Incoming Date','Serial No.','Total Charge Cycles','Current Status','Last Updated','Latest Voltage','Voltage Color'],
+    [CONFIG.SHEET_NAMES.DASHBOARD]: ['Metric','Value','Last Updated']
+  };
+  if (headers[name]) {
+    sheet.getRange(1, 1, 1, headers[name].length).setValues([headers[name]]);
+    sheet.getRange(1, 1, 1, headers[name].length).setFontWeight('bold').setBackground('#0a0e27').setFontColor('#00f5a0');
+    sheet.setFrozenRows(1);
+  }
+}
+
+// ============================================
+// BATTERY MASTER
+// ============================================
+function ensureBatteryMaster(compositeKey, data) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const values = sheet.getDataRange().getValues();
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][0] === compositeKey) {
+      sheet.getRange(i + 1, 9).setValue(new Date());
+      if (data.voltageTested) {
+        sheet.getRange(i + 1, 10).setValue(data.voltageTested);
+        sheet.getRange(i + 1, 11).setValue(getVoltageColor(data.voltageTested).label);
       }
-      const data = {
-        compositeKey: selectedChargingKey,
-        voltageAfter: parseFloat(document.getElementById('ch-voltage-after').value),
-        ccaAfter: parseFloat(document.getElementById('ch-cca-after').value),
-        healthAfter: parseFloat(document.getElementById('ch-health-after').value)
-      };
-      try {
-        const result = await apiPost('completeCharging', data);
-        if (result.success) {
-          showToast('Charging completed! Total cycles: ' + result.totalCycles, 'success');
-          cancelChargingB();
-          loadPendingCharging();
+      return { exists: true, row: i + 1, cycles: values[i][6] || 0 };
+    }
+  }
+  const voltageColor = data.voltageTested ? getVoltageColor(data.voltageTested) : { label: 'N/A' };
+  const newRow = [compositeKey, data.brand, data.model, data.batchNo, data.incomingDate || data.checkingDate || data.chargingDate, data.serialNo || '', 0, CONFIG.MASTER_STATUS.IN_STOCK, new Date(), data.voltageTested || '', voltageColor.label];
+  sheet.appendRow(newRow);
+  return { exists: false, row: sheet.getLastRow(), cycles: 0 };
+}
+
+function updateBatteryStatus(compositeKey, status) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const values = sheet.getDataRange().getValues();
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][0] === compositeKey) {
+      sheet.getRange(i + 1, 8).setValue(status);
+      sheet.getRange(i + 1, 9).setValue(new Date());
+      return true;
+    }
+  }
+  return false;
+}
+
+function updateBatteryVoltage(compositeKey, voltage) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const values = sheet.getDataRange().getValues();
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][0] === compositeKey) {
+      sheet.getRange(i + 1, 10).setValue(voltage);
+      sheet.getRange(i + 1, 11).setValue(getVoltageColor(voltage).label);
+      sheet.getRange(i + 1, 9).setValue(new Date());
+      return true;
+    }
+  }
+  return false;
+}
+
+function incrementChargeCycle(compositeKey) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const values = sheet.getDataRange().getValues();
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][0] === compositeKey) {
+      const newCycles = (values[i][6] || 0) + 1;
+      sheet.getRange(i + 1, 7).setValue(newCycles);
+      sheet.getRange(i + 1, 9).setValue(new Date());
+      return newCycles;
+    }
+  }
+  return 0;
+}
+
+function getChargeCycles(compositeKey) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const values = sheet.getDataRange().getValues();
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][0] === compositeKey) return { cycles: values[i][6] || 0, status: values[i][7], latestVoltage: values[i][9], voltageColor: values[i][10] };
+  }
+  return { cycles: 0, status: 'Unknown', latestVoltage: '', voltageColor: 'N/A' };
+}
+
+// ============================================
+// INCOMING
+// ============================================
+function recordIncoming(data) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.INCOMING);
+  const compositeKey = generateCompositeKey(data.incomingDate, data.brand, data.model, data.batchNo);
+  const voltageColor = getVoltageColor(data.voltageTested);
+  const row = [new Date(), data.incomingDate, data.country, data.brand, data.model, data.batchNo, data.qty, data.voltageTested, data.healthPercent, data.serialNo || '', compositeKey];
+  const newRowNum = sheet.getLastRow() + 1;
+  sheet.appendRow(row);
+  sheet.getRange(newRowNum, 8).setBackground(voltageColor.hex).setFontColor('#ffffff').setFontWeight('bold');
+  ensureBatteryMaster(compositeKey, data);
+  updateDashboardMetrics();
+  return { success: true, compositeKey: compositeKey, voltageColor: voltageColor };
+}
+
+// ============================================
+// OUTGOING
+// ============================================
+function recordOutgoing(data) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.OUTGOING);
+  const compositeKey = data.compositeKey || generateCompositeKey(data.outgoingDate, data.brand, data.model, data.batchNo);
+  const voltageColor = getVoltageColor(data.voltageTested);
+  const row = [new Date(), data.outgoingDate, data.customerName, data.brand, data.model, data.batchNo, data.qty, data.voltageTested, data.healthPercent, data.serialNo || '', compositeKey, data.linkedIncomingKey || ''];
+  const newRowNum = sheet.getLastRow() + 1;
+  sheet.appendRow(row);
+  sheet.getRange(newRowNum, 8).setBackground(voltageColor.hex).setFontColor('#ffffff').setFontWeight('bold');
+  updateBatteryStatus(compositeKey, CONFIG.MASTER_STATUS.OUTGOING);
+  updateDashboardMetrics();
+  return { success: true, compositeKey: compositeKey, voltageColor: voltageColor };
+}
+
+// ============================================
+// WEEKLY CHECKING
+// ============================================
+function recordWeeklyCheck(data) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.WEEKLY);
+  const compositeKey = data.compositeKey || generateCompositeKey(data.checkingDate, data.brand, data.model, data.batchNo);
+  const voltageColor = getVoltageColor(data.voltageTested);
+  const row = [new Date(), data.checkingDate, data.brand, data.model, data.batchNo, data.qty, data.voltageTested, data.cca, data.healthPercent, data.serialNo || '', compositeKey];
+  const newRowNum = sheet.getLastRow() + 1;
+  sheet.appendRow(row);
+  sheet.getRange(newRowNum, 7).setBackground(voltageColor.hex).setFontColor('#ffffff').setFontWeight('bold');
+  updateBatteryVoltage(compositeKey, data.voltageTested);
+  ensureBatteryMaster(compositeKey, data);
+  updateDashboardMetrics();
+  return { success: true, compositeKey: compositeKey, voltageColor: voltageColor };
+}
+
+// ============================================
+// CHARGING PART A
+// ============================================
+function startCharging(data) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.CHARGING);
+  const compositeKey = data.compositeKey || generateCompositeKey(data.chargingDate, data.brand, data.model, data.batchNo);
+  const masterInfo = getChargeCycles(compositeKey);
+  const newCycleNumber = masterInfo.cycles + 1;
+  const voltageColor = getVoltageColor(data.voltageBefore);
+  const row = [new Date(), data.chargingDate, data.brand, data.model, data.batchNo, data.qty, data.voltageBefore, data.ccaBefore, data.healthBefore, data.serialNo || '', compositeKey, data.machineCode, data.chargingParams, '', '', '', CONFIG.STATUS.IN_PROGRESS, '', newCycleNumber];
+  const newRowNum = sheet.getLastRow() + 1;
+  sheet.appendRow(row);
+  sheet.getRange(newRowNum, 7).setBackground(voltageColor.hex).setFontColor('#ffffff').setFontWeight('bold');
+  updateBatteryStatus(compositeKey, CONFIG.MASTER_STATUS.CHARGING);
+  return { success: true, compositeKey: compositeKey, cycleNumber: newCycleNumber, voltageColor: voltageColor };
+}
+
+// ============================================
+// CHARGING PART B
+// ============================================
+function completeCharging(data) {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.CHARGING);
+  const values = sheet.getDataRange().getValues();
+  let targetRow = -1, cycleNumber = 0;
+  for (let i = values.length - 1; i >= 1; i--) {
+    if (values[i][10] === data.compositeKey && values[i][16] === CONFIG.STATUS.IN_PROGRESS) {
+      targetRow = i + 1; cycleNumber = values[i][18]; break;
+    }
+  }
+  if (targetRow === -1) return { success: false, error: 'No pending charging record found' };
+  const voltageColorAfter = getVoltageColor(data.voltageAfter);
+  sheet.getRange(targetRow, 14).setValue(data.voltageAfter);
+  sheet.getRange(targetRow, 15).setValue(data.ccaAfter);
+  sheet.getRange(targetRow, 16).setValue(data.healthAfter);
+  sheet.getRange(targetRow, 17).setValue(CONFIG.STATUS.COMPLETED);
+  sheet.getRange(targetRow, 18).setValue(new Date());
+  sheet.getRange(targetRow, 14).setBackground(voltageColorAfter.hex).setFontColor('#ffffff').setFontWeight('bold');
+  const newTotalCycles = incrementChargeCycle(data.compositeKey);
+  updateBatteryVoltage(data.compositeKey, data.voltageAfter);
+  updateBatteryStatus(data.compositeKey, CONFIG.MASTER_STATUS.IN_STOCK);
+  updateDashboardMetrics();
+  return { success: true, compositeKey: data.compositeKey, cycleNumber: cycleNumber, totalCycles: newTotalCycles, voltageColor: voltageColorAfter };
+}
+
+// ============================================
+// GET PENDING CHARGING
+// ============================================
+function getPendingCharging() {
+  const sheet = getSheet(CONFIG.SHEET_NAMES.CHARGING);
+  const values = sheet.getDataRange().getValues();
+  const pending = [], now = new Date();
+  for (let i = 1; i < values.length; i++) {
+    if (values[i][16] === CONFIG.STATUS.IN_PROGRESS) {
+      const chargingDate = new Date(values[i][1]);
+      const hoursElapsed = (now - chargingDate) / (1000 * 60 * 60);
+      const voltageColor = getVoltageColor(values[i][6]);
+      pending.push({
+        compositeKey: values[i][10], brand: values[i][2], model: values[i][3], batchNo: values[i][4], serialNo: values[i][9],
+        chargingDate: values[i][1], voltageBefore: values[i][6], voltageColor: voltageColor, ccaBefore: values[i][7], healthBefore: values[i][8],
+        machineCode: values[i][11], chargingParams: values[i][12], cycleNumber: values[i][18],
+        hoursElapsed: Math.floor(hoursElapsed), readyForCompletion: hoursElapsed >= 24
+      });
+    }
+  }
+  return { success: true, pending: pending, count: pending.length };
+}
+
+// ============================================
+// BATTERY HISTORY
+// ============================================
+function getBatteryHistory(compositeKey) {
+  const result = { incoming: [], outgoing: [], weekly: [], charging: [], master: null };
+  const masterSheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const masterData = masterSheet.getDataRange().getValues();
+  for (let i = 1; i < masterData.length; i++) {
+    if (masterData[i][0] === compositeKey) {
+      const voltageColor = getVoltageColor(masterData[i][9]);
+      result.master = { compositeKey: masterData[i][0], brand: masterData[i][1], model: masterData[i][2], batchNo: masterData[i][3], firstIncomingDate: masterData[i][4], serialNo: masterData[i][5], totalChargeCycles: masterData[i][6], currentStatus: masterData[i][7], latestVoltage: masterData[i][9], voltageColor: voltageColor };
+      break;
+    }
+  }
+  const chargingSheet = getSheet(CONFIG.SHEET_NAMES.CHARGING);
+  const chargingData = chargingSheet.getDataRange().getValues();
+  for (let i = 1; i < chargingData.length; i++) {
+    if (chargingData[i][10] === compositeKey) {
+      result.charging.push({
+        chargingDate: chargingData[i][1], voltageBefore: chargingData[i][6], voltageBeforeColor: getVoltageColor(chargingData[i][6]),
+        ccaBefore: chargingData[i][7], healthBefore: chargingData[i][8], voltageAfter: chargingData[i][13],
+        voltageAfterColor: getVoltageColor(chargingData[i][13]), ccaAfter: chargingData[i][14], healthAfter: chargingData[i][15],
+        status: chargingData[i][16], completedDate: chargingData[i][17], cycleNumber: chargingData[i][18],
+        machineCode: chargingData[i][11], chargingParams: chargingData[i][12]
+      });
+    }
+  }
+  const weeklySheet = getSheet(CONFIG.SHEET_NAMES.WEEKLY);
+  const weeklyData = weeklySheet.getDataRange().getValues();
+  for (let i = 1; i < weeklyData.length; i++) {
+    if (weeklyData[i][10] === compositeKey) {
+      result.weekly.push({ checkingDate: weeklyData[i][1], voltage: weeklyData[i][6], voltageColor: getVoltageColor(weeklyData[i][6]), cca: weeklyData[i][7], health: weeklyData[i][8] });
+    }
+  }
+  return { success: true, history: result };
+}
+
+// ============================================
+// SEARCH
+// ============================================
+function searchBatteries(query) {
+  const masterSheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const masterData = masterSheet.getDataRange().getValues();
+  const results = [], lowerQuery = query.toLowerCase();
+  for (let i = 1; i < masterData.length; i++) {
+    const key = masterData[i][0].toLowerCase(), brand = masterData[i][1].toLowerCase(), model = masterData[i][2].toLowerCase();
+    const batchNo = masterData[i][3].toLowerCase(), serialNo = (masterData[i][5] || '').toLowerCase();
+    if (key.includes(lowerQuery) || brand.includes(lowerQuery) || model.includes(lowerQuery) || batchNo.includes(lowerQuery) || serialNo.includes(lowerQuery)) {
+      const voltageColor = getVoltageColor(masterData[i][9]);
+      results.push({ compositeKey: masterData[i][0], brand: masterData[i][1], model: masterData[i][2], batchNo: masterData[i][3], firstIncomingDate: masterData[i][4], serialNo: masterData[i][5], totalChargeCycles: masterData[i][6], currentStatus: masterData[i][7], latestVoltage: masterData[i][9], voltageColor: voltageColor });
+    }
+  }
+  return { success: true, results: results, count: results.length };
+}
+
+// ============================================
+// DASHBOARD
+// ============================================
+function getDashboardData() {
+  updateDashboardMetrics();
+  const sheet = getSheet(CONFIG.SHEET_NAMES.DASHBOARD);
+  const values = sheet.getDataRange().getValues();
+  const metrics = {};
+  for (let i = 1; i < values.length; i++) metrics[values[i][0]] = { value: values[i][1], lastUpdated: values[i][2] };
+
+  const weeklySheet = getSheet(CONFIG.SHEET_NAMES.WEEKLY);
+  const weeklyData = weeklySheet.getDataRange().getValues();
+  const attentionBatteries = [];
+  for (let i = weeklyData.length - 1; i >= 1; i--) {
+    const health = parseFloat(weeklyData[i][8]);
+    if (health < 70) {
+      const exists = attentionBatteries.some(b => b.compositeKey === weeklyData[i][10]);
+      if (!exists) attentionBatteries.push({ compositeKey: weeklyData[i][10], brand: weeklyData[i][2], model: weeklyData[i][3], batchNo: weeklyData[i][4], health: health, voltage: weeklyData[i][6], voltageColor: getVoltageColor(weeklyData[i][6]), checkingDate: weeklyData[i][1] });
+    }
+  }
+
+  const chargingSheet = getSheet(CONFIG.SHEET_NAMES.CHARGING);
+  const chargingData = chargingSheet.getDataRange().getValues();
+  const recentCharges = [];
+  for (let i = chargingData.length - 1; i >= 1 && recentCharges.length < 10; i--) {
+    if (chargingData[i][16] === CONFIG.STATUS.COMPLETED) {
+      recentCharges.push({ compositeKey: chargingData[i][10], brand: chargingData[i][2], model: chargingData[i][3], batchNo: chargingData[i][4], cycleNumber: chargingData[i][18], voltageBefore: chargingData[i][6], voltageBeforeColor: getVoltageColor(chargingData[i][6]), voltageAfter: chargingData[i][13], voltageAfterColor: getVoltageColor(chargingData[i][13]), healthBefore: chargingData[i][8], healthAfter: chargingData[i][15], completedDate: chargingData[i][17] });
+    }
+  }
+
+  const masterSheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const masterData = masterSheet.getDataRange().getValues();
+  let excellentCount = 0, goodCount = 0, lowCount = 0, unknownCount = 0;
+  for (let i = 1; i < masterData.length; i++) {
+    const v = parseFloat(masterData[i][9]);
+    if (isNaN(v)) unknownCount++;
+    else if (v > 12.61) excellentCount++;
+    else if (v >= 12.56) goodCount++;
+    else lowCount++;
+  }
+
+  return { success: true, metrics: metrics, attentionBatteries: attentionBatteries, recentCharges: recentCharges, voltageDistribution: { excellent: excellentCount, good: goodCount, low: lowCount, unknown: unknownCount } };
+}
+
+function updateDashboardMetrics() {
+  const dashboardSheet = getSheet(CONFIG.SHEET_NAMES.DASHBOARD);
+  if (dashboardSheet.getLastRow() > 1) dashboardSheet.getRange(2, 1, dashboardSheet.getLastRow() - 1, 3).clear();
+  const metrics = [], now = new Date();
+
+  const masterSheet = getSheet(CONFIG.SHEET_NAMES.MASTER);
+  const masterData = masterSheet.getDataRange().getValues();
+  let inStock = 0;
+  for (let i = 1; i < masterData.length; i++) if (masterData[i][7] === CONFIG.MASTER_STATUS.IN_STOCK) inStock++;
+  metrics.push(['Total In Stock', inStock, now]);
+  metrics.push(['Total Batteries', masterData.length - 1, now]);
+
+  const chargingSheet = getSheet(CONFIG.SHEET_NAMES.CHARGING);
+  const chargingData = chargingSheet.getDataRange().getValues();
+  let chargedThisWeek = 0;
+  const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  for (let i = 1; i < chargingData.length; i++) {
+    if (chargingData[i][16] === CONFIG.STATUS.COMPLETED) {
+      const completedDate = new Date(chargingData[i][17]);
+      if (completedDate >= oneWeekAgo) chargedThisWeek++;
+    }
+  }
+  metrics.push(['Charged This Week', chargedThisWeek, now]);
+
+  const pendingResult = getPendingCharging();
+  const readyForCompletion = pendingResult.pending.filter(p => p.readyForCompletion).length;
+  metrics.push(['Ready for Completion', readyForCompletion, now]);
+
+  const outgoingSheet = getSheet(CONFIG.SHEET_NAMES.OUTGOING);
+  const outgoingData = outgoingSheet.getDataRange().getValues();
+  let outgoingThisMonth = 0;
+  const oneMonthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+  for (let i = 1; i < outgoingData.length; i++) {
+    const outDate = new Date(outgoingData[i][1]);
+    if (outDate >= oneMonthAgo) outgoingThisMonth++;
+  }
+  metrics.push(['Outgoing This Month', outgoingThisMonth, now]);
+
+  const weeklySheet = getSheet(CONFIG.SHEET_NAMES.WEEKLY);
+  const weeklyData = weeklySheet.getDataRange().getValues();
+  let totalHealth = 0, healthCount = 0;
+  const checkedKeys = new Set();
+  for (let i = weeklyData.length - 1; i >= 1; i--) {
+    if (!checkedKeys.has(weeklyData[i][10])) {
+      checkedKeys.add(weeklyData[i][10]);
+      totalHealth += parseFloat(weeklyData[i][8]) || 0;
+      healthCount++;
+    }
+  }
+  const avgHealth = healthCount > 0 ? (totalHealth / healthCount).toFixed(1) : 0;
+  metrics.push(['Average Health %', avgHealth, now]);
+
+  let needAttention = 0;
+  checkedKeys.clear();
+  for (let i = weeklyData.length - 1; i >= 1; i--) {
+    if (!checkedKeys.has(weeklyData[i][10])) {
+      checkedKeys.add(weeklyData[i][10]);
+      if (parseFloat(weeklyData[i][8]) < 70) needAttention++;
+    }
+  }
+  metrics.push(['Need Attention', needAttention, now]);
+
+  let excellentVolt = 0, lowVolt = 0;
+  for (let i = 1; i < masterData.length; i++) {
+    const v = parseFloat(masterData[i][9]);
+    if (!isNaN(v) && v > 12.61) excellentVolt++;
+    if (!isNaN(v) && v < 12.56) lowVolt++;
+  }
+  metrics.push(['Excellent Voltage', excellentVolt, now]);
+  metrics.push(['Low Voltage', lowVolt, now]);
+
+  if (metrics.length > 0) dashboardSheet.getRange(2, 1, metrics.length, 3).setValues(metrics);
+}
+'''
+
+with open('/mnt/agents/output/Code.gs', 'w') as f:
+    f.write(code_gs)
+
+print("Code.gs saved successfully")
+print(f"Size: {len(code_gs)} characters")
+</parameter>
+</invoke>
+<invoke name="ipython">
+<parameter name="code">
+# Save the complete fixed index.html
+index_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0e27">
+  <title>🔋 Battery Control System</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg-primary:#0a0e27;--bg-secondary:#111936;--bg-card:#151d3b;--bg-input:#1a2342;--bg-hover:#1e2a4f;--neon-green:#00f5a0;--neon-green-dim:rgba(0,245,160,0.15);--neon-blue:#00d4ff;--neon-blue-dim:rgba(0,212,255,0.15);--neon-purple:#a855f7;--neon-purple-dim:rgba(168,85,247,0.15);--neon-orange:#ff9500;--neon-orange-dim:rgba(255,149,0,0.15);--volt-excellent:#00f5a0;--volt-good:#ffd700;--volt-low:#ff4757;--volt-unknown:#6b7280;--text-primary:#e2e8f0;--text-secondary:#94a3b8;--text-muted:#64748b;--border-subtle:rgba(148,163,184,0.1);--shadow-card:0 4px 24px rgba(0,0,0,0.4)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg-primary)}::-webkit-scrollbar-thumb{background:var(--neon-green);border-radius:3px}
+    body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.6;min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+    .header{background:linear-gradient(135deg,var(--bg-primary) 0%,var(--bg-secondary) 100%);border-bottom:1px solid var(--border-subtle);padding:14px 16px;position:fixed;top:0;left:0;right:0;z-index:1000;backdrop-filter:blur(20px)}
+    .header h1{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .header-icon{font-size:24px;filter:drop-shadow(0 0 8px var(--neon-green))}
+    .header-subtitle{font-size:11px;color:var(--text-muted);font-weight:500;margin-top:2px;letter-spacing:1px;text-transform:uppercase}
+    .nav-container{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(180deg,rgba(10,14,39,0.9) 0%,var(--bg-primary) 100%);border-top:1px solid var(--border-subtle);z-index:1000;display:flex;justify-content:space-around;padding:6px 0 24px 0;backdrop-filter:blur(20px)}
+    .nav-item{flex:1;text-align:center;padding:6px 2px;cursor:pointer;transition:all 0.3s ease;border:none;background:none;color:var(--text-muted);font-size:10px;font-weight:500;letter-spacing:0.5px;position:relative}
+    .nav-item.active{color:var(--neon-green)}
+    .nav-item.active::after{content:'';position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--neon-green);border-radius:2px;box-shadow:0 0 10px var(--neon-green)}
+    .nav-item .nav-icon{font-size:22px;display:block;margin-bottom:3px;transition:transform 0.2s}
+    .nav-item:active .nav-icon{transform:scale(0.9)}
+    .main-content{padding:85px 14px 100px 14px;min-height:100vh}
+    .card{background:var(--bg-card);border-radius:16px;padding:18px;margin-bottom:14px;border:1px solid var(--border-subtle);box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--neon-green),var(--neon-blue),var(--neon-purple));opacity:0.6}
+    .card-title{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+    .card-title-icon{font-size:20px}
+    .form-group{margin-bottom:16px}
+    .form-label{display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;letter-spacing:0.5px;text-transform:uppercase}
+    .input-wrapper{display:flex;gap:8px;align-items:center}
+    input,select,textarea{flex:1;padding:12px 14px;border:1.5px solid var(--border-subtle);border-radius:10px;font-size:15px;background:var(--bg-input);color:var(--text-primary);transition:all 0.3s ease;-webkit-appearance:none;font-family:'Inter',sans-serif}
+    input:focus,select:focus,textarea:focus{outline:none;border-color:var(--neon-green);box-shadow:0 0 0 3px var(--neon-green-dim);background:var(--bg-hover)}
+    input::placeholder,textarea::placeholder{color:var(--text-muted)}
+    input.voltage-input{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:16px}
+    input.voltage-input.excellent{border-color:var(--volt-excellent);box-shadow:0 0 0 3px rgba(0,245,160,0.2);color:var(--volt-excellent)}
+    input.voltage-input.good{border-color:var(--volt-good);box-shadow:0 0 0 3px rgba(255,215,0,0.2);color:var(--volt-good)}
+    input.voltage-input.low{border-color:var(--volt-low);box-shadow:0 0 0 3px rgba(255,71,87,0.2);color:var(--volt-low)}
+    .scan-btn{background:linear-gradient(135deg,var(--neon-blue) 0%,var(--neon-purple) 100%);color:white;border:none;border-radius:10px;padding:12px 14px;font-size:18px;cursor:pointer;min-width:46px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,212,255,0.3);transition:all 0.2s}
+    .scan-btn:active{transform:scale(0.95)}
+    .volt-indicator{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;margin-left:8px}
+    .volt-indicator.excellent{background:rgba(0,245,160,0.15);color:var(--volt-excellent);border:1px solid rgba(0,245,160,0.3)}
+    .volt-indicator.good{background:rgba(255,215,0,0.15);color:var(--volt-good);border:1px solid rgba(255,215,0,0.3)}
+    .volt-indicator.low{background:rgba(255,71,87,0.15);color:var(--volt-low);border:1px solid rgba(255,71,87,0.3)}
+    .volt-indicator.unknown{background:rgba(107,114,128,0.15);color:var(--volt-unknown);border:1px solid rgba(107,114,128,0.3)}
+    .volt-dot{width:8px;height:8px;border-radius:50%;box-shadow:0 0 8px currentColor}
+    .btn{width:100%;padding:14px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s ease;margin-top:10px;letter-spacing:0.5px}
+    .btn-primary{background:linear-gradient(135deg,var(--neon-green) 0%,#00c896 100%);color:var(--bg-primary);box-shadow:0 4px 20px rgba(0,245,160,0.3)}
+    .btn-primary:active{transform:translateY(2px)}
+    .btn-success{background:linear-gradient(135deg,#00c896 0%,#00a884 100%);color:white;box-shadow:0 4px 20px rgba(0,200,150,0.3)}
+    .btn-warning{background:linear-gradient(135deg,var(--neon-orange) 0%,#ff7700 100%);color:var(--bg-primary);box-shadow:0 4px 20px rgba(255,149,0,0.3)}
+    .btn-secondary{background:var(--bg-hover);color:var(--text-secondary);border:1px solid var(--border-subtle)}
+    .btn-danger{background:linear-gradient(135deg,var(--volt-low) 0%,#e03131 100%);color:white;box-shadow:0 4px 20px rgba(255,71,87,0.3)}
+    .dashboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .metric-card{background:var(--bg-card);border-radius:16px;padding:16px;text-align:center;border:1px solid var(--border-subtle);box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+    .metric-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:16px 16px 0 0}
+    .metric-card.excellent::before{background:var(--volt-excellent)}.metric-card.good::before{background:var(--volt-good)}.metric-card.alert::before{background:var(--volt-low)}.metric-card.info::before{background:var(--neon-blue)}.metric-card.purple::before{background:var(--neon-purple)}.metric-card.orange::before{background:var(--neon-orange)}
+    .metric-value{font-size:26px;font-weight:800;line-height:1.2;font-family:'JetBrains Mono',monospace}
+    .metric-card.excellent .metric-value{color:var(--volt-excellent)}.metric-card.good .metric-value{color:var(--volt-good)}.metric-card.alert .metric-value{color:var(--volt-low)}.metric-card.info .metric-value{color:var(--neon-blue)}.metric-card.purple .metric-value{color:var(--neon-purple)}.metric-card.orange .metric-value{color:var(--neon-orange)}
+    .metric-label{font-size:11px;color:var(--text-muted);margin-top:6px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+    .volt-distribution{display:flex;height:8px;border-radius:4px;overflow:hidden;margin:12px 0;background:var(--bg-input)}
+    .volt-bar{transition:width 0.5s ease}.volt-bar.excellent{background:var(--volt-excellent)}.volt-bar.good{background:var(--volt-good)}.volt-bar.low{background:var(--volt-low)}
+    .data-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;margin-top:12px}
+    .data-table th{background:var(--bg-secondary);padding:10px 8px;text-align:left;font-weight:600;color:var(--text-secondary);position:sticky;top:0;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid var(--border-subtle)}
+    .data-table td{padding:10px 8px;border-bottom:1px solid var(--border-subtle);color:var(--text-primary)}
+    .data-table tr:hover td{background:var(--bg-hover)}
+    .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.3px}
+    .badge-green{background:rgba(0,245,160,0.15);color:var(--volt-excellent);border:1px solid rgba(0,245,160,0.3)}
+    .badge-red{background:rgba(255,71,87,0.15);color:var(--volt-low);border:1px solid rgba(255,71,87,0.3)}
+    .badge-yellow{background:rgba(255,215,0,0.15);color:var(--volt-good);border:1px solid rgba(255,215,0,0.3)}
+    .badge-blue{background:rgba(0,212,255,0.15);color:var(--neon-blue);border:1px solid rgba(0,212,255,0.3)}
+    .badge-purple{background:rgba(168,85,247,0.15);color:var(--neon-purple);border:1px solid rgba(168,85,247,0.3)}
+    .comparison-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border-subtle)}
+    .comparison-label{font-weight:600;color:var(--text-secondary);font-size:13px}
+    .comparison-values{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+    .before-value{color:var(--text-muted);text-decoration:line-through;font-size:13px}
+    .arrow-icon{color:var(--text-muted);font-size:14px}
+    .after-value{font-size:15px}.after-value.excellent{color:var(--volt-excellent)}.after-value.good{color:var(--volt-good)}.after-value.low{color:var(--volt-low)}
+    .change-badge{font-size:11px;padding:2px 8px;border-radius:12px;font-weight:700}
+    .change-badge.improved{background:rgba(0,245,160,0.15);color:var(--volt-excellent)}
+    .change-badge.degraded{background:rgba(255,71,87,0.15);color:var(--volt-low)}
+    .charging-section{border-left:3px solid var(--neon-orange);padding-left:14px;margin:14px 0;background:var(--neon-orange-dim);border-radius:0 12px 12px 0;padding:14px}
+    .charging-section.completed{border-left-color:var(--neon-green);background:var(--neon-green-dim)}
+    .charging-section.in-progress{border-left-color:var(--neon-blue);background:var(--neon-blue-dim)}
+    .search-bar{display:flex;gap:10px;margin-bottom:14px}.search-bar input{flex:1}
+    .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,14,39,0.95);z-index:2000;justify-content:center;align-items:center;flex-direction:column;backdrop-filter:blur(10px)}
+    .modal-overlay.active{display:flex}
+    .scanner-container{width:90%;max-width:400px;background:var(--bg-secondary);border-radius:20px;overflow:hidden;border:1px solid var(--border-subtle);box-shadow:0 0 40px rgba(0,212,255,0.2)}
+    #reader{width:100%}
+    .scanner-close{position:absolute;top:20px;right:20px;background:rgba(255,71,87,0.2);border:1px solid rgba(255,71,87,0.4);color:var(--volt-low);font-size:22px;width:48px;height:48px;border-radius:50%;cursor:pointer;z-index:2001;display:flex;align-items:center;justify-content:center}
+    .scan-instruction{color:var(--text-secondary);text-align:center;padding:16px;font-size:14px;font-weight:500}
+    .loading{display:none;text-align:center;padding:24px;color:var(--text-muted)}
+    .loading.active{display:block}
+    .spinner{border:3px solid var(--bg-hover);border-top:3px solid var(--neon-green);border-radius:50%;width:32px;height:32px;animation:spin 1s linear infinite;margin:0 auto 12px}
+    @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+    .toast{position:fixed;top:85px;left:50%;transform:translateX(-50%);background:var(--bg-card);color:var(--text-primary);padding:14px 24px;border-radius:12px;font-size:14px;font-weight:600;z-index:3000;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.4);border:1px solid var(--border-subtle);backdrop-filter:blur(20px);max-width:90%;text-align:center}
+    .toast.show{display:block;animation:fadeIn 0.3s}
+    .toast.success{border-color:var(--neon-green);color:var(--neon-green)}
+    .toast.error{border-color:var(--volt-low);color:var(--volt-low)}
+    .toast.warning{border-color:var(--neon-orange);color:var(--neon-orange)}
+    @keyframes fadeIn{from{opacity:0;top:75px}to{opacity:1;top:85px}}
+    .empty-state{text-align:center;padding:32px 16px;color:var(--text-muted)}
+    .empty-state-icon{font-size:48px;margin-bottom:12px;opacity:0.5}
+    .empty-state-text{font-size:14px;font-weight:500}
+    .section-header{font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin:20px 0 10px 4px}
+    @media(min-width:768px){.main-content{max-width:600px;margin:0 auto}.dashboard-grid{grid-template-columns:repeat(3,1fr)}}
+    .section{display:none}.section.active{display:block}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}.pulse{animation:pulse 2s infinite}
+    @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.animate-in{animation:slideUp 0.4s ease}
+    .detail-header{background:linear-gradient(135deg,var(--bg-secondary) 0%,var(--bg-hover) 100%);border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid var(--border-subtle)}
+    .detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:13px}
+    .detail-row:last-child{border-bottom:none}
+    .detail-label{color:var(--text-secondary);font-weight:500}
+    .detail-value{color:var(--text-primary);font-weight:600;font-family:'JetBrains Mono',monospace}
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1><span class="header-icon">🔋</span> Battery Control</h1>
+    <div class="header-subtitle">Smart Battery Management System</div>
+  </div>
+
+  <div class="main-content">
+    <!-- DASHBOARD -->
+    <div id="section-dashboard" class="section active">
+      <div class="dashboard-grid" id="dashboard-metrics">
+        <div class="metric-card info animate-in"><div class="metric-value pulse">--</div><div class="metric-label">Loading...</div></div>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚡</span> Voltage Distribution</div>
+        <div class="volt-distribution" id="volt-distribution-bar">
+          <div class="volt-bar excellent" style="width:0%"></div><div class="volt-bar good" style="width:0%"></div><div class="volt-bar low" style="width:0%"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px;">
+          <span style="color:var(--volt-excellent)">● Excellent (&gt;12.61V)</span>
+          <span style="color:var(--volt-good)">● Good (12.56-12.61V)</span>
+          <span style="color:var(--volt-low)">● Low (&lt;12.56V)</span>
+        </div>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚡</span> Recent Charging (Before vs After)</div>
+        <div id="recent-charges"><div class="loading active"><div class="spinner"></div>Loading...</div></div>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚠️</span> Batteries Needing Attention</div>
+        <div id="attention-batteries"><div class="loading active"><div class="spinner"></div>Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- INCOMING -->
+    <div id="section-incoming" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">📥</span> Incoming Battery</div>
+        <form id="form-incoming">
+          <div class="form-group"><label class="form-label">Incoming Date</label><div class="input-wrapper"><input type="date" id="inc-date" required></div></div>
+          <div class="form-group"><label class="form-label">Country</label><div class="input-wrapper"><input type="text" id="inc-country" placeholder="e.g. Japan, China" required><button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="inc-brand" placeholder="e.g. Yuasa" required><button type="button" class="scan-btn" onclick="startScan('inc-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="inc-model" placeholder="e.g. NS40ZL" required><button type="button" class="scan-btn" onclick="startScan('inc-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="inc-batch" placeholder="e.g. B202505" required><button type="button" class="scan-btn" onclick="startScan('inc-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="inc-qty" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="inc-voltage" step="0.01" placeholder="e.g. 12.60" class="voltage-input" oninput="updateVoltageColor(this,'inc-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('inc-voltage')">📷</button></div><div id="inc-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="inc-health" min="0" max="100" placeholder="e.g. 85" required><button type="button" class="scan-btn" onclick="startScan('inc-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="inc-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('inc-serial')">📷</button></div></div>
+          <button type="submit" class="btn btn-primary">✅ Save Incoming Record</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm('form-incoming')">🗑️ Clear</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- OUTGOING -->
+    <div id="section-outgoing" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">📤</span> Outgoing Battery</div>
+        <form id="form-outgoing">
+          <div class="form-group"><label class="form-label">Outgoing Date</label><input type="date" id="out-date" required></div>
+          <div class="form-group"><label class="form-label">Customer Name</label><input type="text" id="out-customer" placeholder="Customer name" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="out-brand" required><button type="button" class="scan-btn" onclick="startScan('out-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="out-model" required><button type="button" class="scan-btn" onclick="startScan('out-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="out-batch" required><button type="button" class="scan-btn" onclick="startScan('out-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="out-qty" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="out-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'out-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('out-voltage')">📷</button></div><div id="out-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="out-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('out-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="out-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('out-serial')">📷</button></div></div>
+          <button type="submit" class="btn btn-primary">✅ Save Outgoing Record</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm('form-outgoing')">🗑️ Clear</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- WEEKLY -->
+    <div id="section-weekly" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">🔋</span> Weekly Checking</div>
+        <form id="form-weekly">
+          <div class="form-group"><label class="form-label">Checking Date</label><input type="date" id="wk-date" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="wk-brand" required><button type="button" class="scan-btn" onclick="startScan('wk-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="wk-model" required><button type="button" class="scan-btn" onclick="startScan('wk-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="wk-batch" required><button type="button" class="scan-btn" onclick="startScan('wk-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="wk-qty" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="wk-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'wk-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('wk-voltage')">📷</button></div><div id="wk-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">CCA</label><div class="input-wrapper"><input type="number" id="wk-cca" placeholder="Cold Cranking Amps" required><button type="button" class="scan-btn" onclick="startScan('wk-cca')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="wk-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('wk-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="wk-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('wk-serial')">📷</button></div></div>
+          <button type="submit" class="btn btn-primary">✅ Save Weekly Check</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm('form-weekly')">🗑️ Clear</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- CHARGING -->
+    <div id="section-charging" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚡</span> Start Charging (Part A)</div>
+        <form id="form-charging-a">
+          <div class="form-group"><label class="form-label">Charging Date</label><input type="date" id="ch-date" required></div>
+          <div class="form-group"><label class="form-label">Machine Code</label><input type="text" id="ch-machine" placeholder="e.g. CHG-001" required></div>
+          <div class="form-group"><label class="form-label">Charging Parameters</label><textarea id="ch-params" rows="2" placeholder="Voltage, Amps, Mode, etc." required></textarea></div>
+          <div class="charging-section in-progress">
+            <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="ch-brand" required><button type="button" class="scan-btn" onclick="startScan('ch-brand')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="ch-model" required><button type="button" class="scan-btn" onclick="startScan('ch-model')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="ch-batch" required><button type="button" class="scan-btn" onclick="startScan('ch-batch')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">QTY</label><input type="number" id="ch-qty" value="1" min="1" required></div>
+            <div class="form-group"><label class="form-label">Voltage Before Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-before" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'ch-volt-before-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-before')">📷</button></div><div id="ch-volt-before-indicator" style="margin-top:6px;"></div></div>
+            <div class="form-group"><label class="form-label">CCA Before</label><div class="input-wrapper"><input type="number" id="ch-cca-before" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-before')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Health % Before</label><div class="input-wrapper"><input type="number" id="ch-health-before" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-before')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="ch-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('ch-serial')">📷</button></div></div>
+          </div>
+          <button type="submit" class="btn btn-warning">🔋 Start Charging</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm('form-charging-a')">🗑️ Clear</button>
+        </form>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">✅</span> Complete Charging (Part B - After 24hrs)</div>
+        <div id="pending-charging-list"><div class="loading active"><div class="spinner"></div>Loading pending...</div></div>
+        <div id="charging-b-form" style="display:none;">
+          <div class="charging-section completed">
+            <div class="form-group"><label class="form-label">Selected Battery</label><input type="text" id="ch-b-key" readonly style="background:var(--neon-green-dim);color:var(--neon-green);border-color:var(--neon-green);font-weight:700;"></div>
+            <div style="margin:12px 0;padding:12px;background:var(--bg-secondary);border-radius:8px;">
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Before Charging</div>
+              <div style="display:flex;gap:16px;font-family:'JetBrains Mono',monospace;font-size:14px;">
+                <span id="ch-b-volt-before" style="color:var(--text-secondary);"></span>
+                <span id="ch-b-cca-before" style="color:var(--text-secondary);"></span>
+                <span id="ch-b-health-before" style="color:var(--text-secondary);"></span>
+              </div>
+            </div>
+            <div class="form-group"><label class="form-label">Voltage After Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-after" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'ch-volt-after-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-after')">📷</button></div><div id="ch-volt-after-indicator" style="margin-top:6px;"></div></div>
+            <div class="form-group"><label class="form-label">CCA After</label><div class="input-wrapper"><input type="number" id="ch-cca-after" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-after')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Health % After</label><div class="input-wrapper"><input type="number" id="ch-health-after" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-after')">📷</button></div></div>
+          </div>
+          <button type="button" class="btn btn-success" onclick="submitChargingB()">✅ Complete Charging</button>
+          <button type="button" class="btn btn-secondary" onclick="cancelChargingB()">❌ Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH -->
+    <div id="section-search" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">🔍</span> Search Batteries</div>
+        <div class="search-bar"><input type="text" id="search-query" placeholder="Search by Brand, Model, Batch, Serial..."><button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0;" onclick="performSearch()">🔍</button></div>
+        <div id="search-results"></div>
+      </div>
+      <div id="battery-detail" class="card animate-in" style="display:none;">
+        <div class="card-title"><span class="card-title-icon">📋</span> Battery Details</div>
+        <div id="detail-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-container">
+    <button class="nav-item active" onclick="showSection('dashboard',this)"><span class="nav-icon">📊</span><span>Dashboard</span></button>
+    <button class="nav-item" onclick="showSection('incoming',this)"><span class="nav-icon">📥</span><span>Incoming</span></button>
+    <button class="nav-item" onclick="showSection('outgoing',this)"><span class="nav-icon">📤</span><span>Outgoing</span></button>
+    <button class="nav-item" onclick="showSection('weekly',this)"><span class="nav-icon">🔋</span><span>Weekly</span></button>
+    <button class="nav-item" onclick="showSection('charging',this)"><span class="nav-icon">⚡</span><span>Charging</span></button>
+    <button class="nav-item" onclick="showSection('search',this)"><span class="nav-icon">🔍</span><span>Search</span></button>
+  </div>
+
+  <div class="modal-overlay" id="scanner-modal">
+    <button class="scanner-close" onclick="stopScan()">✕</button>
+    <div class="scan-instruction">Position QR code within the frame</div>
+    <div class="scanner-container"><div id="reader"></div></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ============================================
+    // CONFIG - REPLACE WITH YOUR APPS SCRIPT URL
+    // ============================================
+    const API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+    let currentScanField = null;
+    let html5QrCode = null;
+    let selectedChargingKey = null;
+    let selectedChargingData = null;
+    let isLoading = false;
+
+    // ============================================
+    // VOLTAGE COLOR SYSTEM
+    // ============================================
+    function getVoltageColor(voltage) {
+      const v = parseFloat(voltage);
+      if (isNaN(v)) return { color: 'gray', hex: '#6b7280', label: 'N/A', class: 'unknown' };
+      if (v > 12.61) return { color: 'green', hex: '#00f5a0', label: 'EXCELLENT', class: 'excellent' };
+      if (v >= 12.56) return { color: 'yellow', hex: '#ffd700', label: 'GOOD', class: 'good' };
+      return { color: 'red', hex: '#ff4757', label: 'LOW', class: 'low' };
+    }
+
+    function updateVoltageColor(input, indicatorId) {
+      const voltage = input.value;
+      const colorInfo = getVoltageColor(voltage);
+      const indicator = document.getElementById(indicatorId);
+      input.className = 'voltage-input ' + colorInfo.class;
+      if (indicator) {
+        if (voltage && !isNaN(parseFloat(voltage))) {
+          indicator.innerHTML = '<span class="volt-indicator ' + colorInfo.class + '"><span class="volt-dot" style="background:' + colorInfo.hex + ';box-shadow:0 0 8px ' + colorInfo.hex + '"></span>' + colorInfo.label + ' (' + voltage + 'V)</span>';
         } else {
-          showToast('Error: ' + result.error, 'error');
+          indicator.innerHTML = '';
+          input.className = 'voltage-input';
         }
-      } catch(err) {}
-    }
-
-    function cancelChargingB() {
-      selectedChargingKey = null;
-      selectedChargingData = null;
-      document.getElementById('charging-b-form').style.display = 'none';
-      document.getElementById('ch-b-key').value = '';
-      document.getElementById('ch-voltage-after').value = '';
-      document.getElementById('ch-cca-after').value = '';
-      document.getElementById('ch-health-after').value = '';
-      document.getElementById('ch-b-volt-before').textContent = '';
-      document.getElementById('ch-b-cca-before').textContent = '';
-      document.getElementById('ch-b-health-before').textContent = '';
-      document.getElementById('ch-volt-after-indicator').innerHTML = '';
-      document.getElementById('ch-voltage-after').className = 'voltage-input';
-    }
-
-    // ============================================
-    // CHARGING PART B - PENDING LIST
-    // ============================================
-    async function loadPendingCharging() {
-      try {
-        const result = await apiGet('getPendingCharging', {});
-        const container = document.getElementById('pending-charging-list');
-        if (result.pending.length === 0) {
-          container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔋</div><div class="empty-state-text">No pending charging records</div></div>';
-          return;
-        }
-        let html = '<table class="data-table"><thead><tr><th>Battery</th><th>Date</th><th>Hours</th><th>Voltage</th><th>Status</th><th>Action</th></tr></thead><tbody>';
-        result.pending.forEach(p => {
-          const statusClass = p.readyForCompletion ? 'badge-green' : 'badge-yellow';
-          const statusText = p.readyForCompletion ? 'READY' : p.hoursElapsed + 'h';
-          const btnDisabled = p.readyForCompletion ? '' : 'disabled style="opacity:0.4;cursor:not-allowed;"';
-          const voltBadge = renderVoltageBadge(p.voltageBefore, 'small');
-          html += '<tr>' +
-            '<td><b>' + p.brand + ' ' + p.model + '</b><br><small style="color:var(--text-muted)">' + p.batchNo + '</small></td>' +
-            '<td style="color:var(--text-muted);font-size:12px;">' + p.chargingDate + '</td>' +
-            '<td style="font-family:'JetBrains Mono',monospace;">' + p.hoursElapsed + 'h</td>' +
-            '<td>' + voltBadge + '</td>' +
-            '<td><span class="badge ' + statusClass + '">' + statusText + '</span></td>' +
-            '<td><button class="scan-btn" ' + btnDisabled + ' onclick="selectPendingCharging(' + JSON.stringify(p).replace(/'/g, "&#39;") + ')">✓</button></td>' +
-            '</tr>';
-        });
-        html += '</tbody></table>';
-        container.innerHTML = html;
-      } catch(err) {}
-    }
-
-    function selectPendingCharging(pending) {
-      if (!pending.readyForCompletion) {
-        showToast('Need 24 hours. Currently: ' + pending.hoursElapsed + 'h elapsed', 'warning');
-        return;
       }
-      selectedChargingKey = pending.compositeKey;
-      selectedChargingData = pending;
-      const beforeColor = getVoltageColor(pending.voltageBefore);
-      document.getElementById('ch-b-key').value = pending.brand + ' | ' + pending.model + ' | ' + pending.batchNo + ' (Cycle #' + pending.cycleNumber + ')';
-      document.getElementById('ch-b-volt-before').innerHTML = 'V: <span style="color:' + beforeColor.hex + '">' + pending.voltageBefore + 'V</span>';
-      document.getElementById('ch-b-cca-before').textContent = 'CCA: ' + pending.ccaBefore;
-      document.getElementById('ch-b-health-before').textContent = 'Health: ' + pending.healthBefore + '%';
-      document.getElementById('charging-b-form').style.display = 'block';
-      document.getElementById('charging-b-form').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderVoltageBadge(voltage, size) {
+      const colorInfo = getVoltageColor(voltage);
+      const fontSize = size === 'small' ? '10px' : '11px';
+      const padding = size === 'small' ? '2px 8px' : '3px 10px';
+      return '<span class="volt-indicator ' + colorInfo.class + '" style="font-size:' + fontSize + ';padding:' + padding + '"><span class="volt-dot" style="background:' + colorInfo.hex + ';box-shadow:0 0 8px ' + colorInfo.hex + '"></span>' + colorInfo.label + '</span>';
     }
 
     // ============================================
-    // DASHBOARD
+    // NAVIGATION - FIXED: explicit button parameter
     // ============================================
-    async function loadDashboard() {
-      try {
-        const result = await apiGet('getDashboardData', {});
-        const metricsContainer = document.getElementById('dashboard-metrics');
-        const metrics = result.metrics || {};
-        const metricConfigs = [
-          { key: 'Total In Stock', icon: '📦', class: 'info' },
-          { key: 'Total Batteries', icon: '🔋', class: 'purple' },
-          { key: 'Charged This Week', icon: '⚡', class: 'excellent' },
-          { key: 'Ready for Completion', icon: '⏳', class: 'orange' },
-          { key: 'Outgoing This Month', icon: '📤', class: 'info' },
-          { key: 'Average Health %', icon: '💚', class: 'excellent' },
-          { key: 'Need Attention', icon: '⚠️', class: 'alert' },
-          { key: 'Excellent Voltage', icon: '🔋', class: 'excellent' },
-          { key: 'Low Voltage', icon: '🔴', class: 'alert' }
-        ];
-        let metricsHtml = '';
-        metricConfigs.forEach((m, i) => {
-          const val = metrics[m.key] ? metrics[m.key].value : '0';
-          metricsHtml += '<div class="metric-card ' + m.class + ' animate-in" style="animation-delay:' + (i * 0.05) + 's"><div class="metric-value">' + m.icon + ' ' + val + '</div><div class="metric-label">' + m.key + '</div></div>';
-        });
-        metricsContainer.innerHTML = metricsHtml;
-
-        const dist = result.voltageDistribution || { excellent: 0, good: 0, low: 0, unknown: 0 };
-        const total = dist.excellent + dist.good + dist.low + dist.unknown;
-        if (total > 0) {
-          const excPct = (dist.excellent / total * 100).toFixed(1);
-          const goodPct = (dist.good / total * 100).toFixed(1);
-          const lowPct = (dist.low / total * 100).toFixed(1);
-          document.getElementById('volt-distribution-bar').innerHTML = 
-            '<div class="volt-bar excellent" style="width:' + excPct + '%"></div>' +
-            '<div class="volt-bar good" style="width:' + goodPct + '%"></div>' +
-            '<div class="volt-bar low" style="width:' + lowPct + '%"></div>';
-        }
-
-        const chargesContainer = document.getElementById('recent-charges');
-        if (result.recentCharges && result.recentCharges.length > 0) {
-          let chargesHtml = '<table class="data-table"><thead><tr><th>Battery</th><th>Cycle</th><th>Voltage</th><th>Health</th><th>Result</th></tr></thead><tbody>';
-          result.recentCharges.forEach(c => {
-            const voltChange = (parseFloat(c.voltageAfter) - parseFloat(c.voltageBefore)).toFixed(2);
-            const healthChange = (parseFloat(c.healthAfter) - parseFloat(c.healthBefore)).toFixed(1);
-            const voltChangeClass = parseFloat(voltChange) >= 0 ? 'improved' : 'degraded';
-            const healthChangeClass = parseFloat(healthChange) >= 0 ? 'improved' : 'degraded';
-            const beforeVoltBadge = renderVoltageBadge(c.voltageBefore, 'small');
-            const afterVoltBadge = renderVoltageBadge(c.voltageAfter, 'small');
-            chargesHtml += '<tr>' +
-              '<td><b>' + c.brand + ' ' + c.model + '</b><br><small style="color:var(--text-muted)">' + c.batchNo + '</small></td>' +
-              '<td style="font-family:'JetBrains Mono',monospace;color:var(--neon-blue)">#' + c.cycleNumber + '</td>' +
-              '<td>' + beforeVoltBadge + ' <span style="color:var(--text-muted)">→</span> ' + afterVoltBadge + '<br><small class="change-badge ' + voltChangeClass + '">' + (voltChange >= 0 ? '▲ +' : '▼ ') + voltChange + 'V</small></td>' +
-              '<td><span style="color:var(--text-muted);text-decoration:line-through;">' + c.healthBefore + '%</span> <span style="color:var(--text-muted)">→</span> <span style="color:var(--neon-green);font-weight:700;">' + c.healthAfter + '%</span><br><small class="change-badge ' + healthChangeClass + '">' + (healthChange >= 0 ? '▲ +' : '▼ ') + healthChange + '%</small></td>' +
-              '<td><span class="badge badge-green">✓ Done</span></td>' +
-              '</tr>';
-          });
-          chargesHtml += '</tbody></table>';
-          chargesContainer.innerHTML = chargesHtml;
-        } else {
-          chargesContainer.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚡</div><div class="empty-state-text">No completed charging records</div></div>';
-        }
-
-        const attentionContainer = document.getElementById('attention-batteries');
-        if (result.attentionBatteries && result.attentionBatteries.length > 0) {
-          let attHtml = '<table class="data-table"><thead><tr><th>Battery</th><th>Health</th><th>Voltage</th><th>Last Check</th></tr></thead><tbody>';
-          result.attentionBatteries.forEach(b => {
-            const voltBadge = renderVoltageBadge(b.voltage, 'small');
-            attHtml += '<tr>' +
-              '<td><b>' + b.brand + ' ' + b.model + '</b><br><small style="color:var(--text-muted)">' + b.batchNo + '</small></td>' +
-              '<td><span class="badge badge-red">' + b.health + '%</span></td>' +
-              '<td>' + voltBadge + '</td>' +
-              '<td style="color:var(--text-muted);font-size:12px;">' + b.checkingDate + '</td>' +
-              '</tr>';
-          });
-          attHtml += '</tbody></table>';
-          attentionContainer.innerHTML = attHtml;
-        } else {
-          attentionContainer.innerHTML = '<div class="empty-state"><div class="empty-state-icon" style="color:var(--neon-green)">✅</div><div class="empty-state-text" style="color:var(--neon-green)">All batteries healthy!</div></div>';
-        }
-      } catch(err) {}
+    function showSection(sectionId, btnElement) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('section-' + sectionId).classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      if (btnElement) btnElement.classList.add('active');
+      if (sectionId === 'dashboard') loadDashboard();
+      if (sectionId === 'charging') loadPendingCharging();
     }
 
     // ============================================
-    // SEARCH
+    // QR SCANNER
     // ============================================
-    async function performSearch() {
-      const query = document.getElementById('search-query').value.trim();
-      if (!query) {
-        showToast('Enter search term', 'error');
-        return;
+    function startScan(fieldId) {
+      currentScanField = fieldId;
+      document.getElementById('scanner-modal').classList.add('active');
+      html5QrCode = new Html5Qrcode("reader");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 250, height: 250 } },
+        onScanSuccess,
+        onScanFailure
+      ).catch(err => {
+        showToast('Camera error: ' + err, 'error');
+        stopScan();
+      });
+    }
+
+    function stopScan() {
+      if (html5QrCode) {
+        html5QrCode.stop().then(() => { html5QrCode.clear(); html5QrCode = null; }).catch(() => {});
       }
-      try {
-        const result = await apiGet('searchBatteries', { query: query });
-        const container = document.getElementById('search-results');
-        if (result.results.length === 0) {
-          container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">No batteries found</div></div>';
-          return;
-        }
-        let html = '<table class="data-table"><thead><tr><th>Battery</th><th>Key</th><th>Voltage</th><th>Cycles</th><th>Status</th><th>Action</th></tr></thead><tbody>';
-        result.results.forEach(b => {
-          const statusClass = b.currentStatus === 'In Stock' ? 'badge-green' : b.currentStatus === 'Charging' ? 'badge-yellow' : 'badge-blue';
-          const voltBadge = renderVoltageBadge(b.latestVoltage, 'small');
-          html += '<tr>' +
-            '<td><b>' + b.brand + ' ' + b.model + '</b><br><small style="color:var(--text-muted)">Batch: ' + b.batchNo + '</small></td>' +
-            '<td><small style="color:var(--text-muted);font-size:10px;">' + b.compositeKey + '</small></td>' +
-            '<td>' + voltBadge + '</td>' +
-            '<td style="font-family:'JetBrains Mono',monospace;color:var(--neon-purple);font-weight:700;">' + b.totalChargeCycles + '</td>' +
-            '<td><span class="badge ' + statusClass + '">' + b.currentStatus + '</span></td>' +
-            '<td><button class="scan-btn" style="background:linear-gradient(135deg,var(--neon-purple),var(--neon-blue));" onclick="viewBatteryDetail('' + b.compositeKey + '')">👁️</button></td>' +
-            '</tr>';
-        });
-        html += '</tbody></table>';
-        container.innerHTML = html;
-      } catch(err) {}
+      document.getElementById('scanner-modal').classList.remove('active');
+      currentScanField = null;
     }
 
-    async function viewBatteryDetail(compositeKey) {
-      try {
-        const result = await apiGet('getBatteryHistory', { key: compositeKey });
-        const detailDiv = document.getElementById('battery-detail');
-        const contentDiv = document.getElementById('detail-content');
-        const h = result.history;
-        let html = '';
-        if (h.master) {
-          const voltBadge = renderVoltageBadge(h.master.latestVoltage);
-          html += '<div class="detail-header">' +
-            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
-            '<span style="font-size:18px;font-weight:800;">' + h.master.brand + ' ' + h.master.model + '</span>' +
-            '<span class="badge ' + (h.master.currentStatus === 'In Stock' ? 'badge-green' : h.master.currentStatus === 'Charging' ? 'badge-yellow' : 'badge-blue') + '">' + h.master.currentStatus + '</span>' +
-            '</div>' +
-            '<div class="detail-row"><span class="detail-label">Composite Key</span><span class="detail-value" style="font-size:11px;">' + h.master.compositeKey + '</span></div>' +
-            '<div class="detail-row"><span class="detail-label">First Incoming</span><span class="detail-value">' + h.master.firstIncomingDate + '</span></div>' +
-            '<div class="detail-row"><span class="detail-label">Serial No.</span><span class="detail-value">' + (h.master.serialNo || 'N/A') + '</span></div>' +
-            '<div class="detail-row"><span class="detail-label">Latest Voltage</span><span class="detail-value">' + voltBadge + '</span></div>' +
-            '<div class="detail-row"><span class="detail-label">Total Charge Cycles</span><span class="detail-value" style="color:var(--neon-purple);font-size:18px;">' + h.master.totalChargeCycles + '</span></div>' +
-            '</div>';
-        }
-        if (h.charging.length > 0) {
-          html += '<div class="section-header">⚡ Charging History</div>';
-          h.charging.forEach(c => {
-            const beforeVoltBadge = renderVoltageBadge(c.voltageBefore, 'small');
-            const afterVoltBadge = c.voltageAfter ? renderVoltageBadge(c.voltageAfter, 'small') : '<span class="badge badge-yellow">Pending</span>';
-            html += '<div class="charging-section ' + (c.status === 'COMPLETED' ? 'completed' : 'in-progress') + '" style="margin-bottom:10px;">' +
-              '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
-              '<b style="color:var(--neon-blue);font-family:'JetBrains Mono',monospace;">Cycle #' + c.cycleNumber + '</b>' +
-              '<span class="badge ' + (c.status === 'COMPLETED' ? 'badge-green' : 'badge-yellow') + '">' + c.status + '</span>' +
-              '</div>' +
-              '<div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">' + c.chargingDate + ' | Machine: ' + c.machineCode + '</div>' +
-              '<div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;padding:6px;background:var(--bg-primary);border-radius:6px;">' + c.chargingParams + '</div>' +
-              '<div class="comparison-row"><span class="comparison-label">Voltage</span><span class="comparison-values">' + beforeVoltBadge + '<span class="arrow-icon">→</span>' + afterVoltBadge + '</span></div>';
-            if (c.voltageAfter) {
-              const voltChange = (parseFloat(c.voltageAfter) - parseFloat(c.voltageBefore)).toFixed(2);
-              html += '<div class="comparison-row"><span class="comparison-label">Change</span><span class="comparison-values"><span class="change-badge ' + (parseFloat(voltChange) >= 0 ? 'improved' : 'degraded') + '">' + (voltChange >= 0 ? '▲ +' : '▼ ') + voltChange + 'V</span></span></div>';
-            }
-            html += '<div class="comparison-row"><span class="comparison-label">Health</span><span class="comparison-values"><span class="before-value">' + c.healthBefore + '%</span><span class="arrow-icon">→</span><span class="after-value ' + (c.healthAfter ? (parseFloat(c.healthAfter) >= parseFloat(c.healthBefore) ? 'excellent' : 'low') : '') + '">' + (c.healthAfter || '?') + '%</span></span></div>' +
-              '<div class="comparison-row"><span class="comparison-label">CCA</span><span class="comparison-values"><span class="before-value">' + c.ccaBefore + '</span><span class="arrow-icon">→</span><span class="after-value">' + (c.ccaAfter || '?') + '</span></span></div>';
-            if (c.completedDate) {
-              html += '<div style="font-size:11px;color:var(--text-muted);margin-top:8px;text-align:right;">Completed: ' + c.completedDate + '</div>';
-            }
-            html += '</div>';
-          });
-        }
-        if (h.weekly.length > 0) {
-          html += '<div class="section-header">🔋 Weekly Checks</div>' +
-            '<table class="data-table"><thead><tr><th>Date</th><th>Voltage</th><th>CCA</th><th>Health</th></tr></thead><tbody>';
-          h.weekly.forEach(w => {
-            const voltBadge = renderVoltageBadge(w.voltage, 'small');
-            const healthClass = parseFloat(w.health) < 70 ? 'badge-red' : 'badge-green';
-            html += '<tr>' +
-              '<td style="color:var(--text-muted);font-size:12px;">' + w.checkingDate + '</td>' +
-              '<td>' + voltBadge + '</td>' +
-              '<td style="font-family:'JetBrains Mono',monospace;">' + w.cca + '</td>' +
-              '<td><span class="badge ' + healthClass + '">' + w.health + '%</span></td>' +
-              '</tr>';
-          });
-          html += '</tbody></table>';
-        }
-        contentDiv.innerHTML = html;
-        detailDiv.style.display = 'block';
-        detailDiv.scrollIntoView({ behavior: 'smooth' });
-      } catch(err) {}
-    }
+    function onScanSuccess(decodedText, decodedResult) {
+      stopScan();
+      const parts = decodedText.split('|');
+      if (parts.length >= 3) {
+        const fieldMap = {
+          'inc-brand': 0, ' Here are the complete fixed files for download:
 
-    // ============================================
-    // UTILITIES
-    // ============================================
-    function clearForm(formId) {
-      document.getElementById(formId).reset();
-      const today = new Date().toISOString().split('T')[0];
-      document.querySelectorAll('input[type="date"]').forEach(d => { if (!d.value) d.value = today; });
-      document.querySelectorAll('[id$="-volt-indicator"], [id$="-volt-before-indicator"], [id$="-volt-after-indicator"]').forEach(el => { if (el) el.innerHTML = ''; });
-      document.querySelectorAll('.voltage-input').forEach(el => { el.className = 'voltage-input'; });
-    }
+**[Code.gs](sandbox:///mnt/agents/output/Code.gs)** — Replace your entire Apps Script with this
 
-    function showToast(message, type) {
-      const toast = document.getElementById('toast');
-      toast.innerHTML = message;
-      toast.className = 'toast show ' + (type || '');
-      setTimeout(() => toast.classList.remove('show'), 3500);
-    }
+**[index.html](sandbox:///mnt/agents/output/index.html)** — Replace your entire HTML file with this
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-      const today = new Date().toISOString().split('T')[0];
-      document.querySelectorAll('input[type="date"]').forEach(d => d.value = today);
-      loadDashboard();
-    });
-  </script>
-</body>
-</html>
+---
+
+## 🔧 What Was Fixed
+
+| Problem | Cause | Fix Applied |
+|---------|-------|-------------|
+| **Tabs don't switch** | `showSection()` used `event.target` but `event` is undefined in some browsers | Now passes `this` explicitly: `onclick="showSection('dashboard',this)"` |
+| **App stuck loading** | `apiGet`/`apiPost` toggled ALL `.loading` spinners globally with `querySelectorAll`, creating race conditions | Removed global spinner toggling; added `isLoading` flag to prevent duplicate calls |
+| **CORS errors** | Missing `Access-Control-Allow-Origin` headers | Added `doOptions()` and `createCorsOutput()` wrapper for all responses |
+
+---
+
+## ⚠️ Important: Update Your API URL
+
+In `index.html` line 7 of the script section, replace:
+```javascript
+const API_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
