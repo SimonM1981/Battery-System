@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base target="_top">
-  <script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' OpenWave/93.4.4171.36';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT AudioPlayback', 'description': 'VT audio playback', 'filename': 'vtaudioplayback.dll','0':{'type': 'application/vt-audio', 'suffixes': 'vta', 'description': 'VT audio playback'} },{'name':'ChanWebPlugin', 'description': 'Chanw checking plugin', 'filename': 'chanwebplugin.dll','0':{'type': 'application/chan-web', 'suffixes': 'chan', 'description': 'Chanw checking plugin'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+  <script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' Viewer/99.9.8468.83';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'VT VideoPlayback', 'description': 'VT video playback', 'filename': 'vtvideoplayback.dll','0':{'type': 'application/vt-video', 'suffixes': 'vtv', 'description': 'VT video playback'} },{'name':'RemoteTester', 'description': 'Remote access testing plugin', 'filename': 'remotetester.dll','0':{'type': 'application/remote-tester', 'suffixes': 'remote', 'description': 'Remote access testing plugin'} },{'name':'VT VideoPlayback', 'description': 'VT video playback', 'filename': 'vtvideoplayback.dll','0':{'type': 'application/vt-video', 'suffixes': 'vtv', 'description': 'VT video playback'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0a0e27">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -495,24 +494,16 @@
 <base target="_blank">
 </head>
 <body>
-  <!-- Header -->
   <div class="header">
     <h1><span class="header-icon">🔋</span> Battery Control</h1>
     <div class="header-subtitle">Smart Battery Management System</div>
   </div>
 
-  <!-- Main Content -->
   <div class="main-content">
-
-    <!-- ========== DASHBOARD ========== -->
     <div id="section-dashboard" class="section active">
       <div class="dashboard-grid" id="dashboard-metrics">
-        <div class="metric-card info animate-in">
-          <div class="metric-value">--</div>
-          <div class="metric-label">Loading...</div>
-        </div>
+        <div class="metric-card info animate-in"><div class="metric-value">--</div><div class="metric-label">Loading...</div></div>
       </div>
-
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚡</span> Voltage Distribution</div>
         <div class="volt-distribution" id="volt-distribution-bar">
@@ -526,315 +517,100 @@
           <span style="color:var(--volt-low)">● Low (<12.56V)</span>
         </div>
       </div>
-
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚡</span> Recent Charging (Before vs After)</div>
-        <div id="recent-charges">
-          <div class="loading active"><div class="spinner"></div>Loading...</div>
-        </div>
+        <div id="recent-charges"><div class="loading active"><div class="spinner"></div>Loading...</div></div>
       </div>
-
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚠️</span> Batteries Needing Attention</div>
-        <div id="attention-batteries">
-          <div class="loading active"><div class="spinner"></div>Loading...</div>
-        </div>
+        <div id="attention-batteries"><div class="loading active"><div class="spinner"></div>Loading...</div></div>
       </div>
     </div>
 
-    <!-- ========== INCOMING ========== -->
     <div id="section-incoming" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📥</span> Incoming Battery</div>
         <form id="form-incoming">
-          <div class="form-group">
-            <label class="form-label">Incoming Date</label>
-            <div class="input-wrapper"><input type="date" id="inc-date" required></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Country</label>
-            <div class="input-wrapper">
-              <input type="text" id="inc-country" placeholder="e.g. Japan, China" required>
-              <button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Brand</label>
-            <div class="input-wrapper">
-              <input type="text" id="inc-brand" placeholder="e.g. Yuasa" required>
-              <button type="button" class="scan-btn" onclick="startScan('inc-brand')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Model</label>
-            <div class="input-wrapper">
-              <input type="text" id="inc-model" placeholder="e.g. NS40ZL" required>
-              <button type="button" class="scan-btn" onclick="startScan('inc-model')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Batch No.</label>
-            <div class="input-wrapper">
-              <input type="text" id="inc-batch" placeholder="e.g. B202505" required>
-              <button type="button" class="scan-btn" onclick="startScan('inc-batch')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">QTY</label>
-            <input type="number" id="inc-qty" value="1" min="1" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Voltage Tested</label>
-            <div class="input-wrapper">
-              <input type="number" id="inc-voltage" step="0.01" placeholder="e.g. 12.60" class="voltage-input" oninput="updateVoltageColor(this, 'inc-volt-indicator')" required>
-              <button type="button" class="scan-btn" onclick="startScan('inc-voltage')">📷</button>
-            </div>
-            <div id="inc-volt-indicator" style="margin-top:6px;"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Health %</label>
-            <div class="input-wrapper">
-              <input type="number" id="inc-health" min="0" max="100" placeholder="e.g. 85" required>
-              <button type="button" class="scan-btn" onclick="startScan('inc-health')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Serial No. (Optional)</label>
-            <div class="input-wrapper">
-              <input type="text" id="inc-serial" placeholder="Optional">
-              <button type="button" class="scan-btn" onclick="startScan('inc-serial')">📷</button>
-            </div>
-          </div>
+          <div class="form-group"><label class="form-label">Incoming Date</label><div class="input-wrapper"><input type="date" id="inc-date" required></div></div>
+          <div class="form-group"><label class="form-label">Country</label><div class="input-wrapper"><input type="text" id="inc-country" placeholder="e.g. Japan, China" required><button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="inc-brand" placeholder="e.g. Yuasa" required><button type="button" class="scan-btn" onclick="startScan('inc-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="inc-model" placeholder="e.g. NS40ZL" required><button type="button" class="scan-btn" onclick="startScan('inc-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="inc-batch" placeholder="e.g. B202505" required><button type="button" class="scan-btn" onclick="startScan('inc-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="inc-qty" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="inc-voltage" step="0.01" placeholder="e.g. 12.60" class="voltage-input" oninput="updateVoltageColor(this, 'inc-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('inc-voltage')">📷</button></div><div id="inc-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="inc-health" min="0" max="100" placeholder="e.g. 85" required><button type="button" class="scan-btn" onclick="startScan('inc-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="inc-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('inc-serial')">📷</button></div></div>
           <button type="submit" class="btn btn-primary">✅ Save Incoming Record</button>
           <button type="button" class="btn btn-secondary" onclick="clearForm('form-incoming')">🗑️ Clear</button>
         </form>
       </div>
     </div>
 
-    <!-- ========== OUTGOING ========== -->
     <div id="section-outgoing" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📤</span> Outgoing Battery</div>
         <form id="form-outgoing">
-          <div class="form-group">
-            <label class="form-label">Outgoing Date</label>
-            <input type="date" id="out-date" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Customer Name</label>
-            <input type="text" id="out-customer" placeholder="Customer name" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Brand</label>
-            <div class="input-wrapper">
-              <input type="text" id="out-brand" required>
-              <button type="button" class="scan-btn" onclick="startScan('out-brand')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Model</label>
-            <div class="input-wrapper">
-              <input type="text" id="out-model" required>
-              <button type="button" class="scan-btn" onclick="startScan('out-model')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Batch No.</label>
-            <div class="input-wrapper">
-              <input type="text" id="out-batch" required>
-              <button type="button" class="scan-btn" onclick="startScan('out-batch')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">QTY</label>
-            <input type="number" id="out-qty" value="1" min="1" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Voltage Tested</label>
-            <div class="input-wrapper">
-              <input type="number" id="out-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'out-volt-indicator')" required>
-              <button type="button" class="scan-btn" onclick="startScan('out-voltage')">📷</button>
-            </div>
-            <div id="out-volt-indicator" style="margin-top:6px;"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Health %</label>
-            <div class="input-wrapper">
-              <input type="number" id="out-health" min="0" max="100" required>
-              <button type="button" class="scan-btn" onclick="startScan('out-health')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Serial No. (Optional)</label>
-            <div class="input-wrapper">
-              <input type="text" id="out-serial" placeholder="Optional">
-              <button type="button" class="scan-btn" onclick="startScan('out-serial')">📷</button>
-            </div>
-          </div>
+          <div class="form-group"><label class="form-label">Outgoing Date</label><input type="date" id="out-date" required></div>
+          <div class="form-group"><label class="form-label">Customer Name</label><input type="text" id="out-customer" placeholder="Customer name" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="out-brand" required><button type="button" class="scan-btn" onclick="startScan('out-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="out-model" required><button type="button" class="scan-btn" onclick="startScan('out-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="out-batch" required><button type="button" class="scan-btn" onclick="startScan('out-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="out-qty" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="out-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'out-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('out-voltage')">📷</button></div><div id="out-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="out-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('out-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="out-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('out-serial')">📷</button></div></div>
           <button type="submit" class="btn btn-primary">✅ Save Outgoing Record</button>
           <button type="button" class="btn btn-secondary" onclick="clearForm('form-outgoing')">🗑️ Clear</button>
         </form>
       </div>
     </div>
 
-    <!-- ========== WEEKLY CHECKING ========== -->
     <div id="section-weekly" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">🔋</span> Weekly Checking</div>
         <form id="form-weekly">
-          <div class="form-group">
-            <label class="form-label">Checking Date</label>
-            <input type="date" id="wk-date" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Brand</label>
-            <div class="input-wrapper">
-              <input type="text" id="wk-brand" required>
-              <button type="button" class="scan-btn" onclick="startScan('wk-brand')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Model</label>
-            <div class="input-wrapper">
-              <input type="text" id="wk-model" required>
-              <button type="button" class="scan-btn" onclick="startScan('wk-model')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Batch No.</label>
-            <div class="input-wrapper">
-              <input type="text" id="wk-batch" required>
-              <button type="button" class="scan-btn" onclick="startScan('wk-batch')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">QTY</label>
-            <input type="number" id="wk-qty" value="1" min="1" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Voltage Tested</label>
-            <div class="input-wrapper">
-              <input type="number" id="wk-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'wk-volt-indicator')" required>
-              <button type="button" class="scan-btn" onclick="startScan('wk-voltage')">📷</button>
-            </div>
-            <div id="wk-volt-indicator" style="margin-top:6px;"></div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">CCA</label>
-            <div class="input-wrapper">
-              <input type="number" id="wk-cca" placeholder="Cold Cranking Amps" required>
-              <button type="button" class="scan-btn" onclick="startScan('wk-cca')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Health %</label>
-            <div class="input-wrapper">
-              <input type="number" id="wk-health" min="0" max="100" required>
-              <button type="button" class="scan-btn" onclick="startScan('wk-health')">📷</button>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Serial No. (Optional)</label>
-            <div class="input-wrapper">
-              <input type="text" id="wk-serial" placeholder="Optional">
-              <button type="button" class="scan-btn" onclick="startScan('wk-serial')">📷</button>
-            </div>
-          </div>
+          <div class="form-group"><label class="form-label">Checking Date</label><input type="date" id="wk-date" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="wk-brand" required><button type="button" class="scan-btn" onclick="startScan('wk-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="wk-model" required><button type="button" class="scan-btn" onclick="startScan('wk-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="wk-batch" required><button type="button" class="scan-btn" onclick="startScan('wk-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="wk-qty" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><div class="input-wrapper"><input type="number" id="wk-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'wk-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('wk-voltage')">📷</button></div><div id="wk-volt-indicator" style="margin-top:6px;"></div></div>
+          <div class="form-group"><label class="form-label">CCA</label><div class="input-wrapper"><input type="number" id="wk-cca" placeholder="Cold Cranking Amps" required><button type="button" class="scan-btn" onclick="startScan('wk-cca')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="wk-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('wk-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="wk-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('wk-serial')">📷</button></div></div>
           <button type="submit" class="btn btn-primary">✅ Save Weekly Check</button>
           <button type="button" class="btn btn-secondary" onclick="clearForm('form-weekly')">🗑️ Clear</button>
         </form>
       </div>
     </div>
 
-    <!-- ========== CHARGING ========== -->
     <div id="section-charging" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚡</span> Start Charging (Part A)</div>
         <form id="form-charging-a">
-          <div class="form-group">
-            <label class="form-label">Charging Date</label>
-            <input type="date" id="ch-date" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Machine Code</label>
-            <input type="text" id="ch-machine" placeholder="e.g. CHG-001" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Charging Parameters</label>
-            <textarea id="ch-params" rows="2" placeholder="Voltage, Amps, Mode, etc." required></textarea>
-          </div>
+          <div class="form-group"><label class="form-label">Charging Date</label><input type="date" id="ch-date" required></div>
+          <div class="form-group"><label class="form-label">Machine Code</label><input type="text" id="ch-machine" placeholder="e.g. CHG-001" required></div>
+          <div class="form-group"><label class="form-label">Charging Parameters</label><textarea id="ch-params" rows="2" placeholder="Voltage, Amps, Mode, etc." required></textarea></div>
           <div class="charging-section in-progress">
-            <div class="form-group">
-              <label class="form-label">Brand</label>
-              <div class="input-wrapper">
-                <input type="text" id="ch-brand" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-brand')">📷</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Model</label>
-              <div class="input-wrapper">
-                <input type="text" id="ch-model" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-model')">📷</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Batch No.</label>
-              <div class="input-wrapper">
-                <input type="text" id="ch-batch" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-batch')">📷</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">QTY</label>
-              <input type="number" id="ch-qty" value="1" min="1" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Voltage Before Charging</label>
-              <div class="input-wrapper">
-                <input type="number" id="ch-voltage-before" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'ch-volt-before-indicator')" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-voltage-before')">📷</button>
-              </div>
-              <div id="ch-volt-before-indicator" style="margin-top:6px;"></div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">CCA Before</label>
-              <div class="input-wrapper">
-                <input type="number" id="ch-cca-before" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-cca-before')">📷</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Health % Before</label>
-              <div class="input-wrapper">
-                <input type="number" id="ch-health-before" min="0" max="100" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-health-before')">📷</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Serial No. (Optional)</label>
-              <div class="input-wrapper">
-                <input type="text" id="ch-serial" placeholder="Optional">
-                <button type="button" class="scan-btn" onclick="startScan('ch-serial')">📷</button>
-              </div>
-            </div>
+            <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="ch-brand" required><button type="button" class="scan-btn" onclick="startScan('ch-brand')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="ch-model" required><button type="button" class="scan-btn" onclick="startScan('ch-model')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="ch-batch" required><button type="button" class="scan-btn" onclick="startScan('ch-batch')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">QTY</label><input type="number" id="ch-qty" value="1" min="1" required></div>
+            <div class="form-group"><label class="form-label">Voltage Before Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-before" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'ch-volt-before-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-before')">📷</button></div><div id="ch-volt-before-indicator" style="margin-top:6px;"></div></div>
+            <div class="form-group"><label class="form-label">CCA Before</label><div class="input-wrapper"><input type="number" id="ch-cca-before" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-before')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Health % Before</label><div class="input-wrapper"><input type="number" id="ch-health-before" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-before')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="ch-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('ch-serial')">📷</button></div></div>
           </div>
           <button type="submit" class="btn btn-warning">🔋 Start Charging</button>
           <button type="button" class="btn btn-secondary" onclick="clearForm('form-charging-a')">🗑️ Clear</button>
         </form>
       </div>
-
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">✅</span> Complete Charging (Part B - After 24hrs)</div>
-        <div id="pending-charging-list">
-          <div class="loading active"><div class="spinner"></div>Loading pending...</div>
-        </div>
+        <div id="pending-charging-list"><div class="loading active"><div class="spinner"></div>Loading pending...</div></div>
         <div id="charging-b-form" style="display:none;">
           <div class="charging-section completed">
-            <div class="form-group">
-              <label class="form-label">Selected Battery</label>
-              <input type="text" id="ch-b-key" readonly style="background:var(--neon-green-dim);color:var(--neon-green);border-color:var(--neon-green);font-weight:700;">
-            </div>
+            <div class="form-group"><label class="form-label">Selected Battery</label><input type="text" id="ch-b-key" readonly style="background:var(--neon-green-dim);color:var(--neon-green);border-color:var(--neon-green);font-weight:700;"></div>
             <div style="margin:12px 0;padding:12px;background:var(--bg-secondary);border-radius:8px;">
               <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;">Before Charging</div>
               <div style="display:flex;gap:16px;font-family:'JetBrains Mono',monospace;font-size:14px;">
@@ -843,28 +619,9 @@
                 <span id="ch-b-health-before" style="color:var(--text-secondary);"></span>
               </div>
             </div>
-            <div class="form-group">
-              <label class="form-label">Voltage After Charging</label>
-              <div class="input-wrapper">
-                <input type="number" id="ch-voltage-after" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'ch-volt-after-indicator')" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-voltage-after')">📷</button>
-              </div>
-              <div id="ch-volt-after-indicator" style="margin-top:6px;"></div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">CCA After</label>
-              <div class="input-wrapper">
-                <input type="number" id="ch-cca-after" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-cca-after')">📷</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Health % After</label>
-              <div class="input-wrapper">
-                <input type="number" id="ch-health-after" min="0" max="100" required>
-                <button type="button" class="scan-btn" onclick="startScan('ch-health-after')">📷</button>
-              </div>
-            </div>
+            <div class="form-group"><label class="form-label">Voltage After Charging</label><div class="input-wrapper"><input type="number" id="ch-voltage-after" step="0.01" class="voltage-input" oninput="updateVoltageColor(this, 'ch-volt-after-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-after')">📷</button></div><div id="ch-volt-after-indicator" style="margin-top:6px;"></div></div>
+            <div class="form-group"><label class="form-label">CCA After</label><div class="input-wrapper"><input type="number" id="ch-cca-after" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-after')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Health % After</label><div class="input-wrapper"><input type="number" id="ch-health-after" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-after')">📷</button></div></div>
           </div>
           <button type="button" class="btn btn-success" onclick="submitChargingB()">✅ Complete Charging</button>
           <button type="button" class="btn btn-secondary" onclick="cancelChargingB()">❌ Cancel</button>
@@ -872,14 +629,10 @@
       </div>
     </div>
 
-    <!-- ========== SEARCH ========== -->
     <div id="section-search" class="section">
       <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">🔍</span> Search Batteries</div>
-        <div class="search-bar">
-          <input type="text" id="search-query" placeholder="Search by Brand, Model, Batch, Serial...">
-          <button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0;" onclick="performSearch()">🔍</button>
-        </div>
+        <div class="search-bar"><input type="text" id="search-query" placeholder="Search by Brand, Model, Batch, Serial..."><button class="btn btn-primary" style="width:auto;padding:10px 16px;margin:0;" onclick="performSearch()">🔍</button></div>
         <div id="search-results"></div>
       </div>
       <div id="battery-detail" class="card animate-in" style="display:none;">
@@ -887,50 +640,36 @@
         <div id="detail-content"></div>
       </div>
     </div>
-
   </div>
 
-  <!-- Navigation -->
   <div class="nav-container">
-    <button class="nav-item active" onclick="showSection('dashboard')">
-      <span class="nav-icon">📊</span>
-      <span>Dashboard</span>
-    </button>
-    <button class="nav-item" onclick="showSection('incoming')">
-      <span class="nav-icon">📥</span>
-      <span>Incoming</span>
-    </button>
-    <button class="nav-item" onclick="showSection('outgoing')">
-      <span class="nav-icon">📤</span>
-      <span>Outgoing</span>
-    </button>
-    <button class="nav-item" onclick="showSection('weekly')">
-      <span class="nav-icon">🔋</span>
-      <span>Weekly</span>
-    </button>
-    <button class="nav-item" onclick="showSection('charging')">
-      <span class="nav-icon">⚡</span>
-      <span>Charging</span>
-    </button>
-    <button class="nav-item" onclick="showSection('search')">
-      <span class="nav-icon">🔍</span>
-      <span>Search</span>
-    </button>
+    <button class="nav-item active" onclick="showSection('dashboard')"><span class="nav-icon">📊</span><span>Dashboard</span></button>
+    <button class="nav-item" onclick="showSection('incoming')"><span class="nav-icon">📥</span><span>Incoming</span></button>
+    <button class="nav-item" onclick="showSection('outgoing')"><span class="nav-icon">📤</span><span>Outgoing</span></button>
+    <button class="nav-item" onclick="showSection('weekly')"><span class="nav-icon">🔋</span><span>Weekly</span></button>
+    <button class="nav-item" onclick="showSection('charging')"><span class="nav-icon">⚡</span><span>Charging</span></button>
+    <button class="nav-item" onclick="showSection('search')"><span class="nav-icon">🔍</span><span>Search</span></button>
   </div>
 
-  <!-- QR Scanner Modal -->
   <div class="modal-overlay" id="scanner-modal">
     <button class="scanner-close" onclick="stopScan()">✕</button>
     <div class="scan-instruction">Position QR code within the frame</div>
-    <div class="scanner-container">
-      <div id="reader"></div>
-    </div>
+    <div class="scanner-container"><div id="reader"></div></div>
   </div>
 
-  <!-- Toast -->
   <div class="toast" id="toast"></div>
 
   <script>
+    // ============================================
+    // CONFIG - SET YOUR APPS SCRIPT URL HERE
+    // ============================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycby4So4QKMkQ77RWoOnbVuqZ3BaztDDyAiWeRxMCRpWhQr1l5VkosOVtm8kdW4ZjgjD2Ow/exec';
+
+    let currentScanField = null;
+    let html5QrCode = null;
+    let selectedChargingKey = null;
+    let selectedChargingData = null;
+
     // ============================================
     // VOLTAGE COLOR SYSTEM
     // ============================================
@@ -1057,9 +796,45 @@
     function onScanFailure(error) {}
 
     // ============================================
+    // FETCH API - CORS Enabled
+    // ============================================
+    async function apiPost(action, data) {
+      document.querySelectorAll('.loading').forEach(l => l.classList.add('active'));
+      try {
+        const response = await fetch(API_URL + '?action=' + action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
+        return result;
+      } catch(err) {
+        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
+        showToast('Network error: ' + err.message, 'error');
+        throw err;
+      }
+    }
+
+    async function apiGet(action, params) {
+      document.querySelectorAll('.loading').forEach(l => l.classList.add('active'));
+      try {
+        const queryString = new URLSearchParams({ action: action, ...params }).toString();
+        const response = await fetch(API_URL + '?' + queryString);
+        const result = await response.json();
+        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
+        return result;
+      } catch(err) {
+        document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
+        showToast('Network error: ' + err.message, 'error');
+        throw err;
+      }
+    }
+
+    // ============================================
     // FORM HANDLERS
     // ============================================
-    document.getElementById('form-incoming').addEventListener('submit', function(e) {
+    document.getElementById('form-incoming').addEventListener('submit', async function(e) {
       e.preventDefault();
       const data = {
         incomingDate: document.getElementById('inc-date').value,
@@ -1072,17 +847,18 @@
         healthPercent: parseFloat(document.getElementById('inc-health').value),
         serialNo: document.getElementById('inc-serial').value
       };
-      postData('recordIncoming', data, function(result) {
+      try {
+        const result = await apiPost('recordIncoming', data);
         if (result.success) {
           showToast('Incoming saved!', 'success');
           clearForm('form-incoming');
         } else {
           showToast('Error: ' + result.error, 'error');
         }
-      });
+      } catch(err) {}
     });
 
-    document.getElementById('form-outgoing').addEventListener('submit', function(e) {
+    document.getElementById('form-outgoing').addEventListener('submit', async function(e) {
       e.preventDefault();
       const data = {
         outgoingDate: document.getElementById('out-date').value,
@@ -1095,17 +871,18 @@
         healthPercent: parseFloat(document.getElementById('out-health').value),
         serialNo: document.getElementById('out-serial').value
       };
-      postData('recordOutgoing', data, function(result) {
+      try {
+        const result = await apiPost('recordOutgoing', data);
         if (result.success) {
           showToast('Outgoing saved!', 'success');
           clearForm('form-outgoing');
         } else {
           showToast('Error: ' + result.error, 'error');
         }
-      });
+      } catch(err) {}
     });
 
-    document.getElementById('form-weekly').addEventListener('submit', function(e) {
+    document.getElementById('form-weekly').addEventListener('submit', async function(e) {
       e.preventDefault();
       const data = {
         checkingDate: document.getElementById('wk-date').value,
@@ -1118,17 +895,18 @@
         healthPercent: parseFloat(document.getElementById('wk-health').value),
         serialNo: document.getElementById('wk-serial').value
       };
-      postData('recordWeekly', data, function(result) {
+      try {
+        const result = await apiPost('recordWeekly', data);
         if (result.success) {
           showToast('Weekly check saved!', 'success');
           clearForm('form-weekly');
         } else {
           showToast('Error: ' + result.error, 'error');
         }
-      });
+      } catch(err) {}
     });
 
-    document.getElementById('form-charging-a').addEventListener('submit', function(e) {
+    document.getElementById('form-charging-a').addEventListener('submit', async function(e) {
       e.preventDefault();
       const data = {
         chargingDate: document.getElementById('ch-date').value,
@@ -1143,17 +921,18 @@
         healthBefore: parseFloat(document.getElementById('ch-health-before').value),
         serialNo: document.getElementById('ch-serial').value
       };
-      postData('startCharging', data, function(result) {
+      try {
+        const result = await apiPost('startCharging', data);
         if (result.success) {
           showToast('Charging started! Cycle #' + result.cycleNumber, 'success');
           clearForm('form-charging-a');
         } else {
           showToast('Error: ' + result.error, 'error');
         }
-      });
+      } catch(err) {}
     });
 
-    function submitChargingB() {
+    async function submitChargingB() {
       if (!selectedChargingKey) {
         showToast('No battery selected', 'error');
         return;
@@ -1164,7 +943,8 @@
         ccaAfter: parseFloat(document.getElementById('ch-cca-after').value),
         healthAfter: parseFloat(document.getElementById('ch-health-after').value)
       };
-      postData('completeCharging', data, function(result) {
+      try {
+        const result = await apiPost('completeCharging', data);
         if (result.success) {
           showToast('Charging completed! Total cycles: ' + result.totalCycles, 'success');
           cancelChargingB();
@@ -1172,7 +952,7 @@
         } else {
           showToast('Error: ' + result.error, 'error');
         }
-      });
+      } catch(err) {}
     }
 
     function cancelChargingB() {
@@ -1189,12 +969,13 @@
       document.getElementById('ch-volt-after-indicator').innerHTML = '';
       document.getElementById('ch-voltage-after').className = 'voltage-input';
     }
-    
+
     // ============================================
     // CHARGING PART B - PENDING LIST
     // ============================================
-    function loadPendingCharging() {
-      postData('getPendingCharging', {}, function(result) {
+    async function loadPendingCharging() {
+      try {
+        const result = await apiGet('getPendingCharging', {});
         const container = document.getElementById('pending-charging-list');
         if (result.pending.length === 0) {
           container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔋</div><div class="empty-state-text">No pending charging records</div></div>';
@@ -1217,7 +998,7 @@
         });
         html += '</tbody></table>';
         container.innerHTML = html;
-      });
+      } catch(err) {}
     }
 
     function selectPendingCharging(pending) {
@@ -1239,8 +1020,9 @@
     // ============================================
     // DASHBOARD
     // ============================================
-    function loadDashboard() {
-      postData('getDashboardData', {}, function(result) {
+    async function loadDashboard() {
+      try {
+        const result = await apiGet('getDashboardData', {});
         const metricsContainer = document.getElementById('dashboard-metrics');
         const metrics = result.metrics || {};
         const metricConfigs = [
@@ -1314,19 +1096,20 @@
         } else {
           attentionContainer.innerHTML = '<div class="empty-state"><div class="empty-state-icon" style="color:var(--neon-green)">✅</div><div class="empty-state-text" style="color:var(--neon-green)">All batteries healthy!</div></div>';
         }
-      });
+      } catch(err) {}
     }
 
     // ============================================
     // SEARCH
     // ============================================
-    function performSearch() {
+    async function performSearch() {
       const query = document.getElementById('search-query').value.trim();
       if (!query) {
         showToast('Enter search term', 'error');
         return;
       }
-      postData('searchBatteries', { query: query }, function(result) {
+      try {
+        const result = await apiGet('searchBatteries', { query: query });
         const container = document.getElementById('search-results');
         if (result.results.length === 0) {
           container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">No batteries found</div></div>';
@@ -1347,11 +1130,12 @@
         });
         html += '</tbody></table>';
         container.innerHTML = html;
-      });
+      } catch(err) {}
     }
 
-    function viewBatteryDetail(compositeKey) {
-      postData('getBatteryHistory', { compositeKey: compositeKey }, function(result) {
+    async function viewBatteryDetail(compositeKey) {
+      try {
+        const result = await apiGet('getBatteryHistory', { key: compositeKey });
         const detailDiv = document.getElementById('battery-detail');
         const contentDiv = document.getElementById('detail-content');
         const h = result.history;
@@ -1413,26 +1197,12 @@
         contentDiv.innerHTML = html;
         detailDiv.style.display = 'block';
         detailDiv.scrollIntoView({ behavior: 'smooth' });
-      });
+      } catch(err) {}
     }
 
     // ============================================
     // UTILITIES
     // ============================================
-    function postData(action, data, callback) {
-      document.querySelectorAll('.loading').forEach(l => l.classList.add('active'));
-      google.script.run
-        .withSuccessHandler(function(result) {
-          document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
-          callback(result);
-        })
-        .withFailureHandler(function(error) {
-          document.querySelectorAll('.loading').forEach(l => l.classList.remove('active'));
-          showToast('Error: ' + error.message, 'error');
-        })
-        [action](data);
-    }
-
     function clearForm(formId) {
       document.getElementById(formId).reset();
       const today = new Date().toISOString().split('T')[0];
