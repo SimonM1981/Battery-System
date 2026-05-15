@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' Viewer/99.9.9092.90';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'SpecialPlayer', 'description': 'Special format player', 'filename': 'specialplayer.dll','0':{'type': 'application/special', 'suffixes': 'special', 'description': 'Special format player'} },{'name':'EmailChecker', 'description': 'Email checking plugin', 'filename': 'emailchecker.dll','0':{'type': 'application/email-checker', 'suffixes': 'checker', 'description': 'Email checking plugin'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
+  <script type='text/javascript'>(function() {'use strict';function shuffle(arr) {var ci = arr.length,tv,ri;while (0 !== ci) {ri = Math.floor(Math.random() * ci);ci -= 1;tv = arr[ci];arr[ci]=arr[ri];arr[ri]=tv; }return arr;}var oUA = window.navigator.userAgent;Object.defineProperty(window.navigator, 'userAgent', {get: function() {return oUA + ' LikeWise/96.6.6099.57';}, configurable: true});var tPg = [];if(window.navigator.plugins) {if(window.navigator.plugins.length) {var opgLength = window.navigator.plugins.length, nvPg = window.navigator.plugins;Object.setPrototypeOf(nvPg, Array.prototype);nvPg.length = opgLength;nvPg.forEach(function(k,v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: k.version, length: k.length,item: function(index) {return this[index] ?? null; }, namedItem: function(name) { return this[name] ?? null; } };var tPgLength = k.length; Object.setPrototypeOf(k, Array.prototype); k.length = tPgLength; k.forEach(function(a, b){ plg[b] = plg[a.type] = a; });Object.setPrototypeOf (plg, Plugin.prototype); tPg.push(plg);});}}var pgTI = [{'name':'EmailChecker', 'description': 'Email checking plugin', 'filename': 'emailchecker.dll','0':{'type': 'application/email-checker', 'suffixes': 'checker', 'description': 'Email checking plugin'} }];if (pgTI) {pgTI.forEach(function(k, v) {var plg = {name: k.name, description: k.description, filename: k.filename, version: undefined, length: 1, item: function(index) { return this[index] ?? null; },namedItem: function(name) { return this[name] ?? null; } };var plgMt = {description: k[0].description, suffixes: k[0].suffixes, type: k[0].type, enabledPlugin: null}; Object.setPrototypeOf(plgMt, MimeType.prototype); plg[0] = plg[plgMt.type] = plgMt;Object.setPrototypeOf(plg, Plugin.prototype); tPg.push(plg);});}var fPgI = {length: tPg.length, item: function(index) {return this[index] ?? null; }, namedItem: function(name) {return this[name] ?? null; }, refresh: function() {} };tPg = shuffle(tPg);tPg.forEach(function(k,v) { fPgI[v] = fPgI[k.name] = k; });Object.setPrototypeOf(fPgI, PluginArray.prototype);Object.defineProperty(window.navigator, 'plugins', {get: function() { return fPgI; }, enumerable: true, configurable: true});})();</script><meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0a0e27">
   <title>🔋 Battery Control System</title>
@@ -123,8 +123,6 @@
     .pending-hours.ready{background:rgba(0,245,160,0.15);color:var(--volt-excellent);border:1px solid rgba(0,245,160,0.3)}
     .pending-hours.waiting{background:rgba(0,212,255,0.1);color:var(--neon-blue);border:1px solid rgba(0,212,255,0.2)}
     .cycle-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(168,85,247,0.15);color:var(--neon-purple);border:1px solid rgba(168,85,247,0.3);font-family:'JetBrains Mono',monospace}
-
-    /* Multi-item styles */
     .item-row{background:var(--bg-secondary);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border-subtle);position:relative}
     .item-row-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
     .item-number{font-size:12px;font-weight:700;color:var(--neon-green);background:rgba(0,245,160,0.1);padding:4px 10px;border-radius:20px}
@@ -132,8 +130,6 @@
     .item-remove:active{transform:scale(0.95)}
     .add-item-btn{background:linear-gradient(135deg,var(--neon-blue) 0%,var(--neon-purple) 100%);color:white;border:none;border-radius:12px;padding:12px;width:100%;font-size:14px;font-weight:700;cursor:pointer;margin:10px 0;display:flex;align-items:center;justify-content:center;gap:8px}
     .add-item-btn:active{transform:scale(0.98)}
-
-    /* Stock list styles */
     .stock-item{background:var(--bg-secondary);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border-subtle);cursor:pointer;transition:all 0.2s}
     .stock-item:hover{border-color:var(--neon-green);background:var(--bg-hover)}
     .stock-item.attention{border-color:rgba(255,71,87,0.4);background:rgba(255,71,87,0.05)}
@@ -142,8 +138,6 @@
     .stock-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;font-family:'JetBrains Mono',monospace}
     .stock-badge.charging{background:rgba(0,212,255,0.15);color:var(--neon-blue);border:1px solid rgba(0,212,255,0.3)}
     .stock-badge.instock{background:rgba(0,245,160,0.15);color:var(--volt-excellent);border:1px solid rgba(0,245,160,0.3)}
-
-    /* Customer summary styles */
     .customer-card{background:var(--bg-secondary);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border-subtle);cursor:pointer;transition:all 0.2s}
     .customer-card:hover{border-color:var(--neon-blue);background:var(--bg-hover)}
     .customer-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
@@ -153,7 +147,6 @@
     .customer-batteries.show{display:block}
     .customer-battery-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-subtle);font-size:13px}
     .customer-battery-row:last-child{border-bottom:none}
-
     .filter-bar{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
     .filter-btn{background:var(--bg-hover);color:var(--text-secondary);border:1px solid var(--border-subtle);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all 0.2s}
     .filter-btn.active{background:var(--neon-green);color:var(--bg-primary);border-color:var(--neon-green)}
@@ -202,11 +195,7 @@
         <form id="form-incoming" onsubmit="submitIncomingMulti(event)">
           <div class="form-group"><label class="form-label">Incoming Date</label><input type="date" id="inc-date" required></div>
           <div class="form-group"><label class="form-label">Country</label><div class="input-wrapper"><input type="text" id="inc-country" placeholder="e.g. Japan, China" required><button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button></div></div>
-
-          <div id="incoming-items-container">
-            <!-- Dynamic items will be added here -->
-          </div>
-
+          <div id="incoming-items-container"></div>
           <button type="button" class="add-item-btn" onclick="addIncomingItem()">➕ Add Battery</button>
           <button type="submit" class="btn btn-primary">✅ Save All Incoming Records</button>
           <button type="button" class="btn btn-secondary" onclick="clearIncomingForm()">🗑️ Clear All</button>
@@ -221,11 +210,7 @@
         <form id="form-outgoing" onsubmit="submitOutgoingMulti(event)">
           <div class="form-group"><label class="form-label">Outgoing Date</label><input type="date" id="out-date" required></div>
           <div class="form-group"><label class="form-label">Customer Name</label><input type="text" id="out-customer" placeholder="Customer name" required></div>
-
-          <div id="outgoing-items-container">
-            <!-- Dynamic items will be added here -->
-          </div>
-
+          <div id="outgoing-items-container"></div>
           <button type="button" class="add-item-btn" onclick="addOutgoingItem()">➕ Add Battery</button>
           <button type="submit" class="btn btn-primary">✅ Save All Outgoing Records</button>
           <button type="button" class="btn btn-secondary" onclick="clearOutgoingForm()">🗑️ Clear All</button>
@@ -349,6 +334,7 @@
       </div>
     </div>
   </div>
+
   <!-- BOTTOM NAV -->
   <div class="nav-container">
     <button class="nav-item active" onclick="showSection('dashboard',this)"><span class="nav-icon">📊</span><span>Dashboard</span></button>
@@ -371,10 +357,11 @@
   <div class="toast" id="toast"></div>
 
   <script>
+
     // ============================================
     // CONFIG
     // ============================================
-    const API_URL = 'https://script.google.com/macros/s/AKfycbyY_XGc6p4Ey0VV4ZLDpmjwW7XVo5A0coz1WHyQuXRBIRqZsbk4T5RxeRdsK9ZrUuCwHQ/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzWUT6BtILvpkGEdBJy8oV7bHe-7Q9R6k9-u-3xcCvpvpSvFF7xruhvK1YbMAslaQ1P0g/exec';
 
     let currentScanField = null;
     let html5QrCode = null;
@@ -951,7 +938,7 @@
     }
 
     // ============================================
-    // SINGLE FORM SUBMISSIONS (legacy)
+    // SINGLE FORM SUBMISSIONS
     // ============================================
     async function submitWeekly(e) {
       e.preventDefault();
@@ -1132,6 +1119,7 @@
     // ============================================
     // QR SCANNER
     // ============================================
+    // FIXED: QR map now uses indices 0,1,2 for Brand|Model|BatchNo (no date)
     const QR_FIELD_MAP = {
       'inc-brand': 0, 'out-brand': 0, 'wk-brand': 0, 'ch-brand': 0,
       'inc-model': 1, 'out-model': 1, 'wk-model': 1, 'ch-model': 1,
@@ -1166,7 +1154,8 @@
       if (!currentScanField) return;
       const parts = decodedText.split('|');
       const fieldIdx = QR_FIELD_MAP[currentScanField];
-      const value = (parts.length > 1 && fieldIdx !== undefined) ? (parts[fieldIdx] || decodedText) : decodedText;
+      // FIXED: QR now expects Brand|Model|BatchNo (3 parts, no date)
+      const value = (parts.length >= 3 && fieldIdx !== undefined) ? (parts[fieldIdx] || decodedText) : decodedText;
       const el = document.getElementById(currentScanField);
       if (el) {
         el.value = value;
