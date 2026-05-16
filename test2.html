@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0e27">
+  <title>🔋 Battery Control System</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary:   #060b1a;
+      --bg-secondary: #0d1530;
+      --bg-card:      #111e3a;
+      --bg-input:     #162040;
+      --bg-hover:     #1c2a50;
+      --neon-green:   #00f5a0;
+      --neon-green-dim: rgba(0,245,160,0.12);
+      --neon-blue:    #00cfff;
+      --neon-blue-dim: rgba(0,207,255,0.12);
+      --neon-purple:  #b06aff;
+      --neon-purple-dim: rgba(176,106,255,0.12);
+      --neon-orange:  #ff9f0a;
+      --neon-orange-dim: rgba(255,159,10,0.12);
+      --neon-pink:    #ff3d71;
+      --volt-excellent: #00f5a0;
+      --volt-good:    #ffd60a;
+      --volt-low:     #ff3d71;
+      --volt-unknown: #64748b;
+      --text-primary: #e8f0fe;
+      --text-secondary: #8ea3c3;
+      --text-muted:   #4a6080;
+      --border:       rgba(100,140,200,0.12);
+      --border-glow:  rgba(0,245,160,0.25);
+      --shadow:       0 8px 32px rgba(0,0,0,0.5);
+      --radius:       14px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--neon-green); border-radius:2px; opacity:.4; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* ── ANIMATED BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0,245,160,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(0,207,255,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: rgba(6,11,26,0.92);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      backdrop-filter: blur(24px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-icon {
+      font-size: 26px;
+      filter: drop-shadow(0 0 10px var(--neon-green));
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%,100% { filter: drop-shadow(0 0 8px var(--neon-green)); }
+      50%      { filter: drop-shadow(0 0 20px var(--neon-green)); }
+    }
+    .header-title { font-size:17px; font-weight:700; letter-spacing:.3px; }
+    .header-sub   { font-size:10px; color:var(--text-muted); letter-spacing:1.5px; text-transform:uppercase; margin-top:1px; }
+    .header-clock {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--neon-green);
+      background: var(--neon-green-dim);
+      border: 1px solid rgba(0,245,160,0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: .5px;
+    }
+
+    /* ── BOTTOM NAV ── */
+    .nav-container {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(6,11,26,0.96);
+      border-top: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      justify-content: space-around;
+      padding: 6px 0 max(env(safe-area-inset-bottom),16px) 0;
+      backdrop-filter: blur(24px);
+      overflow-x: auto;
+    }
+    .nav-item {
+      flex: 1;
+      text-align: center;
+      padding: 5px 2px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .3px;
+      transition: all .25s ease;
+      white-space: nowrap;
+      min-width: 48px;
+      font-family: 'Space Grotesk', sans-serif;
+      position: relative;
+    }
+    .nav-item.active { color: var(--neon-green); }
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; left: 50%;
+      transform: translateX(-50%);
+      width: 18px; height: 2px;
+      background: var(--neon-green);
+      border-radius: 1px;
+      box-shadow: 0 0 8px var(--neon-green);
+    }
+    .nav-icon {
+      font-size: 19px;
+      display: block;
+      margin-bottom: 3px;
+      transition: transform .2s;
+    }
+    .nav-item:active .nav-icon { transform: scale(.88); }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      padding: 82px 14px 90px;
+      position: relative;
+      z-index: 1;
+    }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-purple));
+      opacity: .5;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      letter-spacing: .2px;
+    }
+    .card-title-icon { font-size: 18px; }
+
+    /* ── FORMS ── */
+    .form-group { margin-bottom: 15px; }
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+    .input-wrapper { display: flex; gap: 8px; align-items: center; }
+    input, select, textarea {
+      flex: 1;
+      padding: 11px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      background: var(--bg-input);
+      color: var(--text-primary);
+      transition: all .25s ease;
+      -webkit-appearance: none;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--neon-green);
+      box-shadow: 0 0 0 3px var(--neon-green-dim);
+      background: var(--bg-hover);
+    }
+    input::placeholder, textarea::placeholder { color: var(--text-muted); }
+    input.voltage-input {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    input.voltage-input.excellent { border-color:var(--volt-excellent); box-shadow:0 0 0 3px rgba(0,245,160,.18); color:var(--volt-excellent); }
+    input.voltage-input.good      { border-color:var(--volt-good);      box-shadow:0 0 0 3px rgba(255,214,10,.18); color:var(--volt-good); }
+    input.voltage-input.low       { border-color:var(--volt-low);       box-shadow:0 0 0 3px rgba(255,61,113,.18); color:var(--volt-low); }
+
+    .scan-btn {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      color: white; border: none; border-radius: 10px;
+      padding: 11px 13px; font-size: 17px; cursor: pointer;
+      min-width: 44px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(0,207,255,.25);
+      transition: all .2s;
+    }
+    .scan-btn:active { transform: scale(.93); }
+
+    /* ── VOLTAGE INDICATORS ── */
+    .volt-indicator {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 11px; font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: .3px; margin-left: 6px;
+    }
+    .volt-indicator.excellent { background:rgba(0,245,160,.12); color:var(--volt-excellent); border:1px solid rgba(0,245,160,.28); }
+    .volt-indicator.good      { background:rgba(255,214,10,.12); color:var(--volt-good);      border:1px solid rgba(255,214,10,.28); }
+    .volt-indicator.low       { background:rgba(255,61,113,.12); color:var(--volt-low);       border:1px solid rgba(255,61,113,.28); }
+    .volt-indicator.unknown   { background:rgba(100,116,139,.12); color:var(--volt-unknown);  border:1px solid rgba(100,116,139,.28); }
+    .volt-dot { width:7px; height:7px; border-radius:50%; box-shadow:0 0 6px currentColor; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      width: 100%; padding: 13px; border: none; border-radius: 11px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      transition: all .25s ease; margin-top: 10px;
+      letter-spacing: .3px; font-family: 'Space Grotesk', sans-serif;
+    }
+    .btn-primary  { background: linear-gradient(135deg,var(--neon-green),#00c896); color:var(--bg-primary); box-shadow:0 4px 20px rgba(0,245,160,.25); }
+    .btn-primary:active  { transform:translateY(2px); }
+    .btn-success  { background: linear-gradient(135deg,#00c8a0,#00a884); color:white; box-shadow:0 4px 20px rgba(0,200,150,.25); }
+    .btn-warning  { background: linear-gradient(135deg,var(--neon-orange),#ff7700); color:var(--bg-primary); box-shadow:0 4px 20px rgba(255,159,10,.25); }
+    .btn-secondary{ background:var(--bg-hover); color:var(--text-secondary); border:1px solid var(--border); }
+    .btn-danger   { background: linear-gradient(135deg,var(--volt-low),#c0202a); color:white; box-shadow:0 4px 20px rgba(255,61,113,.25); }
+    .btn-location { background: linear-gradient(135deg,#5b9cf6,var(--neon-blue)); color:white; box-shadow:0 4px 20px rgba(0,207,255,.25); }
+    .btn-small    { padding:7px 13px; font-size:12px; margin-top:0; width:auto; display:inline-flex; align-items:center; gap:5px; }
+
+    /* ── DASHBOARD METRICS ── */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .metric-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 15px 12px;
+      text-align: center;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s;
+    }
+    .metric-card:active { transform: scale(.97); }
+    .metric-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0;
+    }
+    .metric-card.excellent::before { background:var(--volt-excellent); }
+    .metric-card.good::before      { background:var(--volt-good); }
+    .metric-card.alert::before     { background:var(--volt-low); }
+    .metric-card.info::before      { background:var(--neon-blue); }
+    .metric-card.purple::before    { background:var(--neon-purple); }
+    .metric-card.orange::before    { background:var(--neon-orange); }
+    .metric-card.pink::before      { background:var(--neon-pink); }
+    .metric-value {
+      font-size: 28px; font-weight: 800; line-height: 1.1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .metric-card.excellent .metric-value { color:var(--volt-excellent); }
+    .metric-card.good      .metric-value { color:var(--volt-good); }
+    .metric-card.alert     .metric-value { color:var(--volt-low); }
+    .metric-card.info      .metric-value { color:var(--neon-blue); }
+    .metric-card.purple    .metric-value { color:var(--neon-purple); }
+    .metric-card.orange    .metric-value { color:var(--neon-orange); }
+    .metric-card.pink      .metric-value { color:var(--neon-pink); }
+    .metric-label {
+      font-size: 10px; color: var(--text-muted); margin-top: 5px;
+      font-weight: 600; letter-spacing: .6px; text-transform: uppercase;
+    }
+
+    /* ── VOLTAGE BAR ── */
+    .volt-distribution { display:flex; height:7px; border-radius:4px; overflow:hidden; margin:12px 0; background:var(--bg-input); }
+    .volt-bar { transition:width .6s ease; }
+    .volt-bar.excellent { background:var(--volt-excellent); }
+    .volt-bar.good      { background:var(--volt-good); }
+    .volt-bar.low       { background:var(--volt-low); }
+
+    /* ── BADGES ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: .2px;
+    }
+    .badge-green  { background:rgba(0,245,160,.12); color:var(--volt-excellent); border:1px solid rgba(0,245,160,.28); }
+    .badge-red    { background:rgba(255,61,113,.12); color:var(--volt-low);       border:1px solid rgba(255,61,113,.28); }
+    .badge-yellow { background:rgba(255,214,10,.12); color:var(--volt-good);      border:1px solid rgba(255,214,10,.28); }
+    .badge-blue   { background:rgba(0,207,255,.12);  color:var(--neon-blue);      border:1px solid rgba(0,207,255,.28); }
+
+    /* ── ITEMS ── */
+    .item-row {
+      background: var(--bg-secondary); border-radius: 12px;
+      padding: 14px; margin-bottom: 12px; border: 1px solid var(--border); position: relative;
+    }
+    .item-row-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .item-number { font-size:12px; font-weight:700; color:var(--neon-green); background:rgba(0,245,160,.1); padding:3px 9px; border-radius:20px; }
+    .item-remove {
+      background: rgba(255,61,113,.12); color:var(--volt-low);
+      border: 1px solid rgba(255,61,113,.25); border-radius:8px;
+      padding: 5px 11px; font-size:12px; font-weight:600; cursor:pointer;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .add-item-btn {
+      background: linear-gradient(135deg, rgba(0,207,255,.15), rgba(176,106,255,.15));
+      color: var(--neon-blue); border: 1px solid rgba(0,207,255,.3);
+      border-radius: 11px; padding: 11px; width: 100%;
+      font-size: 13px; font-weight: 700; cursor: pointer; margin: 10px 0;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-family: 'Space Grotesk', sans-serif; transition: all .2s;
+    }
+
+    /* ── STOCK ITEMS ── */
+    .stock-item {
+      background: var(--bg-secondary); border-radius: 12px;
+      padding: 14px; margin-bottom: 10px; border: 1px solid var(--border);
+      cursor: pointer; transition: all .2s;
+    }
+    .stock-item.attention    { border-color:rgba(255,61,113,.35); background:rgba(255,61,113,.04); }
+    .stock-meta { display:flex; gap:7px; flex-wrap:wrap; margin-top:8px; align-items:center; }
+    .stock-badge {
+      font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
+      font-family:'JetBrains Mono',monospace;
+    }
+    .stock-badge.charging { background:rgba(0,207,255,.12); color:var(--neon-blue); border:1px solid rgba(0,207,255,.28); }
+    .stock-badge.instock  { background:rgba(0,245,160,.12); color:var(--volt-excellent); border:1px solid rgba(0,245,160,.28); }
+
+    .loc-badge {
+      font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px;
+      background:rgba(91,156,246,.12); color:#5b9cf6;
+      border:1px solid rgba(91,156,246,.25);
+      display:inline-flex; align-items:center; gap:4px;
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar { display:flex; gap:7px; margin-bottom:14px; overflow-x:auto; padding-bottom:2px; }
+    .filter-btn {
+      background:var(--bg-hover); color:var(--text-secondary);
+      border:1px solid var(--border); border-radius:20px;
+      padding:5px 13px; font-size:12px; font-weight:600;
+      cursor:pointer; white-space:nowrap; transition:all .2s;
+      font-family:'Space Grotesk',sans-serif;
+    }
+    .filter-btn.active  { background:var(--neon-green); color:var(--bg-primary); border-color:var(--neon-green); }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(6,11,26,.96); z-index:2000;
+      justify-content:center; align-items:center; flex-direction:column;
+      backdrop-filter:blur(12px);
+    }
+    .modal-overlay.active { display:flex; }
+    .modal-box {
+      background:var(--bg-card); border-radius:18px; padding:24px;
+      width:90%; max-width:420px; border:1px solid var(--border);
+    }
+    .scanner-container { width:90%; max-width:400px; background:var(--bg-secondary); border-radius:18px; overflow:hidden; border:1px solid var(--border); }
+    #reader { width:100%; }
+    .scanner-close {
+      position:absolute; top:20px; right:20px;
+      background:rgba(255,61,113,.2); border:1px solid rgba(255,61,113,.35);
+      color:var(--volt-low); font-size:21px; width:46px; height:46px;
+      border-radius:50%; cursor:pointer; z-index:2001;
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    /* ── LOADING / TOAST ── */
+    .loading { display:none; text-align:center; padding:24px; color:var(--text-muted); }
+    .loading.active { display:block; }
+    .spinner {
+      border:3px solid var(--bg-hover); border-top:3px solid var(--neon-green);
+      border-radius:50%; width:30px; height:30px;
+      animation:spin 1s linear infinite; margin:0 auto 10px;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .toast {
+      position:fixed; top:82px; left:50%; transform:translateX(-50%);
+      background:var(--bg-card); color:var(--text-primary);
+      padding:12px 22px; border-radius:11px; font-size:13px; font-weight:600;
+      z-index:3000; display:none; box-shadow:0 8px 32px rgba(0,0,0,.4);
+      border:1px solid var(--border); backdrop-filter:blur(20px);
+    }
+    .toast.show { display:block; }
+    .toast.success{ border-color:var(--neon-green); color:var(--neon-green); }
+    .toast.error  { border-color:var(--volt-low);   color:var(--volt-low); }
+
+    .empty-state { text-align:center; padding:32px 16px; color:var(--text-muted); }
+    .empty-state-icon { font-size:46px; margin-bottom:10px; opacity:.4; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-brand">
+      <span class="header-icon">🔋</span>
+      <div>
+        <div class="header-title">Battery Control</div>
+        <div class="header-sub">Smart Management System</div>
+      </div>
+    </div>
+    <div class="header-clock" id="clock">--:--:--</div>
+  </div>
+
+  <div class="main-content">
+
+    <div id="section-dashboard" class="section active">
+      <div class="dashboard-grid" id="dashboard-metrics">
+        <div class="metric-card info"><div class="metric-value">⏳</div><div class="metric-label">Loading…</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">⚡</span> Voltage Distribution</div>
+        <div class="volt-distribution" id="volt-distribution-bar"></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📍</span> Stock by Location</div>
+        <div id="location-breakdown-dash"><div class="empty-state">No location data yet</div></div>
+      </div>
+    </div>
+
+    <div id="section-incoming" class="section">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📥</span> Incoming Battery</div>
+        <form id="form-incoming" onsubmit="submitIncomingMulti(event)">
+          <div class="form-group"><label class="form-label">Incoming Date</label><input type="date" id="inc-date" required></div>
+          <div class="form-group"><label class="form-label">Country / Origin</label><div class="input-wrapper"><input type="text" id="inc-country" required><button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button></div></div>
+          <div id="incoming-items-container"></div>
+          <button type="button" class="add-item-btn" onclick="addIncomingItem()">➕ Add Battery Item</button>
+          <button type="submit" class="btn btn-primary">✅ Save Incoming Records</button>
+          <button type="button" class="btn btn-secondary" onclick="clearIncomingForm()">🗑️ Clear All</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="section-outgoing" class="section">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📤</span> Outgoing Battery</div>
+        <form id="form-outgoing" onsubmit="submitOutgoingMulti(event)">
+          <div class="form-group"><label class="form-label">Outgoing Date</label><input type="date" id="out-date" required></div>
+          <div class="form-group"><label class="form-label">Customer Name</label><input type="text" id="out-customer" required></div>
+          <div id="outgoing-items-container"></div>
+          <button type="button" class="add-item-btn" onclick="addOutgoingItem()">➕ Add Battery Item</button>
+          <button type="submit" class="btn btn-primary">✅ Save Outgoing Records</button>
+          <button type="button" class="btn btn-secondary" onclick="clearOutgoingForm()">🗑️ Clear All</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="section-stock" class="section">
+      <div class="card">
+        <div class="card-title"><span class="card-title-icon">📦</span> Current Stock</div>
+        <div class="filter-bar">
+          <button class="filter-btn active" onclick="filterStock('all',this)">All</button>
+          <button class="filter-btn" onclick="filterStock('attention',this)">⚠️ Need Charge</button>
+          <button class="filter-btn" onclick="filterStock('good',this)">✅ Good</button>
+        </div>
+        <div id="stock-list"><div class="loading active"><div class="spinner"></div>Loading stock…</div></div>
+      </div>
+    </div>
+    
+    <div id="section-weekly" class="section"><div class="card"><div class="card-title">Weekly Check (Available in full system)</div></div></div>
+    <div id="section-charging" class="section"><div class="card"><div class="card-title">Charging (Available in full system)</div></div></div>
+    <div id="section-customers" class="section"><div class="card"><div class="card-title">Customers (Available in full system)</div></div></div>
+    <div id="section-locations" class="section"><div class="card"><div class="card-title">Locations (Available in full system)</div></div></div>
+    <div id="section-search" class="section"><div class="card"><div class="card-title">Search (Available in full system)</div></div></div>
+
+  </div><div class="nav-container">
+    <button class="nav-item active" onclick="showSection('dashboard',this)"><span class="nav-icon">📊</span>Dashboard</button>
+    <button class="nav-item" onclick="showSection('incoming',this)"><span class="nav-icon">📥</span>Incoming</button>
+    <button class="nav-item" onclick="showSection('outgoing',this)"><span class="nav-icon">📤</span>Outgoing</button>
+    <button class="nav-item" onclick="showSection('stock',this)"><span class="nav-icon">📦</span>Stock</button>
+  </div>
+
+  <div class="modal-overlay" id="scanner-modal">
+    <button class="scanner-close" onclick="stopScan()">✕</button>
+    <div class="scanner-container"><div id="reader"></div></div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ==========================================
+    // REPLACE THIS URL WITH YOUR NEW DEPLOYMENT URL
+    // ==========================================
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxWLD7X337pMTGkQgd_wIO9OWxvsIRlPWM9-qfhVABqwFXq5HmZSQploCGw0OkKW6hVxw/exec';
+
+    let incomingItemCount = 0;
+    let outgoingItemCount = 0;
+    let currentStockData = [];
+    let html5QrCode = null;
+    let currentScanField = null;
+
+    function updateClock() {
+      document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+    }
+    setInterval(updateClock, 1000);
+    
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast show ${type}`;
+      setTimeout(() => { t.className = 'toast'; }, 3500);
+    }
+
+    async function apiGet(params) {
+      const url = API_URL + '?' + new URLSearchParams(params).toString();
+      const res = await fetch(url, { method: 'GET' });
+      return res.json();
+    }
+
+    async function apiPost(action, data) {
+      const formData = new URLSearchParams();
+      formData.append('action', action);
+      for (const key in data) {
+        if (data[key] !== undefined) formData.append(key, typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]);
+      }
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
+      });
+      return res.json();
+    }
+
+    function showSection(id, btn) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById('section-' + id).classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      if (id === 'dashboard') loadDashboard();
+      if (id === 'stock')     loadStock();
+    }
+
+    function getVoltageColor(voltage) {
+      const v = parseFloat(voltage);
+      if (isNaN(v)) return { hex:'#64748b', label:'N/A', cls:'unknown' };
+      if (v > 12.61)  return { hex:'#00f5a0', label:'EXCELLENT', cls:'excellent' };
+      if (v >= 12.56) return { hex:'#ffd60a', label:'GOOD', cls:'good' };
+      return { hex:'#ff3d71', label:'LOW', cls:'low' };
+    }
+
+    function renderVoltageBadge(voltage) {
+      const c = getVoltageColor(voltage);
+      return `<span class="volt-indicator ${c.cls}" style="font-size:11px;padding:3px 9px"><span class="volt-dot" style="background:${c.hex}"></span>${c.label} (${voltage}V)</span>`;
+    }
+
+    // ── INCOMING ──
+    function addIncomingItem() {
+      incomingItemCount++;
+      const id = incomingItemCount;
+      document.getElementById('incoming-items-container').insertAdjacentHTML('beforeend', `
+        <div class="item-row" id="inc-item-${id}">
+          <div class="item-row-header">
+            <span class="item-number">Battery #${id}</span>
+            ${id > 1 ? `<button type="button" class="item-remove" onclick="document.getElementById('inc-item-${id}').remove()">🗑️</button>` : ''}
+          </div>
+          <div class="form-group"><label class="form-label">Brand</label><input type="text" id="inc-brand-${id}" required></div>
+          <div class="form-group"><label class="form-label">Model</label><input type="text" id="inc-model-${id}" required></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><input type="text" id="inc-batch-${id}" required></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="inc-qty-${id}" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage Tested</label><input type="number" id="inc-voltage-${id}" step="0.01" required></div>
+        </div>`);
+    }
+
+    async function submitIncomingMulti(e) {
+      e.preventDefault();
+      const items = [];
+      document.querySelectorAll('#incoming-items-container .item-row').forEach(row => {
+        const id = row.id.replace('inc-item-', '');
+        items.push({
+          brand: document.getElementById('inc-brand-' + id).value,
+          model: document.getElementById('inc-model-' + id).value,
+          batchNo: document.getElementById('inc-batch-' + id).value,
+          qty: parseInt(document.getElementById('inc-qty-' + id).value),
+          voltageTested: parseFloat(document.getElementById('inc-voltage-' + id).value),
+        });
+      });
+      showToast(`Saving ${items.length} records…`, 'info');
+      try {
+        const result = await apiPost('recordIncomingMulti', {
+          incomingDate: document.getElementById('inc-date').value,
+          country: document.getElementById('inc-country').value,
+          items: JSON.stringify(items)
+        });
+        if (!result.success) throw new Error(result.error);
+        showToast(`✅ Records saved!`, 'success');
+        document.getElementById('incoming-items-container').innerHTML = ''; addIncomingItem();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    // ── OUTGOING ──
+    function addOutgoingItem() {
+      outgoingItemCount++;
+      const id = outgoingItemCount;
+      document.getElementById('outgoing-items-container').insertAdjacentHTML('beforeend', `
+        <div class="item-row" id="out-item-${id}">
+          <div class="item-row-header">
+            <span class="item-number">Battery #${id}</span>
+            ${id > 1 ? `<button type="button" class="item-remove" onclick="document.getElementById('out-item-${id}').remove()">🗑️</button>` : ''}
+          </div>
+          <div class="form-group"><label class="form-label">Brand</label><input type="text" id="out-brand-${id}" required></div>
+          <div class="form-group"><label class="form-label">Model</label><input type="text" id="out-model-${id}" required></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><input type="text" id="out-batch-${id}" required></div>
+          <div class="form-group"><label class="form-label">QTY Deduct</label><input type="number" id="out-qty-${id}" value="1" min="1" required></div>
+          <div class="form-group"><label class="form-label">Voltage</label><input type="number" id="out-voltage-${id}" step="0.01" required></div>
+        </div>`);
+    }
+
+    async function submitOutgoingMulti(e) {
+      e.preventDefault();
+      const items = [];
+      document.querySelectorAll('#outgoing-items-container .item-row').forEach(row => {
+        const id = row.id.replace('out-item-', '');
+        items.push({
+          brand: document.getElementById('out-brand-' + id).value,
+          model: document.getElementById('out-model-' + id).value,
+          batchNo: document.getElementById('out-batch-' + id).value,
+          qty: parseInt(document.getElementById('out-qty-' + id).value),
+          voltageTested: parseFloat(document.getElementById('out-voltage-' + id).value)
+        });
+      });
+      showToast(`Saving Outgoing records…`, 'info');
+      try {
+        const result = await apiPost('recordOutgoingMulti', {
+          outgoingDate: document.getElementById('out-date').value,
+          customerName: document.getElementById('out-customer').value,
+          items: JSON.stringify(items)
+        });
+        if (!result.success) throw new Error(result.error);
+        showToast(`✅ Records saved & Stock Deducted!`, 'success');
+        document.getElementById('outgoing-items-container').innerHTML = ''; addOutgoingItem();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    // ── STOCK & DASHBOARD ──
+    async function loadDashboard() {
+      try {
+        const data = await apiGet({ action: 'getDashboardData' });
+        if (!data.success) throw new Error(data.error);
+        
+        const metrics = data.metrics;
+        document.getElementById('dashboard-metrics').innerHTML = `
+          <div class="metric-card excellent"><div class="metric-value">${metrics['Total In Stock']?.value||0}</div><div class="metric-label">Total QTY In Stock</div></div>
+          <div class="metric-card info"><div class="metric-value">${metrics['Total Batteries']?.value||0}</div><div class="metric-label">All Batteries</div></div>
+        `;
+      } catch(e) { console.error(e); }
+    }
+
+    async function loadStock() {
+      const el = document.getElementById('stock-list');
+      el.innerHTML = '<div class="loading active"><div class="spinner"></div>Loading stock…</div>';
+      try {
+        const data = await apiGet({ action: 'getCurrentStock' });
+        if (!data.success) throw new Error(data.error);
+        currentStockData = data.stock || [];
+        renderStockList(currentStockData);
+      } catch(e) { el.innerHTML = `<div class="empty-state">Error: ${e.message}</div>`; }
+    }
+
+    function renderStockList(stock) {
+      const el = document.getElementById('stock-list');
+      if (!stock || !stock.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><div class="empty-state-text">No batteries in stock</div></div>';
+        return;
+      }
+      el.innerHTML = stock.map(s => `
+        <div class="stock-item ${s.needsAttention?'attention':''}">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-weight:700;font-size:15px;">${s.brand} ${s.model}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Batch: ${s.batchNo}</div>
+            </div>
+            <span class="badge badge-blue">QTY: ${s.currentQty}</span>
+          </div>
+          <div class="stock-meta">
+            ${renderVoltageBadge(s.latestVoltage)}
+          </div>
+        </div>`).join('');
+    }
+
+    function filterStock(filter, btn) {
+      document.querySelectorAll('.filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      let filtered = currentStockData;
+      if (filter === 'attention') filtered = currentStockData.filter(s => s.needsAttention);
+      else if (filter === 'good') filtered = currentStockData.filter(s => !s.needsAttention);
+      renderStockList(filtered);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('inc-date').value = new Date().toISOString().split('T')[0];
+      document.getElementById('out-date').value = new Date().toISOString().split('T')[0];
+      addIncomingItem(); addOutgoingItem(); loadDashboard();
+    });
+  </script>
+</body>
+</html>
