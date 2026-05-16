@@ -1181,7 +1181,7 @@
             <span style="font-size:11px;color:var(--text-muted);">📅 ${formatDate(s.firstIncomingDate)}</span>
           </div>
           <div style="display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;">
-            <button class="btn btn-location btn-small" onclick="openMoveModal('${s.compositeKey}','${(s.location||'').replace(/'/g,"&#39;")}',event)">📍 Move</button>
+            <button class="btn btn-location btn-small" onclick="openMoveModal('${s.compositeKey}','${(String(s.location||'')).replace(/'/g,"&#39;")}',event)">📍 Move</button>
           </div>
           ${s.needsAttention ? '<div style="margin-top:8px;font-size:12px;color:var(--volt-low);font-weight:600;">⚠️ Needs charging!</div>' : ''}
         </div>`).join('');
@@ -1542,10 +1542,10 @@
           <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value" style="color:var(--neon-blue)">${m.location||'—'}</span></div>
           <div class="detail-row"><span class="detail-label">Total Charge Cycles</span><span class="detail-value">${m.totalChargeCycles}</span></div>
           <div style="margin-top:12px;">
-            <button class="btn btn-location btn-small" onclick="openMoveModal('${m.compositeKey}','${(m.location||'').replace(/'/g,"&#39;")}',event)">📍 Move Location</button>
+            <button class="btn btn-location btn-small" onclick="openMoveModal('${m.compositeKey}','${(String(m.location||'')).replace(/'/g,"&#39;")}',event)">📍 Move Location</button>
           </div>
         </div>`;
-
+      
       if (h.charging && h.charging.length) {
         html += `<div class="section-header">⚡ Charging History (${h.charging.length} cycles)</div>`;
         html += h.charging.map(c => {
