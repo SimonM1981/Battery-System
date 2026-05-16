@@ -513,6 +513,56 @@
     .toast.info   { border-color:var(--neon-blue);   color:var(--neon-blue); }
     @keyframes toastIn { from{opacity:0;top:72px} to{opacity:1;top:82px} }
 
+    /* ── BATTERY PICKER ── */
+    .picker-modal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(6,11,26,.97); z-index: 2500;
+      flex-direction: column; backdrop-filter: blur(16px);
+    }
+    .picker-modal.active { display: flex; }
+    .picker-header {
+      background: var(--bg-card); border-bottom: 1px solid var(--border);
+      padding: 14px 16px; display: flex; align-items: flex-start; gap: 10px;
+      flex-shrink: 0;
+    }
+    .picker-header-inner { flex: 1; }
+    .picker-title { font-weight: 700; font-size: 15px; margin-bottom: 10px; display:flex; align-items:center; gap:8px; }
+    .picker-context-badge {
+      font-size:10px; font-weight:700; padding:3px 8px; border-radius:20px;
+      background:var(--neon-green-dim); color:var(--neon-green);
+      border:1px solid rgba(0,245,160,.3); letter-spacing:.5px; text-transform:uppercase;
+    }
+    .picker-close-btn {
+      background: rgba(255,61,113,.12); border: 1px solid rgba(255,61,113,.3);
+      color: var(--volt-low); border-radius: 10px; padding: 10px 14px;
+      font-size: 16px; cursor: pointer; flex-shrink: 0;
+    }
+    .picker-list { flex: 1; overflow-y: auto; padding: 12px 14px; }
+    .picker-item {
+      background: var(--bg-secondary); border-radius: 12px;
+      padding: 13px 14px; margin-bottom: 9px; border: 1px solid var(--border);
+      cursor: pointer; transition: all .2s; display: flex; align-items: center; gap: 12px;
+    }
+    .picker-item:active { border-color: var(--neon-green); background: var(--neon-green-dim); }
+    .picker-item-body { flex: 1; min-width: 0; }
+    .picker-item-title { font-weight: 700; font-size: 14px; }
+    .picker-item-meta {
+      font-size: 12px; color: var(--text-muted); margin-top: 5px;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .picker-empty { text-align: center; padding: 40px 16px; color: var(--text-muted); }
+    .picker-empty-icon { font-size: 42px; opacity: .35; margin-bottom: 10px; }
+    .select-battery-btn {
+      background: linear-gradient(135deg, rgba(0,245,160,.1), rgba(0,207,255,.1));
+      color: var(--neon-green); border: 1.5px solid rgba(0,245,160,.3);
+      border-radius: 11px; padding: 10px; width: 100%;
+      font-size: 13px; font-weight: 700; cursor: pointer; margin: 0 0 13px 0;
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      font-family: 'Space Grotesk', sans-serif; transition: all .2s;
+    }
+    .select-battery-btn:active { transform: scale(.98); }
+
     .empty-state { text-align:center; padding:32px 16px; color:var(--text-muted); }
     .empty-state-icon { font-size:46px; margin-bottom:10px; opacity:.4; }
     .empty-state-text { font-size:13px; font-weight:500; }
@@ -609,6 +659,7 @@
         <div class="card-title"><span class="card-title-icon">🔋</span> Weekly Checking</div>
         <form id="form-weekly" onsubmit="submitWeekly(event)">
           <div class="form-group"><label class="form-label">Checking Date</label><input type="date" id="wk-date" required></div>
+          <button type="button" class="select-battery-btn" onclick="openBatteryPicker('weekly')">🔍 Select from Saved Batteries</button>
           <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="wk-brand" required><button type="button" class="scan-btn" onclick="startScan('wk-brand')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="wk-model" required><button type="button" class="scan-btn" onclick="startScan('wk-model')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="wk-batch" required><button type="button" class="scan-btn" onclick="startScan('wk-batch')">📷</button></div></div>
@@ -636,6 +687,7 @@
           <div class="form-group"><label class="form-label">Machine Code</label><input type="text" id="ch-machine" placeholder="e.g. CHG-001" required></div>
           <div class="form-group"><label class="form-label">Charging Parameters</label><textarea id="ch-params" rows="2" placeholder="Voltage, Amps, Mode, etc." required></textarea></div>
           <div class="charging-section in-progress">
+            <button type="button" class="select-battery-btn" onclick="openBatteryPicker('charging')">🔍 Select from Saved Batteries</button>
             <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="ch-brand" required><button type="button" class="scan-btn" onclick="startScan('ch-brand')">📷</button></div></div>
             <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="ch-model" required><button type="button" class="scan-btn" onclick="startScan('ch-model')">📷</button></div></div>
             <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="ch-batch" required><button type="button" class="scan-btn" onclick="startScan('ch-batch')">📷</button></div></div>
@@ -740,6 +792,26 @@
     <button class="nav-item" onclick="showSection('customers',this)"><span class="nav-icon">👥</span>Customers</button>
     <button class="nav-item" onclick="showSection('locations',this)"><span class="nav-icon">📍</span>Locations</button>
     <button class="nav-item" onclick="showSection('search',this)"><span class="nav-icon">🔍</span>Search</button>
+  </div>
+
+  <!-- ── BATTERY PICKER MODAL ── -->
+  <div class="picker-modal" id="battery-picker-modal">
+    <div class="picker-header">
+      <div class="picker-header-inner">
+        <div class="picker-title">
+          🔍 Select Battery
+          <span class="picker-context-badge" id="picker-context-label"></span>
+        </div>
+        <input type="text" id="picker-search"
+          placeholder="Search brand, model, batch, location…"
+          oninput="filterPickerList(this.value)"
+          style="width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:var(--bg-input);color:var(--text-primary);font-family:'Space Grotesk',sans-serif;">
+      </div>
+      <button type="button" class="picker-close-btn" onclick="closePicker()">✕</button>
+    </div>
+    <div class="picker-list" id="picker-list">
+      <div class="picker-empty"><div class="picker-empty-icon">🔋</div>Loading…</div>
+    </div>
   </div>
 
   <div class="modal-overlay" id="scanner-modal">
@@ -941,6 +1013,7 @@
             <span class="item-number">Battery #${id}</span>
             ${id > 1 ? `<button type="button" class="item-remove" onclick="removeItem('out-item-${id}')">🗑️ Remove</button>` : ''}
           </div>
+          <button type="button" class="select-battery-btn" onclick="openBatteryPicker('outgoing-${id}')">🔍 Select from Saved Batteries</button>
           <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="out-brand-${id}" required><button type="button" class="scan-btn" onclick="startScan('out-brand-${id}')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="out-model-${id}" required><button type="button" class="scan-btn" onclick="startScan('out-model-${id}')">📷</button></div></div>
           <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="out-batch-${id}" required><button type="button" class="scan-btn" onclick="startScan('out-batch-${id}')">📷</button></div></div>
@@ -1387,6 +1460,147 @@
         setDefaultDates();
         loadPendingCharging();
       } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    // ── BATTERY PICKER ──
+    let pickerContext = null;
+    let pickerBatteries = [];
+
+    async function openBatteryPicker(context) {
+      pickerContext = context;
+      document.getElementById('picker-search').value = '';
+
+      // Set context label
+      const labelEl = document.getElementById('picker-context-label');
+      if (context.startsWith('outgoing')) {
+        labelEl.textContent = 'In-Stock Only';
+        labelEl.style.background = 'rgba(0,245,160,.12)';
+        labelEl.style.color = 'var(--neon-green)';
+      } else if (context === 'weekly') {
+        labelEl.textContent = 'Weekly Check';
+        labelEl.style.background = 'rgba(0,207,255,.12)';
+        labelEl.style.color = 'var(--neon-blue)';
+      } else {
+        labelEl.textContent = 'Charging';
+        labelEl.style.background = 'rgba(255,159,10,.12)';
+        labelEl.style.color = 'var(--neon-orange)';
+      }
+
+      document.getElementById('battery-picker-modal').classList.add('active');
+      document.getElementById('picker-list').innerHTML =
+        '<div class="picker-empty"><div class="picker-empty-icon">⏳</div><div>Loading batteries…</div></div>';
+
+      try {
+        let batteries = [];
+        if (context.startsWith('outgoing')) {
+          // Outgoing: only in-stock batteries with qty > 0
+          const data = await apiGet({ action: 'getCurrentStock' });
+          if (!data.success) throw new Error(data.error);
+          batteries = (data.stock || []).map(b => ({
+            brand: b.brand, model: b.model, batchNo: b.batchNo,
+            serialNo: b.serialNo || '', location: b.location || '',
+            currentQty: b.currentQty, currentStatus: b.currentStatus,
+            latestVoltage: b.latestVoltage
+          }));
+        } else {
+          // Weekly / Charging: all saved batteries regardless of status
+          const data = await apiGet({ action: 'searchBatteries', query: '' });
+          if (!data.success) throw new Error(data.error);
+          batteries = (data.results || []).map(b => ({
+            brand: b.brand, model: b.model, batchNo: b.batchNo,
+            serialNo: b.serialNo || '', location: b.location || '',
+            currentQty: b.currentQty, currentStatus: b.currentStatus,
+            latestVoltage: b.latestVoltage
+          }));
+        }
+        pickerBatteries = batteries;
+        renderPickerList(batteries);
+      } catch(err) {
+        document.getElementById('picker-list').innerHTML =
+          `<div class="picker-empty"><div class="picker-empty-icon">⚠️</div><div>Error: ${err.message}</div></div>`;
+      }
+    }
+
+    function filterPickerList(query) {
+      const q = query.toLowerCase();
+      const filtered = pickerBatteries.filter(b =>
+        [b.brand, b.model, b.batchNo, String(b.location || ''), b.serialNo || '']
+          .join(' ').toLowerCase().includes(q)
+      );
+      renderPickerList(filtered);
+    }
+
+    function renderPickerList(batteries) {
+      const el = document.getElementById('picker-list');
+      if (!batteries.length) {
+        el.innerHTML = '<div class="picker-empty"><div class="picker-empty-icon">🔍</div><div>No batteries found</div></div>';
+        return;
+      }
+      const statusCls = {
+        'In Stock':'badge-green', 'Outgoing':'badge-blue',
+        'Charging':'badge-yellow', 'Disposed':'badge-red'
+      };
+      el.innerHTML = batteries.map(b => {
+        const vc = getVoltageColor(b.latestVoltage);
+        const safeB = JSON.stringify(b).replace(/'/g, '&#39;');
+        return `
+          <div class="picker-item" onclick='applyPickerSelection(${safeB})'>
+            <div class="picker-item-body">
+              <div class="picker-item-title">${b.brand} ${b.model}</div>
+              <div class="picker-item-meta">
+                <span>Batch: <strong>${b.batchNo}</strong></span>
+                ${b.currentQty !== undefined ? `<span style="color:var(--neon-blue);font-weight:700;">QTY: ${b.currentQty}</span>` : ''}
+                ${b.currentStatus ? `<span class="badge ${statusCls[b.currentStatus]||'badge-blue'}" style="font-size:10px;padding:2px 7px;">${b.currentStatus}</span>` : ''}
+                ${b.latestVoltage ? `<span style="color:${vc.hex};font-weight:700;">${b.latestVoltage}V</span>` : ''}
+                ${b.location ? `<span style="color:#5b9cf6;">📍 ${b.location}</span>` : ''}
+                ${b.serialNo ? `<span>S/N: ${b.serialNo}</span>` : ''}
+              </div>
+            </div>
+            <span style="font-size:20px;color:var(--text-muted);">›</span>
+          </div>`;
+      }).join('');
+    }
+
+    function applyPickerSelection(b) {
+      const ctx = pickerContext;
+      closePicker();
+
+      if (ctx && ctx.startsWith('outgoing-')) {
+        const id = ctx.replace('outgoing-', '');
+        setFieldValue('out-brand-' + id, b.brand);
+        setFieldValue('out-model-' + id, b.model);
+        setFieldValue('out-batch-' + id, b.batchNo);
+        setFieldValue('out-serial-' + id, b.serialNo);
+      } else if (ctx === 'weekly') {
+        setFieldValue('wk-brand',    b.brand);
+        setFieldValue('wk-model',    b.model);
+        setFieldValue('wk-batch',    b.batchNo);
+        setFieldValue('wk-serial',   b.serialNo);
+        setFieldValue('wk-location', String(b.location || ''));
+        if (b.currentQty) setFieldValue('wk-qty', String(b.currentQty));
+      } else if (ctx === 'charging') {
+        setFieldValue('ch-brand',    b.brand);
+        setFieldValue('ch-model',    b.model);
+        setFieldValue('ch-batch',    b.batchNo);
+        setFieldValue('ch-serial',   b.serialNo);
+        setFieldValue('ch-location', String(b.location || ''));
+        if (b.currentQty) setFieldValue('ch-qty', String(b.currentQty));
+      }
+
+      showToast(`✅ Selected: ${b.brand} ${b.model} · Batch ${b.batchNo}`, 'success');
+    }
+
+    function setFieldValue(id, value) {
+      const el = document.getElementById(id);
+      if (el && value !== undefined && value !== null && value !== '') {
+        el.value = value;
+        el.dispatchEvent(new Event('input'));
+      }
+    }
+
+    function closePicker() {
+      document.getElementById('battery-picker-modal').classList.remove('active');
+      pickerContext = null;
     }
 
     // ── LOCATION LOG ──
