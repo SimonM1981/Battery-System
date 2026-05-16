@@ -320,6 +320,39 @@
     .volt-bar.good      { background:var(--volt-good); }
     .volt-bar.low       { background:var(--volt-low); }
 
+    /* ── LOCATION BREAKDOWN ── */
+    .location-breakdown { margin-top: 14px; }
+    .loc-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .loc-row:last-child { border-bottom: none; }
+    .loc-name { color: var(--neon-blue); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+    .loc-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700; color: var(--text-primary);
+      background: var(--bg-input);
+      padding: 2px 10px; border-radius: 20px; font-size: 12px;
+    }
+
+    /* ── COMPARISON ROWS ── */
+    .comparison-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+    }
+    .comparison-label  { font-weight: 600; color: var(--text-secondary); font-size: 13px; }
+    .comparison-values { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+    .before-value { color: var(--text-muted); text-decoration: line-through; font-size: 12px; }
+    .arrow-icon   { color: var(--text-muted); font-size: 13px; }
+    .after-value  { font-size: 14px; }
+    .after-value.excellent { color:var(--volt-excellent); }
+    .after-value.good      { color:var(--volt-good); }
+    .after-value.low       { color:var(--volt-low); }
+    .change-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 700; }
+    .change-badge.improved { background: rgba(0,245,160,.12); color:var(--volt-excellent); }
+    .change-badge.degraded  { background: rgba(255,61,113,.12); color:var(--volt-low); }
+
     /* ── BADGES ── */
     .badge {
       display: inline-flex; align-items: center; gap: 4px;
@@ -329,6 +362,8 @@
     .badge-red    { background:rgba(255,61,113,.12); color:var(--volt-low);       border:1px solid rgba(255,61,113,.28); }
     .badge-yellow { background:rgba(255,214,10,.12); color:var(--volt-good);      border:1px solid rgba(255,214,10,.28); }
     .badge-blue   { background:rgba(0,207,255,.12);  color:var(--neon-blue);      border:1px solid rgba(0,207,255,.28); }
+    .badge-purple { background:rgba(176,106,255,.12);color:var(--neon-purple);    border:1px solid rgba(176,106,255,.28); }
+    .badge-orange { background:rgba(255,159,10,.12); color:var(--neon-orange);    border:1px solid rgba(255,159,10,.28); }
 
     /* ── ITEMS ── */
     .item-row {
@@ -343,6 +378,7 @@
       padding: 5px 11px; font-size:12px; font-weight:600; cursor:pointer;
       font-family: 'Space Grotesk', sans-serif;
     }
+    .item-remove:active { transform:scale(.95); }
     .add-item-btn {
       background: linear-gradient(135deg, rgba(0,207,255,.15), rgba(176,106,255,.15));
       color: var(--neon-blue); border: 1px solid rgba(0,207,255,.3);
@@ -351,6 +387,36 @@
       display: flex; align-items: center; justify-content: center; gap: 7px;
       font-family: 'Space Grotesk', sans-serif; transition: all .2s;
     }
+    .add-item-btn:active { transform:scale(.98); }
+
+    /* ── CHARGING ── */
+    .charging-section {
+      border-left: 3px solid var(--neon-orange); margin: 14px 0;
+      background: var(--neon-orange-dim); border-radius: 0 11px 11px 0; padding: 14px;
+    }
+    .charging-section.completed  { border-left-color:var(--neon-green); background:var(--neon-green-dim); }
+    .charging-section.in-progress{ border-left-color:var(--neon-blue);  background:var(--neon-blue-dim); }
+
+    /* ── PENDING ITEMS ── */
+    .pending-item {
+      background: var(--bg-secondary); border-radius: 12px;
+      padding: 14px; margin-bottom: 10px; border: 1px solid var(--border);
+      cursor: pointer; transition: all .2s;
+    }
+    .pending-item.ready   { border-color:rgba(0,245,160,.3); background:rgba(0,245,160,.04); }
+    .pending-item.waiting { border-color:rgba(0,207,255,.2); opacity:.8; }
+    .pending-meta { display:flex; gap:7px; flex-wrap:wrap; margin-top:8px; align-items:center; }
+    .pending-hours {
+      font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
+      font-family:'JetBrains Mono',monospace;
+    }
+    .pending-hours.ready   { background:rgba(0,245,160,.12); color:var(--volt-excellent); border:1px solid rgba(0,245,160,.28); }
+    .pending-hours.waiting { background:rgba(0,207,255,.1);  color:var(--neon-blue);      border:1px solid rgba(0,207,255,.2); }
+    .cycle-badge {
+      font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px;
+      background:rgba(176,106,255,.12); color:var(--neon-purple);
+      border:1px solid rgba(176,106,255,.28); font-family:'JetBrains Mono',monospace;
+    }
 
     /* ── STOCK ITEMS ── */
     .stock-item {
@@ -358,6 +424,7 @@
       padding: 14px; margin-bottom: 10px; border: 1px solid var(--border);
       cursor: pointer; transition: all .2s;
     }
+    .stock-item:active       { transform:scale(.99); }
     .stock-item.attention    { border-color:rgba(255,61,113,.35); background:rgba(255,61,113,.04); }
     .stock-meta { display:flex; gap:7px; flex-wrap:wrap; margin-top:8px; align-items:center; }
     .stock-badge {
@@ -367,6 +434,7 @@
     .stock-badge.charging { background:rgba(0,207,255,.12); color:var(--neon-blue); border:1px solid rgba(0,207,255,.28); }
     .stock-badge.instock  { background:rgba(0,245,160,.12); color:var(--volt-excellent); border:1px solid rgba(0,245,160,.28); }
 
+    /* ── LOCATION BADGE ── */
     .loc-badge {
       font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px;
       background:rgba(91,156,246,.12); color:#5b9cf6;
@@ -384,8 +452,46 @@
       font-family:'Space Grotesk',sans-serif;
     }
     .filter-btn.active  { background:var(--neon-green); color:var(--bg-primary); border-color:var(--neon-green); }
+    .filter-btn:active  { transform:scale(.95); }
 
-    /* ── MODALS ── */
+    /* ── SEARCH ── */
+    .search-bar { display:flex; gap:9px; margin-bottom:14px; }
+    .search-bar input { flex:1; }
+
+    /* ── CUSTOMERS ── */
+    .customer-card {
+      background:var(--bg-secondary); border-radius:12px;
+      padding:14px; margin-bottom:10px; border:1px solid var(--border);
+      cursor:pointer; transition:all .2s;
+    }
+    .customer-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; }
+    .customer-name   { font-weight:700; font-size:15px; color:var(--neon-blue); }
+    .customer-stats  { display:flex; gap:10px; font-size:12px; color:var(--text-muted); font-family:'JetBrains Mono',monospace; margin-top:4px; flex-wrap:wrap; }
+    .customer-batteries { display:none; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
+    .customer-batteries.show { display:block; }
+    .customer-battery-row {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:8px 0; border-bottom:1px solid var(--border); font-size:13px;
+    }
+    .customer-battery-row:last-child { border-bottom:none; }
+
+    /* ── DETAIL ── */
+    .detail-header { background:var(--bg-secondary); border-radius:12px; padding:16px; margin-bottom:16px; border:1px solid var(--border); }
+    .detail-row { display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; }
+    .detail-row:last-child { border-bottom:none; }
+    .detail-label { color:var(--text-secondary); font-weight:500; }
+    .detail-value { color:var(--text-primary); font-weight:600; font-family:'JetBrains Mono',monospace; }
+
+    /* ── LOCATION LOG ── */
+    .loc-log-item {
+      background:var(--bg-secondary); border-radius:10px;
+      padding:12px; margin-bottom:8px; border:1px solid var(--border);
+      border-left:3px solid var(--neon-blue);
+    }
+    .loc-log-arrow { color:var(--neon-green); font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:700; }
+    .loc-log-meta  { font-size:11px; color:var(--text-muted); margin-top:5px; font-family:'JetBrains Mono',monospace; }
+
+    /* ── MOVE LOCATION MODAL ── */
     .modal-overlay {
       display:none; position:fixed; inset:0;
       background:rgba(6,11,26,.96); z-index:2000;
@@ -396,7 +502,9 @@
     .modal-box {
       background:var(--bg-card); border-radius:18px; padding:24px;
       width:90%; max-width:420px; border:1px solid var(--border);
+      box-shadow:0 0 60px rgba(0,207,255,.15);
     }
+    .modal-title { font-size:16px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
     .scanner-container { width:90%; max-width:400px; background:var(--bg-secondary); border-radius:18px; overflow:hidden; border:1px solid var(--border); }
     #reader { width:100%; }
     .scanner-close {
@@ -406,6 +514,7 @@
       border-radius:50%; cursor:pointer; z-index:2001;
       display:flex; align-items:center; justify-content:center;
     }
+    .scan-instruction { color:var(--text-secondary); text-align:center; padding:14px; font-size:13px; font-weight:500; }
 
     /* ── LOADING / TOAST ── */
     .loading { display:none; text-align:center; padding:24px; color:var(--text-muted); }
@@ -422,13 +531,36 @@
       padding:12px 22px; border-radius:11px; font-size:13px; font-weight:600;
       z-index:3000; display:none; box-shadow:0 8px 32px rgba(0,0,0,.4);
       border:1px solid var(--border); backdrop-filter:blur(20px);
+      max-width:92%; text-align:center;
     }
-    .toast.show { display:block; }
+    .toast.show   { display:block; animation:toastIn .3s; }
     .toast.success{ border-color:var(--neon-green); color:var(--neon-green); }
     .toast.error  { border-color:var(--volt-low);   color:var(--volt-low); }
+    .toast.warning{ border-color:var(--neon-orange); color:var(--neon-orange); }
+    .toast.info   { border-color:var(--neon-blue);   color:var(--neon-blue); }
+    @keyframes toastIn { from{opacity:0;top:72px} to{opacity:1;top:82px} }
 
+    /* ── EMPTY STATES ── */
     .empty-state { text-align:center; padding:32px 16px; color:var(--text-muted); }
     .empty-state-icon { font-size:46px; margin-bottom:10px; opacity:.4; }
+    .empty-state-text { font-size:13px; font-weight:500; }
+
+    /* ── MISC ── */
+    .section-header {
+      font-size:12px; font-weight:700; color:var(--text-muted);
+      text-transform:uppercase; letter-spacing:1.2px; margin:18px 0 9px 4px;
+    }
+    .data-table { width:100%; border-collapse:separate; border-spacing:0; font-size:12px; margin-top:10px; }
+    .data-table th {
+      background:var(--bg-secondary); padding:9px 7px; text-align:left;
+      font-weight:600; color:var(--text-secondary); font-size:10px;
+      text-transform:uppercase; letter-spacing:.6px; border-bottom:2px solid var(--border);
+    }
+    .data-table td { padding:9px 7px; border-bottom:1px solid var(--border); }
+    .data-table tr:hover td { background:var(--bg-hover); }
+    @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+    .animate-in { animation:slideUp .35s ease; }
+    @media(min-width:768px) { .main-content{max-width:600px;margin:0 auto} .dashboard-grid{grid-template-columns:repeat(3,1fr)} }
   </style>
 </head>
 <body>
@@ -448,74 +580,211 @@
 
     <div id="section-dashboard" class="section active">
       <div class="dashboard-grid" id="dashboard-metrics">
-        <div class="metric-card info"><div class="metric-value">⏳</div><div class="metric-label">Loading…</div></div>
+        <div class="metric-card info animate-in"><div class="metric-value" style="font-size:16px">⏳</div><div class="metric-label">Loading…</div></div>
       </div>
-      <div class="card">
+      <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">⚡</span> Voltage Distribution</div>
         <div class="volt-distribution" id="volt-distribution-bar"></div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-muted);margin-top:5px;flex-wrap:wrap;gap:3px;">
+          <span style="color:var(--volt-excellent)">● Excellent &gt;12.61V</span>
+          <span style="color:var(--volt-good)">● Good 12.56-12.61V</span>
+          <span style="color:var(--volt-low)">● Low &lt;12.56V</span>
+        </div>
       </div>
-      <div class="card">
+      <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📍</span> Stock by Location</div>
-        <div id="location-breakdown-dash"><div class="empty-state">No location data yet</div></div>
+        <div id="location-breakdown-dash"><div class="empty-state"><div class="empty-state-icon">📍</div><div class="empty-state-text">No location data yet</div></div></div>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚡</span> Recent Charging (Before → After)</div>
+        <div id="recent-charges"><div class="loading active"><div class="spinner"></div>Loading…</div></div>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚠️</span> Batteries Needing Attention</div>
+        <div id="attention-batteries"><div class="loading active"><div class="spinner"></div>Loading…</div></div>
       </div>
     </div>
 
     <div id="section-incoming" class="section">
-      <div class="card">
+      <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📥</span> Incoming Battery</div>
         <form id="form-incoming" onsubmit="submitIncomingMulti(event)">
           <div class="form-group"><label class="form-label">Incoming Date</label><input type="date" id="inc-date" required></div>
-          <div class="form-group"><label class="form-label">Country / Origin</label><div class="input-wrapper"><input type="text" id="inc-country" required><button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Country / Origin</label><div class="input-wrapper"><input type="text" id="inc-country" placeholder="e.g. Japan, China" required><button type="button" class="scan-btn" onclick="startScan('inc-country')">📷</button></div></div>
           <div id="incoming-items-container"></div>
           <button type="button" class="add-item-btn" onclick="addIncomingItem()">➕ Add Battery Item</button>
-          <button type="submit" class="btn btn-primary">✅ Save Incoming Records</button>
+          <button type="submit" class="btn btn-primary">✅ Save All Incoming Records</button>
           <button type="button" class="btn btn-secondary" onclick="clearIncomingForm()">🗑️ Clear All</button>
         </form>
       </div>
     </div>
 
     <div id="section-outgoing" class="section">
-      <div class="card">
+      <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📤</span> Outgoing Battery</div>
         <form id="form-outgoing" onsubmit="submitOutgoingMulti(event)">
           <div class="form-group"><label class="form-label">Outgoing Date</label><input type="date" id="out-date" required></div>
-          <div class="form-group"><label class="form-label">Customer Name</label><input type="text" id="out-customer" required></div>
+          <div class="form-group"><label class="form-label">Customer Name</label><input type="text" id="out-customer" placeholder="Customer / Recipient name" required></div>
           <div id="outgoing-items-container"></div>
           <button type="button" class="add-item-btn" onclick="addOutgoingItem()">➕ Add Battery Item</button>
-          <button type="submit" class="btn btn-primary">✅ Save Outgoing Records</button>
+          <button type="submit" class="btn btn-primary">✅ Save All Outgoing Records</button>
           <button type="button" class="btn btn-secondary" onclick="clearOutgoingForm()">🗑️ Clear All</button>
         </form>
       </div>
     </div>
 
+    <div id="section-weekly" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">🔋</span> Weekly Checking</div>
+        <form id="form-weekly" onsubmit="submitWeekly(event)">
+          <div class="form-group"><label class="form-label">Checking Date</label><input type="date" id="wk-date" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="wk-brand" required><button type="button" class="scan-btn" onclick="startScan('wk-brand')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="wk-model" required><button type="button" class="scan-btn" onclick="startScan('wk-model')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="wk-batch" required><button type="button" class="scan-btn" onclick="startScan('wk-batch')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="wk-qty" value="1" min="1" required></div>
+          <div class="form-group">
+            <label class="form-label">Voltage Tested</label>
+            <div class="input-wrapper"><input type="number" id="wk-voltage" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'wk-volt-indicator')" required><button type="button" class="scan-btn" onclick="startScan('wk-voltage')">📷</button></div>
+            <div id="wk-volt-indicator" style="margin-top:6px;"></div>
+          </div>
+          <div class="form-group"><label class="form-label">CCA</label><div class="input-wrapper"><input type="number" id="wk-cca" placeholder="Cold Cranking Amps" required><button type="button" class="scan-btn" onclick="startScan('wk-cca')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="wk-health" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('wk-health')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Location</label><div class="input-wrapper"><input type="text" id="wk-location" placeholder="e.g. Shelf A, Row 3"><button type="button" class="scan-btn" onclick="startScan('wk-location')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="wk-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('wk-serial')">📷</button></div></div>
+          <button type="submit" class="btn btn-primary">✅ Save Weekly Check</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm('form-weekly')">🗑️ Clear</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="section-charging" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">⚡</span> Start Charging (Part A)</div>
+        <form id="form-charging-a" onsubmit="submitChargingA(event)">
+          <div class="form-group"><label class="form-label">Charging Date</label><input type="date" id="ch-date" required></div>
+          <div class="form-group"><label class="form-label">Machine Code</label><input type="text" id="ch-machine" placeholder="e.g. CHG-001" required></div>
+          <div class="form-group"><label class="form-label">Charging Parameters</label><textarea id="ch-params" rows="2" placeholder="Voltage, Amps, Mode, etc." required></textarea></div>
+          <div class="charging-section in-progress">
+            <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="ch-brand" required><button type="button" class="scan-btn" onclick="startScan('ch-brand')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="ch-model" required><button type="button" class="scan-btn" onclick="startScan('ch-model')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="ch-batch" required><button type="button" class="scan-btn" onclick="startScan('ch-batch')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">QTY</label><input type="number" id="ch-qty" value="1" min="1" required></div>
+            <div class="form-group">
+              <label class="form-label">Voltage Before Charging</label>
+              <div class="input-wrapper"><input type="number" id="ch-voltage-before" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'ch-volt-before-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-before')">📷</button></div>
+              <div id="ch-volt-before-indicator" style="margin-top:6px;"></div>
+            </div>
+            <div class="form-group"><label class="form-label">CCA Before</label><div class="input-wrapper"><input type="number" id="ch-cca-before" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-before')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Health % Before</label><div class="input-wrapper"><input type="number" id="ch-health-before" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-before')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Location</label><div class="input-wrapper"><input type="text" id="ch-location" placeholder="e.g. Charger Bay 1"><button type="button" class="scan-btn" onclick="startScan('ch-location')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="ch-serial" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('ch-serial')">📷</button></div></div>
+          </div>
+          <button type="submit" class="btn btn-warning">🔋 Start Charging</button>
+          <button type="button" class="btn btn-secondary" onclick="clearForm('form-charging-a')">🗑️ Clear</button>
+        </form>
+      </div>
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">✅</span> Complete Charging (Part B – After 24h)</div>
+        <div id="pending-charging-list"><div class="loading active"><div class="spinner"></div>Loading pending…</div></div>
+        <div id="charging-b-form" style="display:none;">
+          <div class="charging-section completed">
+            <div class="form-group"><label class="form-label">Selected Battery</label><input type="text" id="ch-b-key" readonly style="background:var(--neon-green-dim);color:var(--neon-green);border-color:var(--neon-green);font-weight:700;font-family:'JetBrains Mono',monospace;"></div>
+            <div style="margin:12px 0;padding:12px;background:var(--bg-secondary);border-radius:8px;">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:1px;">Before Charging</div>
+              <div style="display:flex;gap:14px;font-family:'JetBrains Mono',monospace;font-size:13px;flex-wrap:wrap;">
+                <span id="ch-b-volt-before"></span>
+                <span id="ch-b-cca-before"  style="color:var(--text-secondary);"></span>
+                <span id="ch-b-health-before" style="color:var(--text-secondary);"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Voltage After Charging</label>
+              <div class="input-wrapper"><input type="number" id="ch-voltage-after" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'ch-volt-after-indicator')" required><button type="button" class="scan-btn" onclick="startScan('ch-voltage-after')">📷</button></div>
+              <div id="ch-volt-after-indicator" style="margin-top:6px;"></div>
+            </div>
+            <div class="form-group"><label class="form-label">CCA After</label><div class="input-wrapper"><input type="number" id="ch-cca-after" required><button type="button" class="scan-btn" onclick="startScan('ch-cca-after')">📷</button></div></div>
+            <div class="form-group"><label class="form-label">Health % After</label><div class="input-wrapper"><input type="number" id="ch-health-after" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('ch-health-after')">📷</button></div></div>
+          </div>
+          <button type="button" class="btn btn-success" onclick="submitChargingB()">✅ Complete Charging</button>
+          <button type="button" class="btn btn-secondary" onclick="cancelChargingB()">❌ Cancel</button>
+        </div>
+      </div>
+    </div>
+
     <div id="section-stock" class="section">
-      <div class="card">
+      <div class="card animate-in">
         <div class="card-title"><span class="card-title-icon">📦</span> Current Stock</div>
         <div class="filter-bar">
           <button class="filter-btn active" onclick="filterStock('all',this)">All</button>
           <button class="filter-btn" onclick="filterStock('attention',this)">⚠️ Need Charge</button>
           <button class="filter-btn" onclick="filterStock('good',this)">✅ Good</button>
+          <button class="filter-btn" onclick="filterStock('charging',this)">🔌 Charging</button>
         </div>
         <div id="stock-list"><div class="loading active"><div class="spinner"></div>Loading stock…</div></div>
       </div>
     </div>
-    
-    <div id="section-weekly" class="section"><div class="card"><div class="card-title">Weekly Check (Available in full system)</div></div></div>
-    <div id="section-charging" class="section"><div class="card"><div class="card-title">Charging (Available in full system)</div></div></div>
-    <div id="section-customers" class="section"><div class="card"><div class="card-title">Customers (Available in full system)</div></div></div>
-    <div id="section-locations" class="section"><div class="card"><div class="card-title">Locations (Available in full system)</div></div></div>
-    <div id="section-search" class="section"><div class="card"><div class="card-title">Search (Available in full system)</div></div></div>
+
+    <div id="section-customers" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">👥</span> Customer Output Summary</div>
+        <div id="customer-list"><div class="loading active"><div class="spinner"></div>Loading…</div></div>
+      </div>
+    </div>
+
+    <div id="section-locations" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">📍</span> Location History Log</div>
+        <div class="search-bar">
+          <input type="text" id="loc-search" placeholder="Search by Brand, Model, Batch, Location…" onkeydown="if(event.key==='Enter') loadLocationLog()">
+          <button class="btn btn-location btn-small" style="margin-top:0;width:auto;padding:10px 14px;" onclick="loadLocationLog()">🔍</button>
+        </div>
+        <div id="location-log-list"><div class="empty-state"><div class="empty-state-icon">📍</div><div class="empty-state-text">Search or browse location movements</div></div></div>
+      </div>
+    </div>
+
+    <div id="section-search" class="section">
+      <div class="card animate-in">
+        <div class="card-title"><span class="card-title-icon">🔍</span> Search Batteries</div>
+        <div class="search-bar">
+          <input type="text" id="search-query" placeholder="Brand, Model, Batch, Serial, Location…" onkeydown="if(event.key==='Enter') performSearch()">
+          <button class="btn btn-primary btn-small" style="margin-top:0;width:auto;padding:10px 14px;" onclick="performSearch()">🔍</button>
+        </div>
+        <div id="search-results"></div>
+      </div>
+      <div id="battery-detail" class="card animate-in" style="display:none;">
+        <div class="card-title"><span class="card-title-icon">📋</span> Battery Details</div>
+        <div id="detail-content"></div>
+      </div>
+    </div>
 
   </div><div class="nav-container">
     <button class="nav-item active" onclick="showSection('dashboard',this)"><span class="nav-icon">📊</span>Dashboard</button>
     <button class="nav-item" onclick="showSection('incoming',this)"><span class="nav-icon">📥</span>Incoming</button>
     <button class="nav-item" onclick="showSection('outgoing',this)"><span class="nav-icon">📤</span>Outgoing</button>
+    <button class="nav-item" onclick="showSection('weekly',this)"><span class="nav-icon">🔋</span>Weekly</button>
+    <button class="nav-item" onclick="showSection('charging',this)"><span class="nav-icon">⚡</span>Charging</button>
     <button class="nav-item" onclick="showSection('stock',this)"><span class="nav-icon">📦</span>Stock</button>
+    <button class="nav-item" onclick="showSection('customers',this)"><span class="nav-icon">👥</span>Customers</button>
+    <button class="nav-item" onclick="showSection('locations',this)"><span class="nav-icon">📍</span>Locations</button>
+    <button class="nav-item" onclick="showSection('search',this)"><span class="nav-icon">🔍</span>Search</button>
   </div>
 
   <div class="modal-overlay" id="scanner-modal">
     <button class="scanner-close" onclick="stopScan()">✕</button>
+    <div class="scan-instruction">Position QR / Barcode in frame</div>
     <div class="scanner-container"><div id="reader"></div></div>
+  </div>
+
+  <div class="modal-overlay" id="move-modal">
+    <div class="modal-box">
+      <div class="modal-title">📍 Move Battery Location</div>
+      <div class="form-group"><label class="form-label">Battery</label><input type="text" id="move-key" readonly style="background:var(--neon-blue-dim);color:var(--neon-blue);border-color:var(--neon-blue);font-family:'JetBrains Mono',monospace;font-weight:700;"></div>
+      <div class="form-group"><label class="form-label">Current Location</label><input type="text" id="move-from" readonly style="color:var(--text-muted);"></div>
+      <div class="form-group"><label class="form-label">New Location</label><div class="input-wrapper"><input type="text" id="move-to" placeholder="e.g. Shelf B, Row 2"><button type="button" class="scan-btn" onclick="startScan('move-to')">📷</button></div></div>
+      <div class="form-group"><label class="form-label">Changed By</label><input type="text" id="move-by" placeholder="Your name" value="Staff"></div>
+      <button type="button" class="btn btn-location" onclick="submitMoveLocation()">📍 Confirm Move</button>
+      <button type="button" class="btn btn-secondary" onclick="closeMoveModal()">Cancel</button>
+    </div>
   </div>
 
   <div class="toast" id="toast"></div>
@@ -526,27 +795,73 @@
     // ==========================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbxWLD7X337pMTGkQgd_wIO9OWxvsIRlPWM9-qfhVABqwFXq5HmZSQploCGw0OkKW6hVxw/exec';
 
+    let currentScanField = null;
+    let html5QrCode = null;
+    let selectedChargingKey = null;
+    let selectedChargingData = null;
     let incomingItemCount = 0;
     let outgoingItemCount = 0;
     let currentStockData = [];
-    let html5QrCode = null;
-    let currentScanField = null;
 
+    // ── CLOCK ──
     function updateClock() {
-      document.getElementById('clock').textContent = new Date().toLocaleTimeString('en-GB', { hour12: false });
+      const now = new Date();
+      document.getElementById('clock').textContent =
+        now.toLocaleTimeString('en-GB', { hour12: false });
     }
     setInterval(updateClock, 1000);
-    
+    updateClock();
+
+    function setDefaultDates() {
+      const today = new Date().toISOString().split('T')[0];
+      ['inc-date','out-date','wk-date','ch-date'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !el.value) el.value = today;
+      });
+    }
+
+    // ── VOLTAGE ──
+    function getVoltageColor(voltage) {
+      const v = parseFloat(voltage);
+      if (isNaN(v)) return { hex:'#64748b', label:'N/A', cls:'unknown' };
+      if (v > 12.61)  return { hex:'#00f5a0', label:'EXCELLENT', cls:'excellent' };
+      if (v >= 12.56) return { hex:'#ffd60a', label:'GOOD', cls:'good' };
+      return { hex:'#ff3d71', label:'LOW / NEED CHARGE', cls:'low' };
+    }
+
+    function updateVoltageColor(input, indicatorId) {
+      const c = getVoltageColor(input.value);
+      input.className = 'voltage-input ' + c.cls;
+      const ind = document.getElementById(indicatorId);
+      if (!ind) return;
+      if (input.value && !isNaN(parseFloat(input.value))) {
+        ind.innerHTML = `<span class="volt-indicator ${c.cls}"><span class="volt-dot" style="background:${c.hex};box-shadow:0 0 6px ${c.hex}"></span>${c.label} (${input.value}V)</span>`;
+      } else {
+        ind.innerHTML = '';
+        input.className = 'voltage-input';
+      }
+    }
+
+    function renderVoltageBadge(voltage) {
+      const c = getVoltageColor(voltage);
+      return `<span class="volt-indicator ${c.cls}" style="font-size:11px;padding:3px 9px"><span class="volt-dot" style="background:${c.hex};box-shadow:0 0 6px ${c.hex}"></span>${c.label}</span>`;
+    }
+
+    // ── TOAST ──
+    let toastTimer = null;
     function showToast(msg, type = 'success') {
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.className = `toast show ${type}`;
-      setTimeout(() => { t.className = 'toast'; }, 3500);
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { t.className = 'toast'; }, 3500);
     }
 
+    // ── API HELPERS ──
     async function apiGet(params) {
       const url = API_URL + '?' + new URLSearchParams(params).toString();
       const res = await fetch(url, { method: 'GET' });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     }
 
@@ -554,39 +869,33 @@
       const formData = new URLSearchParams();
       formData.append('action', action);
       for (const key in data) {
-        if (data[key] !== undefined) formData.append(key, typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]);
+        if (data[key] !== undefined && data[key] !== null) {
+          formData.append(key, typeof data[key] === 'object' ? JSON.stringify(data[key]) : data[key]);
+        }
       }
       const res = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData.toString()
       });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
       return res.json();
     }
 
+    // ── NAVIGATION ──
     function showSection(id, btn) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById('section-' + id).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       if (btn) btn.classList.add('active');
+      setDefaultDates();
       if (id === 'dashboard') loadDashboard();
+      if (id === 'charging')  loadPendingCharging();
       if (id === 'stock')     loadStock();
+      if (id === 'customers') loadCustomers();
     }
 
-    function getVoltageColor(voltage) {
-      const v = parseFloat(voltage);
-      if (isNaN(v)) return { hex:'#64748b', label:'N/A', cls:'unknown' };
-      if (v > 12.61)  return { hex:'#00f5a0', label:'EXCELLENT', cls:'excellent' };
-      if (v >= 12.56) return { hex:'#ffd60a', label:'GOOD', cls:'good' };
-      return { hex:'#ff3d71', label:'LOW', cls:'low' };
-    }
-
-    function renderVoltageBadge(voltage) {
-      const c = getVoltageColor(voltage);
-      return `<span class="volt-indicator ${c.cls}" style="font-size:11px;padding:3px 9px"><span class="volt-dot" style="background:${c.hex}"></span>${c.label} (${voltage}V)</span>`;
-    }
-
-    // ── INCOMING ──
+    // ── MULTI-ITEM INCOMING ──
     function addIncomingItem() {
       incomingItemCount++;
       const id = incomingItemCount;
@@ -594,14 +903,29 @@
         <div class="item-row" id="inc-item-${id}">
           <div class="item-row-header">
             <span class="item-number">Battery #${id}</span>
-            ${id > 1 ? `<button type="button" class="item-remove" onclick="document.getElementById('inc-item-${id}').remove()">🗑️</button>` : ''}
+            ${id > 1 ? `<button type="button" class="item-remove" onclick="removeItem('inc-item-${id}')">🗑️ Remove</button>` : ''}
           </div>
-          <div class="form-group"><label class="form-label">Brand</label><input type="text" id="inc-brand-${id}" required></div>
-          <div class="form-group"><label class="form-label">Model</label><input type="text" id="inc-model-${id}" required></div>
-          <div class="form-group"><label class="form-label">Batch No.</label><input type="text" id="inc-batch-${id}" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="inc-brand-${id}" placeholder="e.g. Yuasa" required><button type="button" class="scan-btn" onclick="startScan('inc-brand-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="inc-model-${id}" placeholder="e.g. NS40ZL" required><button type="button" class="scan-btn" onclick="startScan('inc-model-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="inc-batch-${id}" placeholder="e.g. B202505" required><button type="button" class="scan-btn" onclick="startScan('inc-batch-${id}')">📷</button></div></div>
           <div class="form-group"><label class="form-label">QTY</label><input type="number" id="inc-qty-${id}" value="1" min="1" required></div>
-          <div class="form-group"><label class="form-label">Voltage Tested</label><input type="number" id="inc-voltage-${id}" step="0.01" required></div>
+          <div class="form-group">
+            <label class="form-label">Voltage Tested</label>
+            <div class="input-wrapper"><input type="number" id="inc-voltage-${id}" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'inc-vi-${id}')" required><button type="button" class="scan-btn" onclick="startScan('inc-voltage-${id}')">📷</button></div>
+            <div id="inc-vi-${id}" style="margin-top:6px;"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="inc-health-${id}" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('inc-health-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Location</label><div class="input-wrapper"><input type="text" id="inc-location-${id}" placeholder="e.g. Shelf A, Row 1"><button type="button" class="scan-btn" onclick="startScan('inc-location-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="inc-serial-${id}" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('inc-serial-${id}')">📷</button></div></div>
         </div>`);
+    }
+
+    function clearIncomingForm() {
+      document.getElementById('incoming-items-container').innerHTML = '';
+      incomingItemCount = 0;
+      document.getElementById('inc-country').value = '';
+      addIncomingItem();
+      setDefaultDates();
     }
 
     async function submitIncomingMulti(e) {
@@ -610,27 +934,30 @@
       document.querySelectorAll('#incoming-items-container .item-row').forEach(row => {
         const id = row.id.replace('inc-item-', '');
         items.push({
-          brand: document.getElementById('inc-brand-' + id).value,
-          model: document.getElementById('inc-model-' + id).value,
-          batchNo: document.getElementById('inc-batch-' + id).value,
-          qty: parseInt(document.getElementById('inc-qty-' + id).value),
-          voltageTested: parseFloat(document.getElementById('inc-voltage-' + id).value),
+          brand:        document.getElementById('inc-brand-' + id).value,
+          model:        document.getElementById('inc-model-' + id).value,
+          batchNo:      document.getElementById('inc-batch-' + id).value,
+          qty:          parseInt(document.getElementById('inc-qty-' + id).value),
+          voltageTested:parseFloat(document.getElementById('inc-voltage-' + id).value),
+          healthPercent:parseFloat(document.getElementById('inc-health-' + id).value),
+          location:     document.getElementById('inc-location-' + id).value,
+          serialNo:     document.getElementById('inc-serial-' + id).value
         });
       });
-      showToast(`Saving ${items.length} records…`, 'info');
       try {
+        showToast(`Saving ${items.length} records…`, 'info');
         const result = await apiPost('recordIncomingMulti', {
           incomingDate: document.getElementById('inc-date').value,
-          country: document.getElementById('inc-country').value,
-          items: JSON.stringify(items)
+          country:      document.getElementById('inc-country').value,
+          items:        JSON.stringify(items)
         });
         if (!result.success) throw new Error(result.error);
-        showToast(`✅ Records saved!`, 'success');
-        document.getElementById('incoming-items-container').innerHTML = ''; addIncomingItem();
+        showToast(`✅ ${result.count} incoming records saved!`, 'success');
+        clearIncomingForm();
       } catch(e) { showToast('Error: ' + e.message, 'error'); }
     }
 
-    // ── OUTGOING ──
+    // ── MULTI-ITEM OUTGOING ──
     function addOutgoingItem() {
       outgoingItemCount++;
       const id = outgoingItemCount;
@@ -638,14 +965,28 @@
         <div class="item-row" id="out-item-${id}">
           <div class="item-row-header">
             <span class="item-number">Battery #${id}</span>
-            ${id > 1 ? `<button type="button" class="item-remove" onclick="document.getElementById('out-item-${id}').remove()">🗑️</button>` : ''}
+            ${id > 1 ? `<button type="button" class="item-remove" onclick="removeItem('out-item-${id}')">🗑️ Remove</button>` : ''}
           </div>
-          <div class="form-group"><label class="form-label">Brand</label><input type="text" id="out-brand-${id}" required></div>
-          <div class="form-group"><label class="form-label">Model</label><input type="text" id="out-model-${id}" required></div>
-          <div class="form-group"><label class="form-label">Batch No.</label><input type="text" id="out-batch-${id}" required></div>
-          <div class="form-group"><label class="form-label">QTY Deduct</label><input type="number" id="out-qty-${id}" value="1" min="1" required></div>
-          <div class="form-group"><label class="form-label">Voltage</label><input type="number" id="out-voltage-${id}" step="0.01" required></div>
+          <div class="form-group"><label class="form-label">Brand</label><div class="input-wrapper"><input type="text" id="out-brand-${id}" required><button type="button" class="scan-btn" onclick="startScan('out-brand-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Model</label><div class="input-wrapper"><input type="text" id="out-model-${id}" required><button type="button" class="scan-btn" onclick="startScan('out-model-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Batch No.</label><div class="input-wrapper"><input type="text" id="out-batch-${id}" required><button type="button" class="scan-btn" onclick="startScan('out-batch-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">QTY</label><input type="number" id="out-qty-${id}" value="1" min="1" required></div>
+          <div class="form-group">
+            <label class="form-label">Voltage Tested</label>
+            <div class="input-wrapper"><input type="number" id="out-voltage-${id}" step="0.01" class="voltage-input" oninput="updateVoltageColor(this,'out-vi-${id}')" required><button type="button" class="scan-btn" onclick="startScan('out-voltage-${id}')">📷</button></div>
+            <div id="out-vi-${id}" style="margin-top:6px;"></div>
+          </div>
+          <div class="form-group"><label class="form-label">Health %</label><div class="input-wrapper"><input type="number" id="out-health-${id}" min="0" max="100" required><button type="button" class="scan-btn" onclick="startScan('out-health-${id}')">📷</button></div></div>
+          <div class="form-group"><label class="form-label">Serial No. (Optional)</label><div class="input-wrapper"><input type="text" id="out-serial-${id}" placeholder="Optional"><button type="button" class="scan-btn" onclick="startScan('out-serial-${id}')">📷</button></div></div>
         </div>`);
+    }
+
+    function clearOutgoingForm() {
+      document.getElementById('outgoing-items-container').innerHTML = '';
+      outgoingItemCount = 0;
+      document.getElementById('out-customer').value = '';
+      addOutgoingItem();
+      setDefaultDates();
     }
 
     async function submitOutgoingMulti(e) {
@@ -654,40 +995,150 @@
       document.querySelectorAll('#outgoing-items-container .item-row').forEach(row => {
         const id = row.id.replace('out-item-', '');
         items.push({
-          brand: document.getElementById('out-brand-' + id).value,
-          model: document.getElementById('out-model-' + id).value,
-          batchNo: document.getElementById('out-batch-' + id).value,
-          qty: parseInt(document.getElementById('out-qty-' + id).value),
-          voltageTested: parseFloat(document.getElementById('out-voltage-' + id).value)
+          brand:         document.getElementById('out-brand-' + id).value,
+          model:         document.getElementById('out-model-' + id).value,
+          batchNo:       document.getElementById('out-batch-' + id).value,
+          qty:           parseInt(document.getElementById('out-qty-' + id).value),
+          voltageTested: parseFloat(document.getElementById('out-voltage-' + id).value),
+          healthPercent: parseFloat(document.getElementById('out-health-' + id).value),
+          serialNo:      document.getElementById('out-serial-' + id).value
         });
       });
-      showToast(`Saving Outgoing records…`, 'info');
       try {
+        showToast(`Saving ${items.length} records…`, 'info');
         const result = await apiPost('recordOutgoingMulti', {
           outgoingDate: document.getElementById('out-date').value,
           customerName: document.getElementById('out-customer').value,
-          items: JSON.stringify(items)
+          items:        JSON.stringify(items)
         });
         if (!result.success) throw new Error(result.error);
-        showToast(`✅ Records saved & Stock Deducted!`, 'success');
-        document.getElementById('outgoing-items-container').innerHTML = ''; addOutgoingItem();
+        showToast(`✅ ${result.count} outgoing records saved!`, 'success');
+        clearOutgoingForm();
       } catch(e) { showToast('Error: ' + e.message, 'error'); }
     }
 
-    // ── STOCK & DASHBOARD ──
+    function removeItem(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // ── DASHBOARD ──
     async function loadDashboard() {
       try {
         const data = await apiGet({ action: 'getDashboardData' });
         if (!data.success) throw new Error(data.error);
-        
-        const metrics = data.metrics;
-        document.getElementById('dashboard-metrics').innerHTML = `
-          <div class="metric-card excellent"><div class="metric-value">${metrics['Total In Stock']?.value||0}</div><div class="metric-label">Total QTY In Stock</div></div>
-          <div class="metric-card info"><div class="metric-value">${metrics['Total Batteries']?.value||0}</div><div class="metric-label">All Batteries</div></div>
-        `;
-      } catch(e) { console.error(e); }
+        renderDashboardMetrics(data.metrics);
+        renderVoltageDistribution(data.voltageDistribution);
+        renderLocationBreakdown(data.locationBreakdown);
+        renderRecentCharges(data.recentCharges);
+        renderAttentionBatteries(data.attentionBatteries);
+      } catch(e) {
+        document.getElementById('dashboard-metrics').innerHTML =
+          `<div class="metric-card alert" style="grid-column:1/-1"><div class="metric-value" style="font-size:16px">⚠️ Error</div><div class="metric-label">${e.message}</div></div>`;
+      }
     }
 
+    function renderDashboardMetrics(metrics) {
+      const cards = [
+        { key:'Total In Stock',       label:'In Stock',          cls:'excellent' },
+        { key:'Total Batteries',      label:'Total Batteries',   cls:'info' },
+        { key:'Charged This Week',    label:'Charging Now',      cls:'purple' },
+        { key:'Ready for Completion', label:'Ready to Complete', cls:'orange' },
+        { key:'Average Health %',     label:'Avg Health %',      cls:'good' },
+        { key:'Need Attention',       label:'Need Attention',    cls:'alert' },
+        { key:'Total Location Moves', label:'Location Moves',    cls:'pink' },
+      ];
+      document.getElementById('dashboard-metrics').innerHTML = cards.map(c => {
+        const val = metrics[c.key] ? metrics[c.key].value : '--';
+        return `<div class="metric-card ${c.cls} animate-in"><div class="metric-value">${val}</div><div class="metric-label">${c.label}</div></div>`;
+      }).join('');
+    }
+
+    function renderVoltageDistribution(dist) {
+      if (!dist) return;
+      const total = (dist.excellent||0)+(dist.good||0)+(dist.low||0)+(dist.unknown||0);
+      if (!total) return;
+      const pct = n => ((n/total)*100).toFixed(1);
+      document.getElementById('volt-distribution-bar').innerHTML = `
+        <div class="volt-bar excellent" style="width:${pct(dist.excellent)}%" title="Excellent: ${dist.excellent}"></div>
+        <div class="volt-bar good"      style="width:${pct(dist.good)}%"      title="Good: ${dist.good}"></div>
+        <div class="volt-bar low"       style="width:${pct(dist.low)}%"       title="Low: ${dist.low}"></div>`;
+    }
+
+    function renderLocationBreakdown(breakdown) {
+      const el = document.getElementById('location-breakdown-dash');
+      if (!breakdown || Object.keys(breakdown).length === 0) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📍</div><div class="empty-state-text">No location data yet</div></div>';
+        return;
+      }
+      const sorted = Object.entries(breakdown).sort((a,b) => b[1]-a[1]);
+      el.innerHTML = '<div class="location-breakdown">' +
+        sorted.map(([loc, count]) => `
+          <div class="loc-row">
+            <span class="loc-name">📍 ${loc || 'Unassigned'}</span>
+            <span class="loc-count">${count}</span>
+          </div>`).join('') +
+        '</div>';
+    }
+
+    function renderRecentCharges(charges) {
+      const el = document.getElementById('recent-charges');
+      if (!charges || !charges.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚡</div><div class="empty-state-text">No completed charges yet</div></div>';
+        return;
+      }
+      el.innerHTML = charges.map(c => {
+        const vBefore=parseFloat(c.voltageBefore), vAfter=parseFloat(c.voltageAfter);
+        const vDiff = (!isNaN(vBefore)&&!isNaN(vAfter)) ? (vAfter-vBefore).toFixed(2) : null;
+        const hDiff = (c.healthBefore&&c.healthAfter) ? (parseFloat(c.healthAfter)-parseFloat(c.healthBefore)).toFixed(1) : null;
+        const cAfter = getVoltageColor(c.voltageAfter);
+        return `<div style="background:var(--bg-secondary);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px;">
+            <div><span style="font-weight:700;font-size:14px;">${c.brand} ${c.model}</span> <span style="color:var(--text-muted);font-size:12px;">${c.batchNo}</span></div>
+            <span class="cycle-badge">Cycle #${c.cycleNumber}</span>
+          </div>
+          <div class="comparison-row">
+            <span class="comparison-label">Voltage</span>
+            <div class="comparison-values">
+              <span class="before-value">${c.voltageBefore}V</span>
+              <span class="arrow-icon">→</span>
+              <span class="after-value ${cAfter.cls}">${c.voltageAfter}V</span>
+              ${vDiff!==null ? `<span class="change-badge ${parseFloat(vDiff)>=0?'improved':'degraded'}">${parseFloat(vDiff)>=0?'+':''}${vDiff}V</span>` : ''}
+            </div>
+          </div>
+          ${c.healthBefore&&c.healthAfter ? `<div class="comparison-row">
+            <span class="comparison-label">Health</span>
+            <div class="comparison-values">
+              <span class="before-value">${c.healthBefore}%</span>
+              <span class="arrow-icon">→</span>
+              <span class="after-value ${parseFloat(c.healthAfter)>=80?'excellent':parseFloat(c.healthAfter)>=60?'good':'low'}">${c.healthAfter}%</span>
+              ${hDiff!==null ? `<span class="change-badge ${parseFloat(hDiff)>=0?'improved':'degraded'}">${parseFloat(hDiff)>=0?'+':''}${hDiff}%</span>` : ''}
+            </div>
+          </div>` : ''}
+        </div>`;
+      }).join('');
+    }
+
+    function renderAttentionBatteries(batteries) {
+      const el = document.getElementById('attention-batteries');
+      if (!batteries || !batteries.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">✅</div><div class="empty-state-text">All batteries healthy (≥12.56V)</div></div>';
+        return;
+      }
+      el.innerHTML = batteries.map(b => `
+        <div style="background:rgba(255,61,113,.07);border-radius:11px;padding:13px;margin-bottom:9px;border:1px solid rgba(255,61,113,.22);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+            <div><span style="font-weight:700;font-size:14px;">${b.brand} ${b.model}</span> <span style="color:var(--text-muted);font-size:12px;">${b.batchNo}</span></div>
+            <span class="badge badge-red">⚠️ ${b.health}</span>
+          </div>
+          <div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;">
+            ${renderVoltageBadge(b.voltage)}
+            ${b.location ? `<span class="loc-badge">📍 ${b.location}</span>` : ''}
+          </div>
+        </div>`).join('');
+    }
+
+    // ── STOCK ──
     async function loadStock() {
       const el = document.getElementById('stock-list');
       el.innerHTML = '<div class="loading active"><div class="spinner"></div>Loading stock…</div>';
@@ -696,7 +1147,9 @@
         if (!data.success) throw new Error(data.error);
         currentStockData = data.stock || [];
         renderStockList(currentStockData);
-      } catch(e) { el.innerHTML = `<div class="empty-state">Error: ${e.message}</div>`; }
+      } catch(e) {
+        el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">Error: ${e.message}</div></div>`;
+      }
     }
 
     function renderStockList(stock) {
@@ -705,19 +1158,32 @@
         el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div><div class="empty-state-text">No batteries in stock</div></div>';
         return;
       }
-      el.innerHTML = stock.map(s => `
-        <div class="stock-item ${s.needsAttention?'attention':''}">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      const aCount = stock.filter(s=>s.needsAttention).length;
+      let html = `<div style="margin-bottom:11px;font-size:12px;color:var(--text-muted);">${stock.length} batteries · ${aCount} need attention</div>`;
+      html += stock.map(s => `
+        <div class="stock-item ${s.needsAttention?'attention':''}" onclick="loadBatteryDetail('${s.compositeKey}')">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:7px;">
             <div>
               <div style="font-weight:700;font-size:15px;">${s.brand} ${s.model}</div>
-              <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Batch: ${s.batchNo}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Batch: ${s.batchNo}${s.serialNo?' · S/N: '+s.serialNo:''}</div>
             </div>
-            <span class="badge badge-blue">QTY: ${s.currentQty}</span>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;">
+              <span class="stock-badge ${s.currentStatus==='Charging'?'charging':'instock'}">${s.currentStatus}</span>
+              ${s.currentQty ? `<span class="badge badge-blue">QTY: ${s.currentQty}</span>` : ''}
+            </div>
           </div>
           <div class="stock-meta">
             ${renderVoltageBadge(s.latestVoltage)}
+            <span class="cycle-badge">⚡ ${s.totalChargeCycles||0} cycles</span>
+            ${s.location ? `<span class="loc-badge">📍 ${s.location}</span>` : ''}
+            <span style="font-size:11px;color:var(--text-muted);">📅 ${formatDate(s.firstIncomingDate)}</span>
           </div>
+          <div style="display:flex;gap:7px;margin-top:10px;flex-wrap:wrap;">
+            <button class="btn btn-location btn-small" onclick="openMoveModal('${s.compositeKey}','${(s.location||'').replace(/'/g,'&#39;')}',event)">📍 Move</button>
+          </div>
+          ${s.needsAttention ? '<div style="margin-top:8px;font-size:12px;color:var(--volt-low);font-weight:600;">⚠️ Needs charging!</div>' : ''}
         </div>`).join('');
+      el.innerHTML = html;
     }
 
     function filterStock(filter, btn) {
@@ -725,15 +1191,476 @@
       btn.classList.add('active');
       let filtered = currentStockData;
       if (filter === 'attention') filtered = currentStockData.filter(s => s.needsAttention);
-      else if (filter === 'good') filtered = currentStockData.filter(s => !s.needsAttention);
+      else if (filter === 'good') filtered = currentStockData.filter(s => !s.needsAttention && s.currentStatus==='In Stock');
+      else if (filter === 'charging') filtered = currentStockData.filter(s => s.currentStatus==='Charging');
       renderStockList(filtered);
     }
 
-    // Initialize
+    // ── CUSTOMERS ──
+    async function loadCustomers() {
+      const el = document.getElementById('customer-list');
+      el.innerHTML = '<div class="loading active"><div class="spinner"></div>Loading…</div>';
+      try {
+        const data = await apiGet({ action: 'getCustomerSummary' });
+        if (!data.success) throw new Error(data.error);
+        renderCustomerList(data.customers);
+      } catch(e) {
+        el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">Error: ${e.message}</div></div>`;
+      }
+    }
+
+    function renderCustomerList(customers) {
+      const el = document.getElementById('customer-list');
+      if (!customers || !customers.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">👥</div><div class="empty-state-text">No outgoing records yet</div></div>';
+        return;
+      }
+      el.innerHTML = customers.map((c,idx) => `
+        <div class="customer-card" onclick="toggleCustomerDetail(${idx})">
+          <div class="customer-header">
+            <div>
+              <div class="customer-name">${c.customerName}</div>
+              <div class="customer-stats">
+                <span>📦 ${c.totalItems} items</span>
+                <span>🔢 ${c.totalQty} qty</span>
+                <span>📅 ${formatDate(c.lastOutgoingDate)}</span>
+              </div>
+            </div>
+            <span id="carr-${idx}" style="font-size:17px;transition:transform .3s;">▼</span>
+          </div>
+          <div class="customer-batteries" id="cdet-${idx}">
+            ${c.batteries.map(b => `
+              <div class="customer-battery-row">
+                <div>
+                  <span style="font-weight:600;">${b.brand} ${b.model}</span>
+                  <span style="color:var(--text-muted);font-size:12px;margin-left:5px;">Batch: ${b.batchNo}</span>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;flex-wrap:wrap;">
+                  <span>Qty: ${b.qty}</span>
+                  <span style="color:${getVoltageColor(b.voltageTested).hex}">${b.voltageTested}V</span>
+                  <span style="color:var(--text-muted)">${b.healthPercent}%</span>
+                  ${b.location ? `<span class="loc-badge">📍 ${b.location}</span>` : ''}
+                </div>
+              </div>`).join('')}
+          </div>
+        </div>`).join('');
+    }
+
+    function toggleCustomerDetail(idx) {
+      const d = document.getElementById('cdet-' + idx);
+      const a = document.getElementById('carr-' + idx);
+      const show = d.classList.toggle('show');
+      a.style.transform = show ? 'rotate(180deg)' : '';
+    }
+
+    // ── PENDING CHARGING ──
+    async function loadPendingCharging() {
+      const el = document.getElementById('pending-charging-list');
+      el.innerHTML = '<div class="loading active"><div class="spinner"></div>Loading pending…</div>';
+      try {
+        const data = await apiGet({ action: 'getPendingCharging' });
+        if (!data.success) throw new Error(data.error);
+        renderPendingCharging(data.pending);
+      } catch(e) {
+        el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">Error: ${e.message}</div></div>`;
+      }
+    }
+
+    function renderPendingCharging(pending) {
+      const el = document.getElementById('pending-charging-list');
+      if (!pending || !pending.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">⚡</div><div class="empty-state-text">No batteries currently charging</div></div>';
+        return;
+      }
+      el.innerHTML = pending.map(p => `
+        <div class="pending-item ${p.readyForCompletion?'ready':'waiting'}" onclick='selectChargingB(${JSON.stringify(p).replace(/'/g,"&#39;")})'>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;">
+            <div>
+              <div style="font-weight:700;font-size:14px;">${p.brand} ${p.model}</div>
+              <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">${p.batchNo} · Machine: ${p.machineCode}</div>
+            </div>
+            ${p.readyForCompletion
+              ? '<span class="badge badge-green">✅ READY</span>'
+              : '<span class="badge badge-blue">⏳ CHARGING</span>'}
+          </div>
+          <div class="pending-meta">
+            ${renderVoltageBadge(p.voltageBefore)}
+            <span class="pending-hours ${p.readyForCompletion?'ready':'waiting'}">${p.hoursElapsed}h elapsed</span>
+            <span class="cycle-badge">Cycle #${p.cycleNumber}</span>
+            ${p.location ? `<span class="loc-badge">📍 ${p.location}</span>` : ''}
+          </div>
+          ${p.readyForCompletion ? '<div style="margin-top:9px;font-size:12px;color:var(--neon-green);font-weight:600;">👆 Tap to complete charging</div>' : ''}
+        </div>`).join('');
+    }
+
+    function selectChargingB(p) {
+      selectedChargingKey = p.compositeKey;
+      selectedChargingData = p;
+      document.getElementById('ch-b-key').value = p.compositeKey;
+      const vc = getVoltageColor(p.voltageBefore);
+      document.getElementById('ch-b-volt-before').innerHTML = `<span style="color:${vc.hex}">${p.voltageBefore}V</span>`;
+      document.getElementById('ch-b-cca-before').textContent = p.ccaBefore ? `CCA: ${p.ccaBefore}` : '';
+      document.getElementById('ch-b-health-before').textContent = p.healthBefore ? `Health: ${p.healthBefore}%` : '';
+      const form = document.getElementById('charging-b-form');
+      form.style.display = 'block';
+      form.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+
+    function cancelChargingB() {
+      selectedChargingKey = null;
+      document.getElementById('charging-b-form').style.display = 'none';
+      ['ch-voltage-after','ch-cca-after','ch-health-after'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+    }
+
+    async function submitChargingB() {
+      if (!selectedChargingKey) { showToast('Select a battery first', 'error'); return; }
+      const vAfter = document.getElementById('ch-voltage-after').value;
+      const cAfter = document.getElementById('ch-cca-after').value;
+      const hAfter = document.getElementById('ch-health-after').value;
+      if (!vAfter || !cAfter || !hAfter) { showToast('Fill all fields', 'error'); return; }
+      try {
+        showToast('Completing charging…', 'info');
+        const result = await apiPost('completeCharging', {
+          compositeKey: selectedChargingKey,
+          voltageAfter: parseFloat(vAfter),
+          ccaAfter:     parseFloat(cAfter),
+          healthAfter:  parseFloat(hAfter)
+        });
+        if (!result.success) throw new Error(result.error);
+        showToast(`✅ Charging complete! Cycle #${result.cycleNumber} · Total: ${result.totalCycles}`, 'success');
+        cancelChargingB();
+        loadPendingCharging();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    // ── WEEKLY / CHARGING A ──
+    async function submitWeekly(e) {
+      e.preventDefault();
+      try {
+        showToast('Saving…', 'info');
+        const result = await apiPost('recordWeekly', {
+          checkingDate:  document.getElementById('wk-date').value,
+          brand:         document.getElementById('wk-brand').value,
+          model:         document.getElementById('wk-model').value,
+          batchNo:       document.getElementById('wk-batch').value,
+          qty:           parseInt(document.getElementById('wk-qty').value),
+          voltageTested: parseFloat(document.getElementById('wk-voltage').value),
+          cca:           parseFloat(document.getElementById('wk-cca').value),
+          healthPercent: parseFloat(document.getElementById('wk-health').value),
+          location:      document.getElementById('wk-location').value,
+          serialNo:      document.getElementById('wk-serial').value
+        });
+        if (!result.success) throw new Error(result.error);
+        showToast('✅ Weekly check saved!', 'success');
+        clearForm('form-weekly');
+        setDefaultDates();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    async function submitChargingA(e) {
+      e.preventDefault();
+      try {
+        showToast('Starting charge…', 'info');
+        const result = await apiPost('startCharging', {
+          chargingDate:   document.getElementById('ch-date').value,
+          machineCode:    document.getElementById('ch-machine').value,
+          chargingParams: document.getElementById('ch-params').value,
+          brand:          document.getElementById('ch-brand').value,
+          model:          document.getElementById('ch-model').value,
+          batchNo:        document.getElementById('ch-batch').value,
+          qty:            parseInt(document.getElementById('ch-qty').value),
+          voltageBefore:  parseFloat(document.getElementById('ch-voltage-before').value),
+          ccaBefore:      parseFloat(document.getElementById('ch-cca-before').value),
+          healthBefore:   parseFloat(document.getElementById('ch-health-before').value),
+          location:       document.getElementById('ch-location').value,
+          serialNo:       document.getElementById('ch-serial').value
+        });
+        if (!result.success) throw new Error(result.error);
+        showToast(`✅ Charging started! Cycle #${result.cycleNumber}`, 'success');
+        clearForm('form-charging-a');
+        setDefaultDates();
+        loadPendingCharging();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    // ── LOCATION LOG ──
+    async function loadLocationLog() {
+      const el = document.getElementById('location-log-list');
+      el.innerHTML = '<div class="loading active"><div class="spinner"></div>Loading…</div>';
+      const query = document.getElementById('loc-search').value.trim();
+      try {
+        const data = await apiGet({ action: 'getLocationLog' });
+        if (!data.success) throw new Error(data.error);
+        let log = data.log || [];
+        if (query) {
+          const q = query.toLowerCase();
+          log = log.filter(l => [l.key,l.brand,l.model,l.batchNo,l.from,l.to,l.changedBy].join(' ').toLowerCase().includes(q));
+        }
+        renderLocationLog(log);
+      } catch(e) {
+        el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">Error: ${e.message}</div></div>`;
+      }
+    }
+
+    function renderLocationLog(log) {
+      const el = document.getElementById('location-log-list');
+      if (!log || !log.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📍</div><div class="empty-state-text">No location movements recorded</div></div>';
+        return;
+      }
+      el.innerHTML = `<div style="margin-bottom:10px;font-size:12px;color:var(--text-muted);">${log.length} movement${log.length!==1?'s':''}</div>` +
+        log.map(l => `
+          <div class="loc-log-item">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:5px;">
+              <span style="font-weight:700;font-size:13px;">${l.brand} ${l.model} <span style="color:var(--text-muted);font-weight:400;">${l.batchNo}</span></span>
+              <span style="font-size:11px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;">${formatDate(l.timestamp)}</span>
+            </div>
+            <div class="loc-log-arrow" style="margin-top:7px;">
+              ${l.from ? `<span style="color:var(--text-muted)">${l.from}</span>` : '<span style="color:var(--text-muted)">—</span>'}
+              <span style="margin:0 6px;color:var(--neon-green)">→</span>
+              <span style="color:var(--neon-blue)">${l.to || '—'}</span>
+            </div>
+            <div class="loc-log-meta">Changed by: ${l.changedBy}</div>
+          </div>`).join('');
+    }
+
+    // ── MOVE LOCATION MODAL ──
+    function openMoveModal(key, currentLoc, event) {
+      if (event) event.stopPropagation();
+      document.getElementById('move-key').value  = key;
+      document.getElementById('move-from').value = currentLoc || '—';
+      document.getElementById('move-to').value   = '';
+      document.getElementById('move-modal').classList.add('active');
+    }
+
+    function closeMoveModal() {
+      document.getElementById('move-modal').classList.remove('active');
+    }
+
+    async function submitMoveLocation() {
+      const key = document.getElementById('move-key').value;
+      const to  = document.getElementById('move-to').value.trim();
+      const by  = document.getElementById('move-by').value.trim() || 'Staff';
+      if (!to) { showToast('Enter a new location', 'error'); return; }
+      try {
+        showToast('Moving…', 'info');
+        const result = await apiPost('moveLocation', { compositeKey: key, toLocation: to, changedBy: by });
+        if (!result.success) throw new Error(result.error);
+        showToast(`✅ Moved to: ${to}`, 'success');
+        closeMoveModal();
+        loadStock();
+      } catch(e) { showToast('Error: ' + e.message, 'error'); }
+    }
+
+    // ── SEARCH ──
+    async function performSearch() {
+      const query = document.getElementById('search-query').value.trim();
+      if (!query) { showToast('Enter a search term', 'warning'); return; }
+      const el = document.getElementById('search-results');
+      el.innerHTML = '<div class="loading active"><div class="spinner"></div>Searching…</div>';
+      document.getElementById('battery-detail').style.display = 'none';
+      try {
+        const data = await apiGet({ action: 'searchBatteries', query });
+        if (!data.success) throw new Error(data.error);
+        renderSearchResults(data.results);
+      } catch(e) {
+        el.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">Error: ${e.message}</div></div>`;
+      }
+    }
+
+    function renderSearchResults(results) {
+      const el = document.getElementById('search-results');
+      if (!results || !results.length) {
+        el.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">No batteries found</div></div>';
+        return;
+      }
+      const statusCls = { 'In Stock':'badge-green','Outgoing':'badge-blue','Charging':'badge-yellow','Disposed':'badge-red' };
+      el.innerHTML = `<div style="margin-bottom:10px;color:var(--text-muted);font-size:12px;">${results.length} result${results.length!==1?'s':''}</div>` +
+        results.map(r => `
+          <div style="background:var(--bg-secondary);border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid var(--border);cursor:pointer;transition:all .2s;" onclick="loadBatteryDetail('${r.compositeKey}')" onmouseover="this.style.borderColor='var(--neon-green)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:7px;">
+              <div>
+                <div style="font-weight:700;font-size:15px;">${r.brand} ${r.model}</div>
+                <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">Batch: ${r.batchNo}${r.serialNo?' · S/N: '+r.serialNo:''}</div>
+              </div>
+              <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                <span class="badge ${statusCls[r.currentStatus]||'badge-blue'}">${r.currentStatus}</span>
+                ${renderVoltageBadge(r.latestVoltage)}
+              </div>
+            </div>
+            <div style="margin-top:8px;display:flex;gap:10px;font-size:12px;color:var(--text-muted);font-family:'JetBrains Mono',monospace;flex-wrap:wrap;">
+              <span>QTY: ${r.currentQty||'—'}</span>
+              <span>⚡ ${r.totalChargeCycles||0} cycles</span>
+              <span>📅 ${formatDate(r.firstIncomingDate)}</span>
+              ${r.location ? `<span class="loc-badge">📍 ${r.location}</span>` : ''}
+            </div>
+          </div>`).join('');
+    }
+
+    async function loadBatteryDetail(key) {
+      const el = document.getElementById('battery-detail');
+      const content = document.getElementById('detail-content');
+      el.style.display = 'block';
+      content.innerHTML = '<div class="loading active"><div class="spinner"></div>Loading…</div>';
+      el.scrollIntoView({ behavior:'smooth' });
+      try {
+        const data = await apiGet({ action: 'getBatteryHistory', key });
+        if (!data.success) throw new Error(data.error);
+        renderBatteryDetail(data.history);
+      } catch(e) {
+        content.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><div class="empty-state-text">Error: ${e.message}</div></div>`;
+      }
+    }
+
+    function renderBatteryDetail(h) {
+      const m = h.master;
+      if (!m) { document.getElementById('detail-content').innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">No master record found</div></div>'; return; }
+      const statusCls = { 'In Stock':'badge-green','Outgoing':'badge-blue','Charging':'badge-yellow','Disposed':'badge-red' };
+      let html = `
+        <div class="detail-header">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+            <div>
+              <div style="font-size:18px;font-weight:800;">${m.brand} ${m.model}</div>
+              <div style="font-size:11px;color:var(--text-muted);margin-top:2px;font-family:'JetBrains Mono',monospace;">${m.compositeKey}</div>
+            </div>
+            <div style="display:flex;gap:5px;flex-wrap:wrap;">
+              <span class="badge ${statusCls[m.currentStatus]||'badge-blue'}">${m.currentStatus}</span>
+              ${renderVoltageBadge(m.latestVoltage)}
+            </div>
+          </div>
+          <div class="detail-row"><span class="detail-label">Batch No.</span><span class="detail-value">${m.batchNo}</span></div>
+          ${m.serialNo?`<div class="detail-row"><span class="detail-label">Serial No.</span><span class="detail-value">${m.serialNo}</span></div>`:''}
+          <div class="detail-row"><span class="detail-label">First Incoming</span><span class="detail-value">${formatDate(m.firstIncomingDate)}</span></div>
+          <div class="detail-row"><span class="detail-label">Latest Voltage</span><span class="detail-value">${m.latestVoltage?m.latestVoltage+'V':'N/A'}</span></div>
+          <div class="detail-row"><span class="detail-label">Current QTY</span><span class="detail-value">${m.currentQty||'—'}</span></div>
+          <div class="detail-row"><span class="detail-label">Location</span><span class="detail-value" style="color:var(--neon-blue)">${m.location||'—'}</span></div>
+          <div class="detail-row"><span class="detail-label">Total Charge Cycles</span><span class="detail-value">${m.totalChargeCycles}</span></div>
+          <div style="margin-top:12px;">
+            <button class="btn btn-location btn-small" onclick="openMoveModal('${m.compositeKey}','${(m.location||'').replace(/'/g,"&#39;")}',event)">📍 Move Location</button>
+          </div>
+        </div>`;
+
+      if (h.charging && h.charging.length) {
+        html += `<div class="section-header">⚡ Charging History (${h.charging.length} cycles)</div>`;
+        html += h.charging.map(c => {
+          const cAfter = getVoltageColor(c.voltageAfter);
+          return `<div class="charging-section ${c.status==='COMPLETED'?'completed':'in-progress'}" style="margin-bottom:9px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:5px;">
+              <span style="font-weight:700;font-size:13px;">Cycle #${c.cycleNumber} · ${formatDate(c.chargingDate)}</span>
+              <span class="badge ${c.status==='COMPLETED'?'badge-green':'badge-blue'}">${c.status}</span>
+            </div>
+            ${c.status==='COMPLETED'?`
+            <div class="comparison-row"><span class="comparison-label">Voltage</span><div class="comparison-values"><span class="before-value">${c.voltageBefore}V</span><span class="arrow-icon">→</span><span class="after-value ${cAfter.cls}">${c.voltageAfter}V</span></div></div>
+            <div class="comparison-row"><span class="comparison-label">Health</span><div class="comparison-values"><span class="before-value">${c.healthBefore}%</span><span class="arrow-icon">→</span><span class="after-value">${c.healthAfter}%</span></div></div>
+            `:``}
+            <div style="font-size:11px;color:var(--text-muted);margin-top:7px;display:flex;gap:8px;flex-wrap:wrap;">
+              <span>Machine: ${c.machineCode}</span>
+              ${c.location?`<span class="loc-badge">📍 ${c.location}</span>`:''}
+            </div>
+          </div>`;
+        }).join('');
+      }
+
+      if (h.weekly && h.weekly.length) {
+        html += `<div class="section-header">📋 Weekly Check History (${h.weekly.length})</div>`;
+        html += `<div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>Date</th><th>Voltage</th><th>CCA</th><th>Health</th><th>Location</th></tr></thead><tbody>` +
+          h.weekly.map(w => {
+            const vc = getVoltageColor(w.voltage);
+            return `<tr><td>${formatDate(w.checkingDate)}</td><td style="color:${vc.hex};font-family:'JetBrains Mono',monospace;font-weight:700;">${w.voltage}V</td><td>${w.cca||'—'}</td><td>${w.health||'—'}%</td><td style="color:var(--neon-blue);font-size:12px;">${w.location||'—'}</td></tr>`;
+          }).join('') + '</tbody></table></div>';
+      }
+
+      if (h.locationLog && h.locationLog.length) {
+        html += `<div class="section-header">📍 Location History (${h.locationLog.length})</div>`;
+        html += h.locationLog.map(l => `
+          <div class="loc-log-item">
+            <div class="loc-log-arrow">
+              ${l.from||'—'} <span style="color:var(--neon-green)">→</span> <span style="color:var(--neon-blue)">${l.to||'—'}</span>
+            </div>
+            <div class="loc-log-meta">${formatDate(l.timestamp)} · by ${l.changedBy}</div>
+          </div>`).join('');
+      }
+
+      document.getElementById('detail-content').innerHTML = html;
+    }
+
+    // ── QR SCANNER ──
+    const QR_FIELD_MAP = {
+      'inc-brand':0,'out-brand':0,'wk-brand':0,'ch-brand':0,
+      'inc-model':1,'out-model':1,'wk-model':1,'ch-model':1,
+      'inc-batch':2,'out-batch':2,'wk-batch':2,'ch-batch':2,
+    };
+
+    function startScan(fieldId) {
+      currentScanField = fieldId;
+      document.getElementById('scanner-modal').classList.add('active');
+      html5QrCode = new Html5Qrcode('reader');
+      html5QrCode.start(
+        { facingMode:'environment' },
+        { fps:10, qrbox:{width:250,height:250} },
+        onScanSuccess, () => {}
+      ).catch(err => { showToast('Camera error: ' + err, 'error'); stopScan(); });
+    }
+
+    function stopScan() {
+      if (html5QrCode) {
+        html5QrCode.stop().then(()=>{ html5QrCode.clear(); html5QrCode=null; }).catch(()=>{});
+      }
+      document.getElementById('scanner-modal').classList.remove('active');
+      currentScanField = null;
+    }
+
+    function onScanSuccess(decodedText) {
+      stopScan();
+      if (!currentScanField) return;
+      const parts = decodedText.split('|');
+      const idx = QR_FIELD_MAP[currentScanField];
+      const value = (parts.length >= 3 && idx !== undefined) ? (parts[idx] || decodedText) : decodedText;
+      const el = document.getElementById(currentScanField);
+      if (el) {
+        el.value = value;
+        el.dispatchEvent(new Event('input'));
+        if (currentScanField.includes('voltage')) {
+          const indId = currentScanField.includes('before') ? 'ch-volt-before-indicator'
+                      : currentScanField.includes('after')  ? 'ch-volt-after-indicator'
+                      : currentScanField.replace('voltage','volt') + '-indicator';
+          updateVoltageColor(el, indId);
+        }
+      }
+      showToast('✅ Scanned: ' + value, 'success');
+    }
+
+    // ── UTILS ──
+    function clearForm(formId) {
+      const form = document.getElementById(formId);
+      if (!form) return;
+      form.querySelectorAll('input:not([readonly]),textarea,select').forEach(el => {
+        if (el.type==='number' && el.id.endsWith('-qty')) el.value = '1';
+        else if (el.type==='date') el.value = new Date().toISOString().split('T')[0];
+        else el.value = '';
+        if (el.classList.contains('voltage-input')) el.className = 'voltage-input';
+      });
+      form.querySelectorAll('[id$="-indicator"],[id$="-volt-indicator"],[id$="volt-before-indicator"],[id$="volt-after-indicator"]').forEach(el => el.innerHTML = '');
+    }
+
+    function formatDate(val) {
+      if (!val) return '—';
+      try {
+        const d = new Date(val);
+        if (isNaN(d)) return String(val);
+        return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+      } catch { return String(val); }
+    }
+
+    // ── INIT ──
     document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('inc-date').value = new Date().toISOString().split('T')[0];
-      document.getElementById('out-date').value = new Date().toISOString().split('T')[0];
-      addIncomingItem(); addOutgoingItem(); loadDashboard();
+      setDefaultDates();
+      loadDashboard();
+      addIncomingItem();
+      addOutgoingItem();
     });
   </script>
 </body>
